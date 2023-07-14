@@ -214,7 +214,7 @@
                     </li>
                     <li class="mt-0.5 w-full">
                         <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
-                            href="">
+                            href="{{ route('clientes', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-people-fill relative top-0 text-sm leading-normal text-purple-500 " viewBox="0 0 16 16">
@@ -222,6 +222,22 @@
                                 </svg>
                             </div>
                             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar clientes</span>
+                        </a>
+                    </li>
+                    <li class="w-full mt-4">
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">Proveedores
+                        </h6>
+                    </li>
+                    <li class="mt-0.5 w-full">
+                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                            href="{{ route('proveedores', auth()->user()->username) }}">
+                            <div
+                                class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-people-fill relative top-0 text-sm leading-normal text-purple-500 " viewBox="0 0 16 16">
+                                  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                                </svg>
+                            </div>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar proveedores</span>
                         </a>
                     </li>
                     <li class="w-full mt-4">

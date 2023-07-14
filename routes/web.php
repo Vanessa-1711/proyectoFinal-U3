@@ -11,6 +11,9 @@ use App\Http\Controllers\SubcategoriaController;
 use App\Http\Controllers\MarcaImagenController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ClienteImagenController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -119,3 +122,22 @@ Route::delete('/marcas/{marca}', [MarcaController::class, 'destroy'])->name('mar
 
 Route::get('/ventas', [VentaController::class, 'index'])->name('ventas');
 
+//clientes:
+
+
+Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes');
+Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
+Route::get('/clientes/{cliente}', [ClienteController::class, 'show'])->name('clientes.show');
+Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
+Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+
+//proveedores
+Route::get('/proveedores', [ProveedorController::class, 'index'])->name('proveedores');
+Route::get('/proveedores/create', [ProveedorController::class, 'create'])->name('proveedores.create');
+Route::post('/proveedores', [ProveedorController::class, 'store'])->name('proveedores.store');
+Route::get('/proveedores/{proveedor}', [ProveedorController::class, 'show'])->name('proveedores.show');
+Route::get('/proveedores/{proveedor}/edit', [ProveedorController::class, 'edit'])->name('proveedores.edit');
+Route::put('/proveedores/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
+Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'])->name('proveedores.destroy');

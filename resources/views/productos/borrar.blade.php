@@ -25,7 +25,7 @@
 @endsection
 
 @section('titulo')
-  SubCategorias
+    Categorias
 @endsection
 
 @section('contenido_top')
@@ -40,13 +40,13 @@
     <div class="flex-none w-full px-3">
         <!-- Botón Agregar Categoría -->
         <div class="flex justify-end mb-4">
-          <a class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" href="{{ route('subcategorias.create') }}">
+          <a class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" href="{{ route('proveedores.create') }}">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline-block" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M5 9a1 1 0 0 1 1-1h3V5a1 1 0 1 1 2 0v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 0 1-1-1z" clip-rule="evenodd" />
               </svg>
-              Agregar Subcategoréa
+              Agregar Proveedores
           </a>
-      </div>
+        </div>
 
         <!-- table 1 -->
         <div class="flex flex-wrap -mx-3">
@@ -66,44 +66,48 @@
                   <table id="myTable" class="items-center table-auto mb-0 align-top border-collapse dark:border-white/40 text-slate-500">
                     <thead class="align-bottom">
                       <tr>
-                        <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Id</th>
-                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Categoria</th>
-                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Codigo</th>
-                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Descripcion</th>
-                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Creado por</th>
-                        <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 dark:text-white tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
-                        <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 dark:text-white tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
+                      <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Id</th>
+                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Nombre</th>
+                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Código</th>
+                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Telefono</th>
+                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Correo</th>
+                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Fotografía</th>
+                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
+                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                       </tr>
                     </thead>
                     <tbody>
-                    @foreach ($subcategorias as $subcategoria)
+                        @foreach($proveedores as $proveedor)
                       <tr>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <div class="flex px-2 py-1">
                             <div class="flex flex-col justify-center">
-                              <h6 class="mb-0 text-sm leading-normal dark:text-white">{{ $subcategoria->id }}</h6>
+                              <h6 class="mb-0 text-sm leading-normal dark:text-white">{{ $proveedor->id }}</h6>
                             </div>
                           </div>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80">{{ $subcategoria->categoria_id }}</p>
-                        </td>
-                        <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $subcategoria->codigo }}</span>
+                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80">{{ $proveedor->nombre}}</p>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $subcategoria->descripcion }}</a>
+                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80">{{ $proveedor->codigo}}</p>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $subcategoria->creado_por }}</a>
+                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80">{{ $proveedor->telefono}}</p>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80">{{ $proveedor->correo}}</p>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <img class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80" src="{{ asset('uploads/'.$proveedor->fotografia) }}" width="100">
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent" style="margin-right: 8px; margin-left:8px;">
-                            <a href="{{ route('subcategorias.edit', $subcategoria->id) }}" class="text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2">
+                            <a href="{{ route('proveedores.edit', $proveedor->id) }}" class="text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                            <form action="{{ route('subcategorias.destroy', $subcategoria->id) }}" method="POST">
+                            <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" style="color: white; background-color: red;" class="rounded-full p-2">
@@ -111,7 +115,6 @@
                                 </button>
                             </form>
                         </td>
-
                       </tr>
                     @endforeach
                     </tbody>
