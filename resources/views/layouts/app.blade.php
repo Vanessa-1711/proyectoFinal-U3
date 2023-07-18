@@ -92,12 +92,12 @@
                     </li>
 
                     <li class="w-full mt-4">
-                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">Productos
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60" >Productos
                         </h6>
                     </li>
 
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{route('tablaProductos')}}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -111,11 +111,11 @@
                         </a>
                     </li>
                     <li class="w-full mt-4">
-                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60">
                             Categorías</h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('categorias', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -129,7 +129,7 @@
                         </a>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('subcategorias', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -143,11 +143,11 @@
                         </a>
                     </li>
                     <li class="w-full mt-4">
-                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">Marcas
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60">Marcas
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('marcas', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -160,11 +160,11 @@
                         </a>
                     </li>
                     <li class="w-full mt-4">
-                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">Ventas
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60">Ventas
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -176,11 +176,11 @@
                         </a>
                     </li>
                     <li class="w-full mt-4">
-                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">Recibos
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60">Recibos
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -192,11 +192,11 @@
                         </a>
                     </li>
                     <li class="w-full mt-4">
-                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60">
                             Cotización</h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -209,11 +209,11 @@
                         </a>
                     </li>
                     <li class="w-full mt-4">
-                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">Clientes
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60">Clientes
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('clientes', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -225,11 +225,11 @@
                         </a>
                     </li>
                     <li class="w-full mt-4">
-                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">Proveedores
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60">Proveedores
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('proveedores', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -241,11 +241,11 @@
                         </a>
                     </li>
                     <li class="w-full mt-4">
-                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">Usuarios
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60">Usuarios
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -316,7 +316,7 @@
                                 <li class="relative">
                                     <button type="button" id="menu-button" class="flex items-center px-0 py-2 text-sm font-semibold text-white transition-all ease-nav-brand focus:outline-none">
                                         <img src="{{ asset('img/marie.jpg') }}" alt="Imagen Cerrada"class="w-8 h-8 rounded-full sm:mr-1">
-                                        <span class="hidden sm:inline p-2">{{ auth()->user()->username }}</span>
+                                        <span class="hidden sm:inline p-2 text-white" style="color: white;"> {{ auth()->user()->username }}</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 ml-1">
                                         <path fill="currentColor" d="M7 10l5 5 5-5z"></path>
                                         </svg>
