@@ -81,12 +81,12 @@
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <div class="flex px-2 py-1">
                             <div class="flex flex-col justify-center">
-                              <h6 class="mb-0 text-sm leading-normal dark:text-white">{{ $categorias->id }}</h6>
+                              <h6 class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $categorias->id }}</h6>
                             </div>
                           </div>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80">{{ $categorias->nombre }}</p>
+                          <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $categorias->nombre }}</p>
                         </td>
                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $categorias->codigo }}</span>

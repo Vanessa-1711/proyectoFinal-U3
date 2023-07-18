@@ -1,9 +1,17 @@
 @extends('layouts.app')
 
+@section('estilos2')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+
 @section('estilos')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-
 @endsection
 
 @section('titulo')
@@ -50,7 +58,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="categoria_id" class="block text-sm font-medium text-gray-700">Categoría:</label>
-                    <select name="categoria_id" id="categoria_id" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('categoria_id') border-red-500 @enderror" required>
+                    <select name="categoria_id" id="categoria_id" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('categoria_id') border-red-500 @enderror" required>
                         <option value="">-- Seleccione una categoría --</option>
                         @foreach($categorias as $categoria)
                             <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>
@@ -65,7 +73,7 @@
                 
                   <div class="mb-6">
                     <label for="subcategoria_id" class="block text-sm font-medium text-gray-700">Subcategoría:</label>
-                    <select name="subcategoria_id" id="subcategoria_id" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('subcategoria_id') border-red-500 @enderror" required>
+                    <select name="subcategoria_id" id="subcategoria_id" class=" select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('subcategoria_id') border-red-500 @enderror" required>
                         <option value="">-- Seleccione una subcategoría --</option>
                         @foreach($subcategorias as $subcategoria)
                             <option value="{{ $subcategoria->id }}" {{ old('subcategoria_id') == $subcategoria->id ? 'selected' : '' }}>
@@ -78,8 +86,8 @@
                     @enderror  
                   </div>
                   <div class="mb-4">
-                    <label for="marca_id" class="block text-sm font-medium text-gray-700">marca_id:</label>
-                    <select name="marca_id" id="marca_id" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('marca_id') border-red-500 @enderror" required>
+                    <label for="marca_id" class="block text-sm font-medium text-gray-700">Marca:</label>
+                    <select name="marca_id" id="marca_id" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('marca_id') border-red-500 @enderror" required>
                         <option value="">-- Seleccione una marca --</option>
                         @foreach($marcas as $marca)
                             <option value="{{ $marca->id }}" {{ old('marca_id') == $marca->id ? 'selected' : '' }}>
@@ -134,6 +142,12 @@
   </div>
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+// In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('.select2').select2();
+});
+</script>
 @endsection
 

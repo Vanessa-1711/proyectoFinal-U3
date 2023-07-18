@@ -1,4 +1,4 @@
-@extends('layouts.productosApp')
+@extends('layouts.app')
 
 @section('estilos')
     <!-- jQuery -->
@@ -80,21 +80,17 @@
                     <tbody>
                     @foreach ($products as $product)
                       <tr>
-                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <div class="flex px-2 py-1">
-                            <div class="flex flex-col justify-center">
-                              <h6 class="mb-0 text-sm leading-normal dark:text-white">{{ $product->id }}</h6>
-                            </div>
-                          </div>
+                      <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->id }}</a>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <img src="{{ asset('uploads/' . $product->imagen) }}" alt="Imagen del producto" style="max-width: 50px; max-height: 200px;">
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80">{{ $product->nombre }}</p>
+                          <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->nombre }}</a>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-80">{{ $product->categoria->nombre }}</p>
+                          <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->categoria->nombre }}</a>
                         </td>
                         <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->subcategoria ? $product->subcategoria->nombre : 'Sin subcategoría'}}</span>

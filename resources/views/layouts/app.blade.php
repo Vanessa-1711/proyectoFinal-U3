@@ -8,7 +8,9 @@
     <link rel="icon" href="{{ asset('img/tienda.png') }}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/styleTablas.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
 
+    @yield('estilos2')
 
     {{-- Estilos de tailwind --}}
     @vite('resources/css/app.css')
@@ -34,10 +36,10 @@
     <link rel="stylesheet" href="{{asset('css/nucleo-icons.css')}}">
     <link rel="stylesheet" href="{{asset('css/nucleo-svg.css')}}">
     <link rel="stylesheet" href="{{asset('css/argon-dashboard-tailwind.css')}}">
-
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" />
+
 
     <script src="{{asset('js/argon-dashboard-tailwind.js')}}"></script>
     <script src="{{asset('js/argon-dashboard-tailwind.min.js')}}"></script>
@@ -46,6 +48,8 @@
 
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
+
+    
 
     <title>@yield('titulo')</title>
 </head>
@@ -78,7 +82,7 @@
                 <ul class="flex flex-col pl-0 mb-auto">
 
                     <li class="mt-0.5 w-full">
-                        <a class="py-2.7 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors"
+                        <a class="py-2.7 dark:text-black dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors"
                             href=" {{ route('dashboard', auth()->user()->username) }} ">
                             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -97,7 +101,7 @@
                     </li>
 
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
                             href="{{route('tablaProductos')}}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -115,7 +119,7 @@
                             Categorías</h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('categorias', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -129,7 +133,7 @@
                         </a>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('subcategorias', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -147,7 +151,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('marcas', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -164,7 +168,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -180,7 +184,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -196,7 +200,7 @@
                             Cotización</h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -213,7 +217,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('clientes', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -229,7 +233,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="{{ route('proveedores', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -245,7 +249,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
