@@ -13,7 +13,52 @@
 .select2.select2-container--focus .select2-selection__rendered {
     border-color: #E3ABFB;
 }
+.fondo{
+    background-color:#12988a !important;
+}
 
 .select2-container--default .select2-selection--single {
     border: none !important; /* Comentar o eliminar esta línea */
   }
+.buttonAgregar{
+    background-color:#c8a108!important;
+}
+.buttonAgregar:hover{
+    background-color:#d3b746!important;
+}
+
+.buttonVer{
+    background-color:#82C554!important;
+}
+.buttonVer:hover{
+    color:#000000!important;
+}
+
+
+.buttonEditar{
+    background-color:#B38CC4!important;
+}
+.buttonEditar:hover{
+    color:#000000!important;
+}
+.buttonBorrar{
+    color: white!important; 
+    background-color: red!important;
+}
+.buttonBorrar:hover{
+    color:#000000!important;
+}
+
+
+  
+  .dropzone {
+    position: relative !important;
+    width: 500px !important;
+    height: 200px !important;
+    margin: 0 auto !important; /* Esto centra horizontalmente */
+    border: 2px dashed #000000 !important;
+    padding: 10px !important;
+    background-color: #ffffff !important;
+    align-items: center !important;
+  }
+  

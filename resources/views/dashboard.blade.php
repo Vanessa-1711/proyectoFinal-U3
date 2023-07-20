@@ -7,7 +7,7 @@
 @section('contenido_top')
     <div
         class="absolute bg-y-50 w-full top-0 bg-[url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg')] min-h-75">
-        <span class="absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
+        <span class="fondo absolute top-0 left-0 w-full h-full  opacity-60" ></span>
     </div>
 @endsection
 

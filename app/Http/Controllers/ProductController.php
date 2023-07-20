@@ -54,6 +54,8 @@ class ProductController extends Controller
         $product->imagen = $request->imagen;
         $product->user_id = auth()->user()->id ;
         $product->save();
+        $request->session()->flash('success', '¡El producto se ha registrado exitosamente!');
+
         return redirect()->route('tablaProductos');
     }
 

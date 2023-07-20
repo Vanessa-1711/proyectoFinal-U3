@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/styleTablas.css') }}">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
+    <!-- Agrega esta línea en el encabezado de tu archivo HTML -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
 
     @yield('estilos2')
 
@@ -49,7 +52,17 @@
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
 
-    
+    <style>
+        aside ul li a:hover {
+            background-color: #f2f2f2; /* Cambia el color de fondo al pasar el cursor */
+            color: #000; /* Cambia el color del texto al pasar el cursor */
+        }
+        aside ul li a.active {
+        background-color: #f2f2f2;
+        color: #000;
+        }
+        
+    </style>
 
     <title>@yield('titulo')</title>
 </head>
@@ -60,8 +73,8 @@
 
     @auth
         <!-- sidenav  -->
-        <aside
-            class="fixed inset-y-0 flex-wrap items-center overflow-y-auto justify-between block w-full p-0 my-4 antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0"
+        <aside 
+            class="fixed inset-y-0 flex-wrap items-center overflow-y-auto justify-between block w-full p-0 my-4 antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-xl dark:shadow-none dark:bg-slate-850 max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0 "
             aria-expanded="false">
             <div class="h-19">
                 <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden"
@@ -82,7 +95,7 @@
                 <ul class="flex flex-col pl-0 mb-auto">
 
                     <li class="mt-0.5 w-full">
-                        <a class="py-2.7 dark:text-black dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors"
+                        <a class="py-2.7 dark:text-black dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors {{ request()->is('dashboard*') ? 'active' : '' }}"
                             href=" {{ route('dashboard', auth()->user()->username) }} ">
                             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -101,7 +114,7 @@
                     </li>
 
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors {{ request()->is('products*') ? 'active' : '' }}"
                             href="{{route('tablaProductos')}}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -119,7 +132,7 @@
                             Categorías</h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors {{ request()->is('categorias*') ? 'active' : '' }}"
                             href="{{ route('categorias', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -133,7 +146,7 @@
                         </a>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors {{ request()->is('subcategorias*') ? 'active' : '' }}"
                             href="{{ route('subcategorias', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -151,7 +164,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors {{ request()->is('marcas*') ? 'active' : '' }}"
                             href="{{ route('marcas', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -168,7 +181,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -184,7 +197,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -200,7 +213,7 @@
                             Cotización</h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -217,7 +230,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors {{ request()->is('clientes*') ? 'active' : '' }}"
                             href="{{ route('clientes', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -233,7 +246,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap  rounded-lg px px-4 transition-colors {{ request()->is('proveedores*') ? 'active' : '' }}"
                             href="{{ route('proveedores', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -249,7 +262,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
                             href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -373,7 +386,19 @@
 
         </main>
 
+        <script>
+  // Obtener la ruta actual (sin el dominio)
+  const currentPath = window.location.pathname;
 
+  // Buscar el enlace del menú que coincide con la ruta actual y agregar la clase "active"
+  const menuLinks = document.querySelectorAll("aside ul li a");
+  menuLinks.forEach((link) => {
+    const linkPath = link.getAttribute("href");
+    if (linkPath && currentPath.endsWith(linkPath)) {
+      link.classList.add("active");
+    }
+  });
+</script>
 
 </body>
 @yield('scripts')
@@ -394,5 +419,8 @@
   });
   
 </script>
+
+
+
 
 </html>

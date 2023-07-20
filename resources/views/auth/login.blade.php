@@ -27,7 +27,7 @@
                     @endif
 
                     <div class="mb-4">
-                      <label for="email" class="text-sm text-teal-500 font-bold mb-2" style="text-align: left!important;">Email</label>
+                      <label for="email" class="text-sm text-teal-500 font-bold mb-2" style="text-align: left!important;color:black;">Email</label>
                       <div class="relative">
                         <input type="email" id="email" name="email" placeholder="Email" style="background-color:#D5C0DF; color:black;" class="custom-input focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 pl-10 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('email') border-red-500 @enderror" value="{{old('email')}}"  />
                         <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="mb-4">
-                      <label for="password" class="text-sm font-bold mb-2">Password</label>
+                      <label for="password" class="text-sm font-bold mb-2"  style="text-align: left!important;color:black;">Password</label>
                       <div class="relative">
                         <input type="password" name="password" placeholder="Password" style="background-color:#D5C0DF; color:black;" class="custom-input focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 pl-10 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('password') border-red-500 @enderror" value="{{old('password')}}" />
                         <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">

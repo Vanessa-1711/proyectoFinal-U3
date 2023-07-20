@@ -81,7 +81,7 @@
         }
 
         .dt-button.buttons-print:hover {
-          background-color: #2c5282;
+          background-color: #2c5282 !important;
         }
 
         .dataTables_wrapper .dataTables_filter input {
