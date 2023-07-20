@@ -9,7 +9,7 @@
       <div class="relative flex items-center min-h-screen p-0 overflow-hidden bg-center bg-cover">
         <div class="container z-1">
           <div class="flex flex-wrap -mx-3">
-            <div class="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-9/12 lg:w-7/12 xl:w-4/12 border-4 rounded-lg h-96" style="width: 50%; height: 720px;margin-left: -100px;border-radius: 20px; background-color:#B38CC4;">
+            <div class="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-9/12 lg:w-7/12 xl:w-4/12 border-4 rounded-lg h-96" style="width: 50%; height: 720px;margin-left: -100px;border-radius: 20px; background-color:#B38CC4; border: 2px solid #B38CC4;">
               <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-none lg:py4 dark:bg-gray-950 rounded-2xl bg-clip-border" style="margin-top: 80px;width: 70%; height: 80%; margin-left: auto; margin-right: auto; text-align: center;">
                 <div class="p-6 pb-0 mb-0">
                   <img src="{{asset('img/usuario.png')}}" style="width: 30%; margin: 0 auto;" alt="">
