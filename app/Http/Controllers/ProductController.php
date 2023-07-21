@@ -7,6 +7,8 @@ use App\Models\Product;
 use App\Models\Categorias;
 use App\Models\Subcategoria;
 use App\Models\Marca;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -76,27 +78,102 @@ public function edit(string $id)
 {
     $product = Product::findOrFail($id);
     $categorias = Categorias::all();
-        $subcategorias = Subcategoria::all();
-    return view('productos.editarProducto', compact('product','categorias', 'subcategorias'));
+    $subcategorias = Subcategoria::all();
+    $marcas = Marca::all();
+    return view('productos.editarProducto', compact('product','categorias', 'subcategorias','marcas'));
+}
+public function Imagenstore(Request $request){
+    //Identificar el archivo que se sube em dropzone
+    $imagen=$request -> file('file');
+
+    //Convertimos el arreglo input a formato JSON
+    //return response()->json(['imagen' => $imagen->extension()]);
+
+    //generar un id unico para cada una de las imagenes que se cargan al server
+    $nombreImagen = Str::uuid() . ".". $imagen->extension();
+
+    //implementar intervation image
+    $imagenServidor = Image::make($imagen);
+
+    //Agregamos efectos de Intervation image: Indicamos la medida de cada imagen 
+    $imagenServidor->fit(1000,1000);
+
+    //Movemos la imagen a un lugar fisico del servidor
+    $imagenPath = public_path('imagenProductos'). '/'. $nombreImagen;
+
+    //Pasamos la imagen de memoria al servidor
+    $imagenServidor->save($imagenPath);
+    
+
+    //verificamos que el nombre del archivo se ponga como único
+    return response()->json(['imagen'=>$nombreImagen]);
+
 }
 
 /**
  * Update the specified resource in storage.
  */
-public function update(Request $request, string $id)
+public function update(Request $request, $id)
 {
-    $product = Product::findOrFail($id);
-    $product->update($request->all());
-    return redirect('/products');
+    $this->validate($request, [
+        // Reglas de validación
+        'nombre' => 'required',
+        'categoria_id' => 'required',
+        'precio_compra' => 'required',
+        'precio_venta' => 'required',
+        'unidades_disponibles' => 'required',
+        'marca_id' => 'required',
+    ]);
+
+    // Buscar el producto por el ID
+    $product = Product::find($id);
+    if (!$product) {
+        // Si no se encuentra el producto, redireccionar o mostrar un error
+        return redirect()->back()->with('error', 'Producto no encontrado');
+    }
+
+    // Obtener el nombre de la imagen actual del producto
+    $imagenActual = $product->imagen;
+
+    // Verificar si el valor del campo de imagen ha cambiado
+    if ($request->imagen !== $product->imagen) {
+        // Actualizar la propiedad 'imagen' del modelo con el nuevo valor
+        $product->imagen = $request->imagen;
+    }
+
+    // Actualizar los datos del producto con los nuevos valores del formulario
+    $product->nombre = $request->nombre;
+    $product->categoria_id = $request->categoria_id;
+    $product->subcategoria_id = $request->subcategoria_id;
+    $product->marca_id = $request->marca_id;
+    $product->precio_compra = $request->precio_compra;
+    $product->precio_venta = $request->precio_venta;
+    $product->unidades_disponibles = $request->unidades_disponibles;
+
+    // Guardar los cambios en la base de datos
+    $product->save();
+
+    // Establecer el mensaje de éxito solo si el producto se edita correctamente
+    if ($product->wasChanged()) {
+        $request->session()->flash('success', '¡El producto se ha editado exitosamente!');
+    }
+
+    return redirect()->route('tablaProductos');
 }
+
+
+
+
 
 /**
  * Remove the specified resource from storage.
  */
-public function destroy(string $id)
+public function delete($id_producto)
 {
-    $product = Product::findOrFail($id);
+    $product = Product::find($id_producto);
+    // Eliminar la empresa emisora
     $product->delete();
+    session()->flash('success', '¡El producto se ha eliminado exitosamente!');
     return redirect('/products');
 }
 }

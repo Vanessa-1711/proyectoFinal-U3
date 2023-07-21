@@ -36,9 +36,9 @@ class CategoriasController extends Controller
         ]);
         //Redireccionando a dashboard
         $categorias = categorias::all();
-    
+        $request->session()->flash('success', '¡La categoría se ha registrado exitosamente!');
         // Retornamos la vista 'verProductos' y pasamos los productos como una variable llamada 'productos'
-        return redirect()->route('categorias')->with('mensaje', 'Categoría ingresada exitosamente');
+        return redirect()->route('categorias');
     }
     public function edit($id)
     {
@@ -66,13 +66,15 @@ class CategoriasController extends Controller
         $categoria->nombre = $request->nombre;
         $categoria->descripcion = $request->descripcion;
         $categoria->codigo = $request->codigo;
-        $categoria->creado_por = auth()->user()->username;
+        $categoria->user_id = auth()->user()->id;
 
         // Guardar los cambios en la base de datos
         $categoria->save();
 
         // Redireccionar a la ruta 'categorias'
-        return redirect()->route('categorias')->with('mensaje', 'Categoría actualizada exitosamente');
+        $request->session()->flash('success', '¡La categoría se ha editado exitosamente!');
+        // Retornamos la vista 'verProductos' y pasamos los productos como una variable llamada 'productos'
+        return redirect()->route('categorias');
     }
     public function delete($id_categoria)
     {

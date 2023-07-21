@@ -49,6 +49,13 @@
     color:#000000!important;
 }
 
+.swal2-styled.swal2-confirm {
+    border-color: #82C554!important;
+}
+
+
+
+
 
   
   .dropzone {
@@ -61,4 +68,20 @@
     background-color: #ffffff !important;
     align-items: center !important;
   }
+
+  .btnCancelar{
+    color: white!important; 
+    background-color: #cc0808!important;
+}
+.btnCancelar:hover{
+    background-color: #cf4d4d!important;
+}
+
+.btnAceptar{
+    background-color:#12988a!important;
+}
+
+.btnAceptar:hover{
+    background-color:#59c0b5!important;
+}
   

@@ -74,7 +74,8 @@ Route::post('/products', [ProductController::class, 'store'])->name('products.st
 
 
 
-
+//Ruta para cargar imagenes
+Route::post('/products/imagen', [ProductController::class,'Imagenstore'])->name("imagenesProduc.store");
 // Muestra un producto específico
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
@@ -85,7 +86,7 @@ Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 
 // Elimina un producto específico
-Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.destroy');
 
 
 //RUTAS PRA SUBCATEGORIA
