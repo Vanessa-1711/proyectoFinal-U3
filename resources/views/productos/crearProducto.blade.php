@@ -37,9 +37,9 @@
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
           <div class="p-6">
-                <form action="{{route('imagenesProduc.store')}}" method="post" enctype="multipart/form-data" id="dropzone" class="dropzone " style="width: 100%; border:none;padding:0px; align-items:center">
-                    @csrf
-                </form>
+            <form action="{{route('imagenesProduc.store')}}" method="post" enctype="multipart/form-data" id="dropzone" class="dropzone " style="width: 100%; border:none;padding:0px; align-items:center">
+                @csrf
+            </form>
 
             <form action="{{ route('products.store') }}" method="POST" novalidate>
                 @csrf
@@ -162,7 +162,7 @@ $(document).ready(function() {
       text: 'Si cancelas, los datos ingresados se perderán.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#8078C1',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'

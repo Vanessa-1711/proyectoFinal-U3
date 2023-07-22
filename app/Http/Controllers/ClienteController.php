@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class ClienteController extends Controller
 {
@@ -18,14 +20,41 @@ class ClienteController extends Controller
         $clientes = Cliente::all();
         return view('clientes.getorClientes', compact('clientes'));
     }
+    public function Imagenstore(Request $request){
+        //Identificar el archivo que se sube em dropzone
+        $imagen=$request -> file('file');
+    
+        //Convertimos el arreglo input a formato JSON
+        //return response()->json(['imagen' => $imagen->extension()]);
+    
+        //generar un id unico para cada una de las imagenes que se cargan al server
+        $nombreImagen = Str::uuid() . ".". $imagen->extension();
+    
+        //implementar intervation image
+        $imagenServidor = Image::make($imagen);
+    
+        //Agregamos efectos de Intervation image: Indicamos la medida de cada imagen 
+        $imagenServidor->fit(1000,1000);
+    
+        //Movemos la imagen a un lugar fisico del servidor
+        $imagenPath = public_path('imagenCliente'). '/'. $nombreImagen;
+    
+        //Pasamos la imagen de memoria al servidor
+        $imagenServidor->save($imagenPath);
+        
+    
+        //verificamos que el nombre del archivo se ponga como único
+        return response()->json(['imagen'=>$nombreImagen]);
+    
+    }
 
     public function store(Request $request)
     {
         $request->validate([
             'nombre' => 'required',
-            'codigo' => 'required',
+            'codigo' => 'required|min:5|numeric|unique:clientes',
             'empresa' => 'required',
-            'telefono' => 'required',
+            'telefono' => 'required|max:10',
             'correo' => 'required|email',
         ]);
 
@@ -37,7 +66,7 @@ class ClienteController extends Controller
         $cliente->correo = $request->correo;
         $cliente->fotografia = $request->imagen;
         $cliente->save();
-
+        $request->session()->flash('success', '¡El cliete se ha registrado exitosamente!');
         return redirect()->route('clientes');
     }
 
@@ -60,29 +89,32 @@ class ClienteController extends Controller
         $this->validate($request, [
             'fotografia' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nombre' => 'required',
-            'codigo' => 'required',
+            'codigo' => 'required|min:5|numeric|unique:clientes',
             'empresa' => 'required',
-            'telefono' => 'required',
-            'correo' => 'required',
+            'telefono' => 'required|max:10',
+            'correo' => 'required|email',
         ]);
+        $cliente = Cliente::find($id);
+        // Obtener el nombre de la imagen actual del producto
+        $imagenActual = $cliente->fotografia;
 
-        // Actualización de datos
-        if($request->hasFile('fotografia')){
-            $imageName = time().'.'.$request->fotografia->extension();  
-            $request->fotografia->move(public_path('imagesCliente'), $imageName);
-        } else {
-            $imageName = Cliente::find($id)->fotografia;
+        // Verificar si el valor del campo de imagen ha cambiado
+        if ($request->imagen !== $cliente->fotografia) {
+            // Actualizar la propiedad 'imagen' del modelo con el nuevo valor
+            $cliente->fotografia = $request->imagen;
         }
+        $cliente->nombre = $request->nombre;
+        $cliente->codigo = $request->codigo;
+        $cliente->empresa = $request->empresa;
+        $cliente->telefono = $request->telefono;
+        $cliente->correo = $request->correo;
 
-        Cliente::where('id', $id)->update([
-            'nombre' => $request->nombre,
-            'codigo' => $request->codigo,
-            'empresa' => $request->empresa,
-            'telefono' => $request->telefono,
-            'correo' => $request->correo,
-            'fotografia' => $imageName
-        ]);
+        // Guardar los cambios en la base de datos
+        $cliente->save();
 
+        if ($cliente->wasChanged()) {
+            $request->session()->flash('success', '¡El cliete se ha editado exitosamente!');
+        }
         return redirect()->route('clientes');
 }
 

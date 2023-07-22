@@ -11,6 +11,10 @@ class Marca extends Model
     
     protected $fillable = ['nombre','descripcion', 'imagen', 'creado_por'];
 
+    public function productos(){
+        return $this->hasMany(Product::class,'marca_id');
+    }
+
     public function creador()
     {
         return $this->belongsTo(User::class, 'creado_por');

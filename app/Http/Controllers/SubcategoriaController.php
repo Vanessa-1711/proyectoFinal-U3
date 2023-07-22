@@ -29,9 +29,9 @@ class SubcategoriaController extends Controller
             //Reglas de validacion 
             'nombre' => 'required',
             'categoria_id' => 'required',
+            'nombre' => 'required',
+            'codigo' => 'required|min:5|numeric',
             'descripcion' =>'required',
-
-
         ]);
         $subcategoria = new Subcategoria;
         $subcategoria->categoria_id = $request->categoria_id;
@@ -42,7 +42,7 @@ class SubcategoriaController extends Controller
         $subcategoria->save();
         
         // ...
-
+        session()->flash('success', '¡La subcategoria se ha registrado exitosamente!');
         return redirect('/subcategorias');
     }
 
@@ -56,12 +56,24 @@ class SubcategoriaController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate($request,[
+            //Reglas de validacion 
+            'nombre' => 'required',
+            'categoria_id' => 'required',
+            'nombre' => 'required',
+            'codigo' => 'required|min:5|numeric',
+            'descripcion' =>'required',
+        ]);
+
         $subcategoria = Subcategoria::findOrFail($id);
-        $subcategoria->categoria_id = $request->categoria;
+        $subcategoria->categoria_id = $request->categoria_id;
         $subcategoria->codigo = $request->codigo;
         $subcategoria->descripcion = $request->descripcion;
         $subcategoria->user_id = auth()->user()->id;
         $subcategoria->save();
+        if ($subcategoria->wasChanged()) {
+            $request->session()->flash('success', '¡La subcategoria se ha editado exitosamente!');
+        }
 
         return redirect('/subcategorias');
     }
@@ -80,7 +92,7 @@ class SubcategoriaController extends Controller
 
         $subcategoria->delete();
 
-
+        session()->flash('success', '¡La subcategoria se ha eliminado exitosamente!');
         return redirect('/subcategorias');
     }
 

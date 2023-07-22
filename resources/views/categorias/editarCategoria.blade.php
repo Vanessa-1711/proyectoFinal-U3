@@ -57,7 +57,7 @@
                         Cancelar
                     </button>
                     <button type="submit" class="btnAceptar ml-2 px-6 py-3 text-base font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
-                        Registrar
+                        Editar
                     </button>
                 </div>
             </form>
@@ -83,7 +83,7 @@ $(document).ready(function() {
       text: 'Si cancelas, los datos ingresados se perderán.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#12988a',
+      confirmButtonColor: '#8078C1',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, estoy seguro',
       cancelButtonText: 'Cancelar'

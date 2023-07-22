@@ -52,7 +52,7 @@ class CategoriasController extends Controller
             // Reglas de validación para los campos actualizados
             'nombre' => 'required',
             'descripcion' => 'required',
-            'codigo' => 'required',
+            'codigo' => 'required|min:5|numeric|unique:categorias',
         ]);
 
        // Actualización de datos
@@ -103,6 +103,7 @@ class CategoriasController extends Controller
         $categoria->delete();
 
         // Redireccionar a la página de lista de categorías o a otra página de tu elección
-        return redirect()->route('categorias')->with('mensaje', 'Categoría eliminada exitosamente');
+        session()->flash('success', '¡El producto se ha eliminado exitosamente!');
+        return redirect()->route('categorias');
     }
 }

@@ -83,8 +83,8 @@
                       <td class="p-2 align-middle text-center bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->id }}</a>
                         </td>
-                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <img src="{{ asset('imagenProductos/' . $product->imagen) }}" alt="Imagen del producto" style="max-width: 50px; max-height: 200px;">
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent ">
+                          <img src="{{ asset('imagenProductos/' . $product->imagen) }}" alt="Imagen del producto"  class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;">
                         </td>
                         <td class="p-2 align-middle text-center bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->nombre }}</a>
@@ -121,12 +121,12 @@
                             </a>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" id="deleteForm">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" style="color: white; background-color: red;" class="buttonBorrar rounded-full p-2" onclick="confirmDelete()">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                            <form action="{{ route('products.delete', $product->id) }}" method="POST" id="deleteForm-{{ $product->id }}">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="button" style="color: white; background-color: red;" class="buttonBorrar rounded-full p-2" onclick="confirmDelete({{ $product->id }})">
+                                      <i class="fas fa-trash-alt"></i>
+                                  </button>
                             </form>
                         </td>
 
@@ -159,10 +159,10 @@
         }
       });
 
-      function confirmDelete() {
+      function confirmDelete(productoId) {
           Swal.fire({
               title: '¿Estás seguro?',
-              text: "Esta acción eliminará el producto de forma permanente.",
+              text: 'Esta acción no se puede deshacer',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#d33',
@@ -171,11 +171,8 @@
               cancelButtonText: 'Cancelar'
           }).then((result) => {
               if (result.isConfirmed) {
-                  // Si se confirma, enviar el formulario para eliminar el producto
-                  document.getElementById('deleteForm').submit();
-              } else {
-                  // Si se cancela, no hacer nada
-                  return false;
+                  // Si el usuario confirma, envía el formulario manualmente
+                  document.getElementById('deleteForm-' + productoId).submit();
               }
           });
       }

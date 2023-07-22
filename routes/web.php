@@ -47,11 +47,12 @@ Route::post('/', [LoginController::class, 'store']);
 //Rutas para la vista del dashboard
 Route::get('/dashboard',[PostController::class,'index'])->name('dashboard');
 
+
+
+//Rutas de catgorias
 Route::get('/categorias',[CategoriasController::class,'index'])->name('categorias');
 Route::get('/formCategorias',[CategoriasController::class,'create'])->name('formCategorias');
-
 Route::post('/formCategorias',[CategoriasController::class,'store']);
-
 Route::get('/categorias/{categoria}/edit', [CategoriasController::class, 'edit'])->name('categorias.editarCategoria');
 Route::put('/categorias/{categoria}', [CategoriasController::class, 'update'])->name('categorias.update');
 Route::delete('/categorias/{categoria}', [CategoriasController::class, 'delete'])->name('categorias.delete');
@@ -64,35 +65,25 @@ Route::delete('/categorias/{categoria}', [CategoriasController::class, 'delete']
 
 // Muestra la lista de productos
 Route::get('/products', [ProductController::class, 'index'])->name('tablaProductos');
-
 // Muestra el formulario para crear un nuevo producto
 Route::get('/products/create', [ProductController::class, 'create'])->name('crearProducto');
-
-
 // Guarda un nuevo producto
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-
-
-
 //Ruta para cargar imagenes
 Route::post('/products/imagen', [ProductController::class,'Imagenstore'])->name("imagenesProduc.store");
 // Muestra un producto específico
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-
 // Muestra el formulario para editar un producto
 Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-
 // Actualiza un producto específico
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
-
 // Elimina un producto específico
-Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.destroy');
+Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.delete');
+
+
 
 
 //RUTAS PRA SUBCATEGORIA
-
-
-
 Route::get('/subcategorias', [SubcategoriaController::class, 'index'])->name('subcategorias');
 Route::get('/subcategorias/create', [SubcategoriaController::class, 'create'])->name('subcategorias.create');
 Route::post('/subcategorias', [SubcategoriaController::class, 'store'])->name('subcategorias.store');
@@ -102,14 +93,12 @@ Route::put('/subcategorias/{subcategoria}', [SubcategoriaController::class, 'upd
 Route::delete('/subcategorias/{subcategoria}', [SubcategoriaController::class, 'delete'])->name('subcategorias.destroy');
 
 
-//iamgen
-
-
 
 Route::post('/marcas/imagenes', [MarcaImagenController::class, 'store']);
 //Ruta para cargar imagenes
 Route::post('/imagenes', [ImagenController::class,'store'])->name("imagenes.store");
 
+Route::post('/marcas/imagen', [MarcaController::class,'Imagenstore'])->name("imagenesMarca.store");
 
 Route::get('/marcas', [MarcaController::class, 'index'])->name('marcas');
 Route::get('/marcas/create', [MarcaController::class, 'create'])->name('marcas.create');
@@ -117,7 +106,7 @@ Route::post('/marcas', [MarcaController::class, 'store'])->name('marcas.store');
 Route::get('/marcas/{marca}', [MarcaController::class, 'show'])->name('marcas.show');
 Route::get('/marcas/{marca}/edit', [MarcaController::class, 'edit'])->name('marcas.edit');
 Route::put('/marcas/{marca}', [MarcaController::class, 'update'])->name('marcas.update');
-Route::delete('/marcas/{marca}', [MarcaController::class, 'destroy'])->name('marcas.destroy');
+Route::delete('/marcas/{marca}', [MarcaController::class, 'delete'])->name('marcas.delete');
 
 //vneta
 
@@ -133,6 +122,7 @@ Route::get('/clientes/{cliente}', [ClienteController::class, 'show'])->name('cli
 Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
 Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
 Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+Route::post('/clientes/imagen', [ClienteController::class,'Imagenstore'])->name("imagenesClientes.store");
 
 //proveedores
 Route::get('/proveedores', [ProveedorController::class, 'index'])->name('proveedores');
@@ -142,3 +132,4 @@ Route::get('/proveedores/{proveedor}', [ProveedorController::class, 'show'])->na
 Route::get('/proveedores/{proveedor}/edit', [ProveedorController::class, 'edit'])->name('proveedores.edit');
 Route::put('/proveedores/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
 Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'])->name('proveedores.destroy');
+Route::post('/proveedor/imagen', [ProveedorController::class,'Imagenstore'])->name("imagenProveedor.store");

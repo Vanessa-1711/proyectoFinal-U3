@@ -62,7 +62,7 @@
                     </div>
                     <div class="mb-4">
                         <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{old('nombre')}} {{ $product->nombre }}" required>
+                        <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{ $product->nombre }}" required>
                         @error('nombre')
                             <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                         @enderror
@@ -87,8 +87,8 @@
                         <select name="subcategoria_id" id="subcategoria_id" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('subcategoria_id') border-red-500 @enderror" required>
                             <option value="">-- Seleccione una subcategoría --</option>
                             @foreach($subcategorias as $subcategoria)
-                                <option value="{{ $subcategoria->id }}" {{ $subcategoria->id == $producto->subcategoria_id ? 'selected' : '' }}>
-                                    {{ $subcategoria->descripcion }}
+                                <option value="{{ $subcategoria->id }}" {{ $subcategoria->id == $product->subcategoria_id ? 'selected' : '' }}>
+                                    {{ $subcategoria->nombre }}
                                 </option>
                             @endforeach
                         </select>
@@ -112,21 +112,21 @@
                     </div>
                     <div class="mb-4">
                         <label for="precio_compra" class="block text-sm font-medium text-gray-700">Precio de compra:</label>
-                        <input type="text" name="precio_compra" id="precio_compra" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('precio_compra') border-red-500 @enderror" value="{{old('precio_compra')}} {{ $product->precio_compra }}" required>
+                        <input type="text" name="precio_compra" id="precio_compra" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('precio_compra') border-red-500 @enderror" value="{{ $product->precio_compra }}" required>
                         @error('precio_compra')
                             <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="mb-4">
                         <label for="precio_venta" class="block text-sm font-medium text-gray-700">Precio de venta:</label>
-                        <input type="text" name="precio_venta" id="precio_venta" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('precio_venta') border-red-500 @enderror" value="{{old('precio_venta')}} {{ $product->precio_venta }}" required>
+                        <input type="text" name="precio_venta" id="precio_venta" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('precio_venta') border-red-500 @enderror" value=" {{ $product->precio_venta }}" required>
                         @error('precio_venta')
                             <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="mb-4">
                         <label for="unidades_disponibles" class="block text-sm font-medium text-gray-700">Unidades disponibles:</label>
-                        <input type="text" name="unidades_disponibles" id="unidades_disponibles" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('unidades_disponibles') border-red-500 @enderror" value="{{old('unidades_disponibles')}} {{ $product->unidades_disponibles }}" required>
+                        <input type="text" name="unidades_disponibles" id="unidades_disponibles" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('unidades_disponibles') border-red-500 @enderror" value=" {{ $product->unidades_disponibles }}" required>
                         @error('unidades_disponibles')
                             <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                         @enderror
@@ -156,5 +156,26 @@
 $(document).ready(function() {
     $('.select2').select2();
 });
+</script>
+
+<script>
+  document.getElementById('btnCancelar').addEventListener('click', function() {
+    // Muestra el SweetAlert de confirmación
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cancelas, los datos ingresados se perderán.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#8078C1',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, estoy seguro',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirecciona al usuario a la página "tablaProductos"
+        window.location.href = '{{ route('tablaProductos') }}';
+      }
+    });
+  });
 </script>
 @endsection

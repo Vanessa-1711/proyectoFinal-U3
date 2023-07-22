@@ -1,88 +1,137 @@
-@extends('layouts.authApp')
+@extends('layouts.app')
+
+
+@section('estilos')
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+@endsection
+
 @section('titulo')
-    Login
+    Agregar Producto
+@endsection
+
+
+@section('contenido_top')
+    <div
+        class="absolute bg-y-50 w-full top-0 min-h-75">
+        <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
+    </div>
 @endsection
 
 @section('contenido')
-<main class="mt-0 transition-all duration-200 ease-in-out">
-    <section>
-      <div class="relative flex items-center min-h-screen p-0 overflow-hidden bg-center bg-cover">
-        <div class="container z-1">
-          <div class="flex flex-wrap -mx-3">
-            <div class="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
-              <div class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none lg:py4 dark:bg-gray-950 rounded-2xl bg-clip-border">
-                <div class="p-6 pb-0 mb-0">
-                  <h4 class="font-bold">Sign In</h4>
-                  <p class="mb-0">Enter your email and password to sign in</p>
-                </div>
-                <div class="flex-auto p-6">
-                  <form role="form" action="{{route('login')}}" method="POST" novalidate>
-                    @csrf
+<div class="w-full px-6 py-6 mx-auto">
+  <!-- Formulario de registro de categoría -->
+  <div class="flex flex-wrap -mx-3">
+    <div class="flex-none w-full max-w-full px-3">
+      <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+        <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+          <h6 class="dark:text-white">Registrar Marca</h6>
+        </div>
+        <div class="flex-auto px-0 pt-0 pb-2">
+          <div class="p-6">
+            <form action="{{route('imagenProveedor.store')}}" method="post" enctype="multipart/form-data" id="dropzone" class="dropzone " style="width: 100%; border:none;padding:0px; align-items:center">
+                @csrf
+            </form>
 
-                    @if(session('mensaje'))
-                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
-                            {{session('mensaje')}}
-                        </p>
-                    @endif
-                    <div class="mb-4">
-                      <input type="email" id="email" name="email" placeholder="Email" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('email') border-red-500 @enderror" value="{{old('email')}}" />
-                      @error('email')
-                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
-                      @enderror
-                    </div>
-                    <div class="mb-4">
-                      <input type="password"  name="password" placeholder="Password" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid  bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('password') border-red-500 @enderror" value="{{old('password')}}" />
-                      @error('email')
-                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
-                      @enderror
-                    </div>
-                    <div class="text-center">
-                      <button type="submit" class="inline-block w-full px-16 py-3.5 mt-6 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-blue-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">Sign in</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="absolute top-0 right-0 flex-col justify-center hidden w-6/12 h-full max-w-full px-3 pr-0 my-auto text-center flex-0 lg:flex">
-              <div id="gallery" class="relative w-full h-full" data-carousel="slide">
-                <!-- Carousel wrapper -->
-                <div class="relative h-full overflow-hidden rounded-lg">
-                  <!-- Item 1 -->
-                  <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" class="absolute block object-cover w-full h-full" alt="">
-                  </div>
-                  <!-- Item 2 -->
-                  <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" class="absolute block object-cover w-full h-full" alt="">
-                  </div>
-                  <!-- Item 3 -->
-                  <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" class="absolute block object-cover w-full h-full" alt="">
-                  </div>
-                  <!-- Item 4 -->
-                  <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" class="absolute block object-cover w-full h-full" alt="">
-                  </div>
-                  <!-- Item 5 -->
-                  <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" class="absolute block object-cover w-full h-full" alt="">
-                  </div>
-                </div>
-                <!-- Carousel dots -->
-                <!-- Carousel dots -->
-                <div class="absolute left-0 right-0 bottom-2 flex justify-center">
-                  <button type="button" class="w-3 h-3 rounded-full bg-gray-300 mx-1 focus:outline-none" data-carousel-dot></button>
-                  <button type="button" class="w-3 h-3 rounded-full bg-gray-300 mx-1 focus:outline-none" data-carousel-dot></button>
-                  <button type="button" class="w-3 h-3 rounded-full bg-gray-300 mx-1 focus:outline-none" data-carousel-dot></button>
-                  <button type="button" class="w-3 h-3 rounded-full bg-gray-300 mx-1 focus:outline-none" data-carousel-dot></button>
-                  <button type="button" class="w-3 h-3 rounded-full bg-gray-300 mx-1 focus:outline-none" data-carousel-dot></button>
-                </div>
-              </div>
-            </div>
+            <form action="{{ route('proveedores.update', $proveedor->id) }}" method="POST" novalidate>
+                @csrf
 
+                @if(session('mensaje'))
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                        {{session('mensaje')}}
+                    </p>
+                @endif
+                <div class="mb-5">
+                        <input type="hidden" name="imagen"  value="{{ $proveedor->fotografia }} ">
+                        <label class="block text-sm font-medium text-gray-700">Imagen actual:</label>
+                        <img src="{{ asset('imagenProveedor/' . $proveedor->fotografia) }}" alt="Imagen actual del producto" class="w-32 h-32 object-cover mt-2">
+                        
+                        @error('imagen')
+                        <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                                {{$message}}
+                            </p>    
+                        @enderror
+                    </div>
+                <div class="mb-4">
+                    <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{ old('nombre', $proveedor->nombre) }}" required>
+                    @error('nombre')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="codigo" class="block text-sm font-medium text-gray-700">Código:</label>
+                    <input type="text" id="codigo" name="codigo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('codigo') border-red-500 @enderror" value="{{old('codigo', $proveedor->codigo)}}" required>
+                    @error('codigo')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                    @enderror
+                </div>
+                
+                <div class="mb-4">
+                    <label for="telefono" class="block text-sm font-medium text-gray-700">Telefono:</label>
+                    <input type="number" id="telefono" name="telefono" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('telefono') border-red-500 @enderror" value="{{old('telefono', $proveedor->telefono)}}" required>
+                    @error('telefono')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="correo" class="block text-sm font-medium text-gray-700">Correo:</label>
+                    <input type="email" id="correo" name="correo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('correo') border-red-500 @enderror" value="{{old('correo', $proveedor->correo)}}" required>
+                    @error('correo')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                    @enderror
+                </div>
+
+                <div class="flex justify-center">
+                    <button type="button" id="btnCancelar" class="btnCancelar mr-2 px-4 py-2 text-sm font-medium text-gray-600 bg-transparent rounded-md hover:text-gray-800 focus:outline-none">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btnAceptar ml-2 px-6 py-3 text-base font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
+                        Registrar
+                    </button>
+                </div>
+
+            </form>
           </div>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+// In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('.select2').select2();
+});
+</script>
+
+<script>
+  document.getElementById('btnCancelar').addEventListener('click', function() {
+    // Muestra el SweetAlert de confirmación
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cancelas, los datos ingresados se perderán.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#8078C1',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, estoy seguro',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirecciona al usuario a la página "tablaProductos"
+        window.location.href = '{{ route('tablaProductos') }}';
+      }
+    });
+  });
+</script>
+
+
+
+
 @endsection
+

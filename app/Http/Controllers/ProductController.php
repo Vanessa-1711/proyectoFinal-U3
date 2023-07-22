@@ -174,6 +174,6 @@ public function delete($id_producto)
     // Eliminar la empresa emisora
     $product->delete();
     session()->flash('success', '¡El producto se ha eliminado exitosamente!');
-    return redirect('/products');
+    
 }
 }

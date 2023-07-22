@@ -71,17 +71,17 @@
 
   .btnCancelar{
     color: white!important; 
-    background-color: #cc0808!important;
+    background-color: #8078C1!important;
 }
 .btnCancelar:hover{
-    background-color: #cf4d4d!important;
+    background-color: #9a93c9!important;
 }
 
 .btnAceptar{
-    background-color:#12988a!important;
+    background-color:#c8a108!important;
 }
 
 .btnAceptar:hover{
-    background-color:#59c0b5!important;
+    background-color:#d3b746!important;
 }
   

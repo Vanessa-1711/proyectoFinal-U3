@@ -7,7 +7,7 @@
 @section('contenido_top')
     <div
         class="absolute bg-y-50 w-full top-0 min-h-75">
-        <span class="absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
+        <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
     </div>
 @endsection
 
@@ -51,11 +51,14 @@
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
-              <div class="flex justify-end">
-                <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-                  Registrar
-                </button>
-              </div>
+                <div class="flex justify-center">
+                    <button type="button" id="btnCancelar" class="btnCancelar ml-2 px-6 py-3 text-base font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btnAceptar ml-2 px-6 py-3 text-base font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
+                        Registrar
+                    </button>
+                </div>
             </form>
           </div>
         </div>
@@ -64,4 +67,32 @@
   </div>
 </div>
 
+
+<script>
+// In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('.select2').select2();
+});
+</script>
+
+<script>
+  document.getElementById('btnCancelar').addEventListener('click', function() {
+    // Muestra el SweetAlert de confirmación
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cancelas, los datos ingresados se perderán.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#8078C1',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, estoy seguro',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirecciona al usuario a la página "tablaProductos"
+        window.location.href = '{{ route('categorias') }}';
+      }
+    });
+  });
+</script>
 @endsection

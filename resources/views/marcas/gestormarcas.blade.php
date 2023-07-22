@@ -13,8 +13,9 @@
 @endsection
 
 @section('contenido_top')
-    <div class="absolute bg-y-50 w-full top-0 min-h-75">
-        <span class="absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
+    <div
+        class="absolute bg-y-50 w-full top-0 min-h-75">
+        <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
     </div>
 @endsection
 
@@ -23,7 +24,7 @@
     <!-- Formulario Agregar Marca -->
     <div class="bg-white rounded-lg shadow-xl">
         <div class="p-6">
-            <form action="{{route('imagenes.store')}}" method="POST" enctype="multipart/form-data" id="dropzone" class="dropzone" style="width: 100%; border: none; padding: 0px; align-items: center">
+            <form action="{{route('imagenesMarca.store')}}" method="POST" enctype="multipart/form-data" id="dropzone" class="dropzone" style="width: 100%; border: none; padding: 0px; align-items: center">
                 @csrf
             </form>
             <form method="POST" action="{{ route('marcas.store') }}" enctype="multipart/form-data">
@@ -35,14 +36,15 @@
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
-
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700">Descripción:</label>
-                    <input type="text" name="descripcion" id="descripcion" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" value="{{old('descripcion')}}" placeholder="Descripción" >
+                
+                <div class="mb-6">
+                    <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion"  class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid  bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" value="{{old('descripcion')}}" ></textarea>
                     @error('descripcion')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
-                    @enderror
+                    @enderror  
                 </div>
+
                 <!--Agregar campo oculto para guardar el valor de la imagen-->
                 <div class="mb-5">
                     <input type="hidden" name="imagen"  value="{{old('imagen')}}">
@@ -53,9 +55,12 @@
                     @enderror
                 </div>
 
-                <div class="flex items-center justify-between">
-                    <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-                        Guardar Marca
+                <div class="flex justify-center">
+                    <button type="button" id="btnCancelar" class="btnCancelar ml-2 px-6 py-3 text-base font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btnAceptar ml-2 px-6 py-3 text-base font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
+                        Registrar
                     </button>
                 </div>
             </form>
@@ -66,6 +71,26 @@
 @section('scripts')
     {{-- Scripts de dropzone --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+    <script>
+        document.getElementById('btnCancelar').addEventListener('click', function() {
+            // Muestra el SweetAlert de confirmación
+            Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Si cancelas, los datos ingresados se perderán.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8078C1',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, estoy seguro',
+            cancelButtonText: 'Cancelar'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirecciona al usuario a la página "tablaProductos"
+                window.location.href = '{{ route('marcas') }}';
+            }
+            });
+        });
+    </script>
 @endsection
 
 @endsection
