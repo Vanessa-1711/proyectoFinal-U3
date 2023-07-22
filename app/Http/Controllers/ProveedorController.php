@@ -113,15 +113,13 @@ class ProveedorController extends Controller
             $request->session()->flash('success', '¡El proveedor se ha editado exitosamente!');
         }
 
-
-
-
         return redirect()->route('proveedores');
     }
 
     public function destroy(Proveedor $proveedor)
     {
         $proveedor->delete();
+        session()->flash('success', '¡El proveedor se ha eliminado exitosamente!');
         return redirect()->route('proveedores');
     }
 }

@@ -123,6 +123,7 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         $cliente->delete();
+        session()->flash('success', '¡El cliete se ha eliminado exitosamente!');
         return redirect()->route('clientes');
     }
 }
