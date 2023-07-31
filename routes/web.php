@@ -14,6 +14,7 @@ use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ClienteImagenController;
+use App\Http\Controllers\DevolucionesVentasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -133,3 +134,15 @@ Route::get('/proveedores/{proveedor}/edit', [ProveedorController::class, 'edit']
 Route::put('/proveedores/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
 Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'])->name('proveedores.destroy');
 Route::post('/proveedor/imagen', [ProveedorController::class,'Imagenstore'])->name("imagenProveedor.store");
+
+
+//devoluciones de ventas
+
+Route::get('/devoluciones', [DevolucionesVentasController::class, 'index'])->name('devoluciones');
+Route::get('/devoluciones/create', [DevolucionesVentasController::class, 'create'])->name('devoluciones.create');
+Route::post('/devoluciones', [DevolucionesVentasController::class, 'store'])->name('devoluciones.store');
+Route::get('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'show'])->name('devoluciones.show');
+Route::get('/devoluciones/{devolucion}/edit', [DevolucionesVentasController::class, 'edit'])->name('devoluciones.edit');
+Route::put('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'update'])->name('devoluciones.update');
+Route::delete('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'destroy'])->name('devoluciones.destroy');
+Route::post('/devoluciones/imagen', [DevolucionesVentasController::class, 'imagenStore'])->name('devoluciones.imagen.store');
