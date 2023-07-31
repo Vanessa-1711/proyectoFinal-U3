@@ -112,7 +112,7 @@ $(document).ready(function() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = '{{ route('tablaDevoluciones') }}';
+        window.location.href = '{{ route('devoluciones.create') }}';
       }
     });
   });
