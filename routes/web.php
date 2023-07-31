@@ -14,6 +14,8 @@ use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ClienteImagenController;
+use App\Http\Controllers\PuntoVentaController;
+use App\Http\Controllers\VentasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -108,9 +110,6 @@ Route::get('/marcas/{marca}/edit', [MarcaController::class, 'edit'])->name('marc
 Route::put('/marcas/{marca}', [MarcaController::class, 'update'])->name('marcas.update');
 Route::delete('/marcas/{marca}', [MarcaController::class, 'delete'])->name('marcas.delete');
 
-//vneta
-
-Route::get('/ventas', [VentaController::class, 'index'])->name('ventas');
 
 //clientes:
 
@@ -133,3 +132,13 @@ Route::get('/proveedores/{proveedor}/edit', [ProveedorController::class, 'edit']
 Route::put('/proveedores/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
 Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'])->name('proveedores.destroy');
 Route::post('/proveedor/imagen', [ProveedorController::class,'Imagenstore'])->name("imagenProveedor.store");
+
+
+//Punto venta 
+Route::get('/puntoVenta', [PuntoVentaController::class, 'index'])->name('puntoVenta');
+
+
+//Ventas
+Route::get('/ventas', [VentasController::class, 'index'])->name('ventas');
+
+Route::get('/ventas/detalles', [VentasController::class, 'detallesTienda'])->name('ventas.show');

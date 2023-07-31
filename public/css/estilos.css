@@ -85,3 +85,39 @@
     background-color:#d3b746!important;
 }
   
+/* Estilos para el contenedor de la caja verde */
+
+
+/* Estilos para la caja verde */
+.green-box {
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center;
+    width: 100px!important; /* Ajusta el ancho del contenedor */
+    height: 40px!important; /* Ajusta la altura del contenedor */
+    background-color: green!important;
+    border-radius: 8px!important; /* Ajusta el radio para redondear los bordes */
+}
+
+/* Estilos para el texto dentro de la caja */
+.green-box p {
+    text-align: center!important;
+    font-size: 12px!important; /* Ajusta el tamaño de fuente según sea necesario */
+    font-weight: bold!important;
+    color: white!important;
+    margin: 0; /* Elimina el margen interior del texto */
+}
+
+.green-box-container {
+    display: flex!important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.linea {
+    width: 100%!important;
+    border-top: 1px solid #bdb8b8!important;
+    margin-top: 10px!important;
+    margin-bottom: 0!important;
+}
+

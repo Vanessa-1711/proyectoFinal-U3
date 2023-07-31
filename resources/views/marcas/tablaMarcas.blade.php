@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('estilos')
+    <!-- Cargar librerías y estilos requeridos para DataTables -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -19,12 +20,13 @@
 @endsection
 
 @section('titulo')
+    <!-- Título de la página -->
     Marcas
 @endsection
 
 @section('contenido_top')
-    <div
-        class="absolute bg-y-50 w-full top-0 min-h-75">
+    <!-- Contenido adicional para la parte superior de la página -->
+    <div class="absolute bg-y-50 w-full top-0 min-h-75">
         <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
     </div>
 @endsection
@@ -33,6 +35,7 @@
     <div class="flex-none w-full px-3">
         <!-- Botón Agregar Categoría -->
         <div class="flex justify-end mb-4">
+          <!-- Botón para agregar una nueva marca -->
           <a class="buttonAgregar px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" href="{{ route('marcas.create') }}">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline-block" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M5 9a1 1 0 0 1 1-1h3V5a1 1 0 1 1 2 0v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 0 1-1-1z" clip-rule="evenodd" />
@@ -41,7 +44,7 @@
           </a>
       </div>
 
-        <!-- table 1 -->
+        <!-- Tabla 1 -->
         <div class="flex flex-wrap -mx-3">
           <div class="flex-none w-full max-w-full px-3">
             <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
@@ -52,10 +55,12 @@
                 <div class="p-0 overflow-x-auto">
                 <div class="mx-4">
                 @if(session('mensaje'))
+                  <!-- Mostrar mensaje de éxito si está presente -->
                   <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center" style="background-color: rgb(196 181 253);">
                       {{session('mensaje')}}
                   </p>
                 @endif
+                <!-- Tabla para mostrar la lista de marcas -->
                 <table id="myTable" class="items-center table-auto mb-0 align-top border-collapse dark:border-white/40 text-slate-500">
                   <thead class="align-bottom">
                     <tr>
@@ -98,6 +103,7 @@
                               <form action="{{ route('marcas.delete', $marca->id) }}" method="POST" id="deleteForm-{{ $marca->id }}">
                                   @csrf
                                   @method('DELETE')
+                                  <!-- Segundo botón - Eliminar -->
                                   <button type="button" style="color: white; background-color: red;" class="buttonBorrar rounded-full p-2" onclick="confirmDelete({{ $marca->id }})">
                                       <i class="fas fa-trash-alt"></i>
                                   </button>
@@ -118,13 +124,14 @@
         </div>
     </div>
 
+    <!-- Incluir archivo JavaScript para funcionalidades personalizadas de la tabla -->
     <script src="{{ asset('js/appTablas.js') }}"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // Verifica si hay un mensaje de éxito en la sesión
+        // Verificar si hay un mensaje de éxito en la sesión
         const successMessage = '{{ session('success') }}';
         if (successMessage) {
-          // Muestra el SweetAlert de éxito
+          // Mostrar mensaje de éxito usando SweetAlert
           Swal.fire({
             title: 'Éxito',
             text: successMessage,
@@ -136,6 +143,7 @@
       });
 
       function confirmDelete(marcaId) {
+          // Confirmar eliminación con SweetAlert
           Swal.fire({
               title: '¿Estás seguro?',
               text: 'Esta acción no se puede deshacer',
@@ -147,7 +155,7 @@
               cancelButtonText: 'Cancelar'
           }).then((result) => {
               if (result.isConfirmed) {
-                  // Si el usuario confirma, envía el formulario manualmente
+                  // Si el usuario confirma, enviar el formulario manualmente
                   document.getElementById('deleteForm-' + marcaId).submit();
               }
           });

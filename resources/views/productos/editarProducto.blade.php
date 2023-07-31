@@ -5,23 +5,22 @@
 @endsection
 
 @section('estilos2')
+<!-- Agregar librerías y estilos requeridos para Select2 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @endsection
 
-
 @section('estilos')
+<!-- Agregar librerías y estilos requeridos para Select2 y Dropzone -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 @endsection
 
 @section('contenido_top')
-    <div
-        class="absolute bg-y-50 w-full top-0 min-h-75">
+    <div class="absolute bg-y-50 w-full top-0 min-h-75">
         <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
     </div>
 @endsection
@@ -33,13 +32,15 @@
     <div class="flex-none w-full max-w-full px-3">
       <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-          <h6 class="dark:text-white">Registrar Producto</h6>
+          <h6 class="dark:text-white">Editar Producto</h6>
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
           <div class="p-6">
+                <!-- Formulario para subir imágenes utilizando Dropzone -->
                 <form action="{{route('imagenesProduc.store')}}" method="post" enctype="multipart/form-data" id="dropzone" class="dropzone " style="width: 100%; border:none;padding:0px; align-items:center">
                     @csrf
                 </form>
+                <!-- Formulario principal para editar el producto -->
                 <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data" novalidate>
                     @csrf
                     @method('PUT')
@@ -82,6 +83,7 @@
                         @enderror
                     </div>
                     
+                    <!-- Campo para seleccionar la subcategoría -->
                     <div class="mb-6">
                         <label for="subcategoria_id" class="block text-sm font-medium text-gray-700">Subcategoría:</label>
                         <select name="subcategoria_id" id="subcategoria_id" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('subcategoria_id') border-red-500 @enderror" required>
@@ -148,16 +150,14 @@
   </div>
 </div>
 
-
-
-
+<!-- Inicializar Select2 -->
 <script>
-// In your Javascript (external .js resource or <script> tag)
 $(document).ready(function() {
     $('.select2').select2();
 });
 </script>
 
+<!-- Agregar script para cancelar el registro y mostrar SweetAlert de confirmación -->
 <script>
   document.getElementById('btnCancelar').addEventListener('click', function() {
     // Muestra el SweetAlert de confirmación

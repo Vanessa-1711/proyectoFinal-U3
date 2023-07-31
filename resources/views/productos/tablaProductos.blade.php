@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('estilos')
+    <!-- Agregar estilos y librerías necesarios para DataTables y DataTables Buttons -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -17,11 +18,9 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
-
     <style>
-      
+        /* Agregar estilos personalizados aquí si es necesario */
     </style>
-
 @endsection
 
 @section('titulo')
@@ -29,16 +28,15 @@
 @endsection
 
 @section('contenido_top')
-    <div
-        class="absolute bg-y-50 w-full top-0 min-h-75">
+    <!-- Agregar fondo decorativo en la parte superior de la página -->
+    <div class="absolute bg-y-50 w-full top-0 min-h-75">
         <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
     </div>
 @endsection
 
-
 @section('contenido')
     <div class="flex-none w-full px-3">
-        <!-- Botón Agregar Categoría -->
+        <!-- Botón para agregar un nuevo producto -->
         <div class="flex justify-end mb-4">
           <a class="buttonAgregar px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"  href="{{ route('crearProducto') }}">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline-block" viewBox="0 0 20 20" fill="currentColor">
@@ -48,8 +46,7 @@
           </a>
         </div>
 
-
-        <!-- table 1 -->
+        <!-- Tabla para mostrar los productos -->
         <div class="flex flex-wrap -mx-3">
           <div class="flex-none w-full max-w-full px-3">
             <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
@@ -62,6 +59,7 @@
                   <table id="myTable" class="items-center table-auto mb-0 align-top border-collapse dark:border-white/40 text-slate-500">
                     <thead class="align-bottom">
                       <tr>
+                        <!-- Encabezados de la tabla -->
                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Id</th>
                         <th class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Imagen</th>
                         <th class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Nombre</th>
@@ -79,8 +77,9 @@
                     </thead>
                     <tbody>
                     @foreach ($products as $product)
+                      <!-- Datos de cada producto en la tabla -->
                       <tr>
-                      <td class="p-2 align-middle text-center bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                        <td class="p-2 align-middle text-center bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->id }}</a>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent ">
@@ -110,7 +109,8 @@
                         <td class="p-2 align-middle  bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->creador->name}}</a>
                         </td>
-                        <td class="p-2 align-middle  bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent" style="margin-right: 8px; margin-left:8px;">
+                        <!-- Botones de acción para ver, editar y borrar el producto -->
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent" style="margin-right: 8px; margin-left:8px;">
                             <a href="{{ route('products.show', $product->id) }}" class="buttonVer text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" >
                               <i class="far fa-eye"></i>
                             </a>
@@ -121,9 +121,11 @@
                             </a>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                            <!-- Formulario para el borrado del producto -->
                             <form action="{{ route('products.delete', $product->id) }}" method="POST" id="deleteForm-{{ $product->id }}">
                                   @csrf
                                   @method('DELETE')
+                                  <!-- Botón para confirmar el borrado -->
                                   <button type="button" style="color: white; background-color: red;" class="buttonBorrar rounded-full p-2" onclick="confirmDelete({{ $product->id }})">
                                       <i class="fas fa-trash-alt"></i>
                                   </button>
@@ -142,6 +144,7 @@
         </div>
     </div>
 
+    <!-- Inicializar DataTables y mostrar mensajes de éxito -->
     <script src="{{ asset('js/appTablas.js') }}"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {

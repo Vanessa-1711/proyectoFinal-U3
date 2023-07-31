@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('estilos')
+    <!-- Se incluyen las librerías y estilos para DataTables y sus botones -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -17,7 +18,7 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
-
+    <!-- Estilos personalizados (falta la definición de los estilos) -->
     <style>
       
     </style>
@@ -29,8 +30,8 @@
 @endsection
 
 @section('contenido_top')
-    <div
-        class="absolute bg-y-50 w-full top-0 min-h-75">
+    <!-- Fondo para la sección superior -->
+    <div class="absolute bg-y-50 w-full top-0 min-h-75">
         <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
     </div>
 @endsection
@@ -38,7 +39,7 @@
 
 @section('contenido')
     <div class="flex-none w-full px-3">
-        <!-- Botón Agregar Categoría -->
+        <!-- Botón para agregar un nuevo proveedor -->
         <div class="flex justify-end mb-4">
           <a class="buttonAgregar px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" href="{{ route('proveedores.create') }}">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline-block" viewBox="0 0 20 20" fill="currentColor">
@@ -48,7 +49,7 @@
           </a>
         </div>
 
-        <!-- table 1 -->
+        <!-- Tabla para mostrar la lista de proveedores -->
         <div class="flex flex-wrap -mx-3">
           <div class="flex-none w-full max-w-full px-3">
             <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
@@ -58,15 +59,18 @@
               <div class="flex-auto px-0 pt-0 pb-2">
                 <div class="p-0 overflow-x-auto">
                 <div class="mx-4">
+                <!-- Mensaje de éxito o error en caso de agregar, editar o eliminar un proveedor -->
                 @if(session('mensaje'))
                   <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center" style="background-color: rgb(196 181 253);">
                       {{session('mensaje')}}
                   </p>
                 @endif
+                  <!-- Tabla para mostrar los datos de los proveedores -->
                   <table id="myTable" class="items-center table-auto mb-0 align-top border-collapse dark:border-white/40 text-slate-500">
                     <thead class="align-bottom">
                       <tr>
-                      <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Id</th>
+                        <!-- Encabezados de la tabla -->
+                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Id</th>
                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Nombre</th>
                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Código</th>
                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Telefono</th>
@@ -76,24 +80,31 @@
                       </tr>
                     </thead>
                     <tbody>
+                        <!-- Ciclo para mostrar los datos de cada proveedor en la tabla -->
                         @foreach($proveedores as $proveedor)
                       <tr>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <!-- Muestra el ID del proveedor -->
                           <h6 class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $proveedor->id }}</h6>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <!-- Muestra el nombre del proveedor -->
                           <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $proveedor->nombre}}</p>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <!-- Muestra el código del proveedor -->
                           <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $proveedor->codigo}}</p>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <!-- Muestra el teléfono del proveedor -->
                           <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $proveedor->telefono}}</p>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <!-- Muestra el correo del proveedor -->
                           <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $proveedor->correo}}</p>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <!-- Muestra la fotografía del proveedor -->
                           <img class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl" style="text-align: center ; margin-top: 10px;" src="{{ asset('imagenProveedor/'.$proveedor->fotografia) }}" width="100">
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent" style="margin-right: 8px; margin-left:8px;">
@@ -102,6 +113,7 @@
                               <a href="{{ route('proveedores.edit', $proveedor->id) }}" class="buttonEditar text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
                                   <i class="fas fa-pencil-alt"></i>
                               </a>
+                              <!-- Segundo botón - Eliminar (requiere confirmación) -->
                               <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="POST" id="deleteForm-{{ $proveedor->id }}">
                                   @csrf
                                   @method('DELETE')
@@ -123,6 +135,7 @@
         </div>
     </div>
 
+    <!-- Script para inicializar DataTables y mostrar mensajes de éxito -->
     <script src="{{ asset('js/appTablas.js') }}"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -140,6 +153,7 @@
         }
       });
 
+      // Función para confirmar la eliminación de un proveedor
       function confirmDelete(proveedorId) {
           Swal.fire({
               title: '¿Estás seguro?',
