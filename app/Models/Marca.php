@@ -13,7 +13,7 @@ class Marca extends Model
         'nombre',
         'descripcion', 
         'imagen', 
-        'creado_por'
+        'user_id'
     ];
     // Definición de relaciones entre modelos
 
@@ -26,7 +26,7 @@ class Marca extends Model
     //Una marca pertenece a un usuario creador.
     public function creador()
     {
-        return $this->belongsTo(User::class, 'creado_por');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     

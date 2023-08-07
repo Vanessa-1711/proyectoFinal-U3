@@ -15,6 +15,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ClienteImagenController;
 use App\Http\Controllers\PuntoVentaController;
+use App\Http\Controllers\GestionComprasController;
 use App\Http\Controllers\VentasController;
 /*
 |--------------------------------------------------------------------------
@@ -141,4 +142,11 @@ Route::get('/puntoVenta', [PuntoVentaController::class, 'index'])->name('puntoVe
 //Ventas
 Route::get('/ventas', [VentasController::class, 'index'])->name('ventas');
 
-Route::get('/ventas/detalles', [VentasController::class, 'detallesTienda'])->name('ventas.show');
+Route::get('/compras', [GestionComprasController::class, 'index'])->name('compras.index');
+Route::get('/compras2', [GestionComprasController::class, 'index2'])->name('compras2.index');
+Route::get('/compras/crear', [GestionComprasController::class, 'create'])->name('compras.create');
+Route::get('/compras2/crear', [GestionComprasController::class, 'create2'])->name('compras2.create');
+Route::get('/compras/getProducto/{id_producto}',[GestionComprasController::class,'getProduct'])->name('compras.getProducto');
+
+
+//gestor compras 

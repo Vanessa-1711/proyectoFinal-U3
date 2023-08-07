@@ -43,7 +43,7 @@ class MarcaController extends Controller
         $marca->nombre = $request->nombre;
         $marca->descripcion = $request->descripcion;
         $marca->imagen = $request->imagen;
-        $marca->creado_por = auth()->user()->id; // Asignar el ID del usuario autenticado como creador de la marca
+        $marca->user_id = auth()->user()->id; // Asignar el ID del usuario autenticado como creador de la marca
         $marca->save();
         
         // Mostrar un mensaje de éxito y redireccionar a la página de la tabla de marcas
