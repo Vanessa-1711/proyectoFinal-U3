@@ -42,8 +42,9 @@
                 @csrf
             </form>
 
-            <form action="{{ route('usuario.store') }}" method="POST" novalidate>
+            <form action="{{ route('usuario.update', $usuario->id) }}" method="POST" novalidate>
                 @csrf
+                @method('PUT')
 
                 @if(session('mensaje'))
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">

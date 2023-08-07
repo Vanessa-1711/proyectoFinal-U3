@@ -114,7 +114,7 @@ class UsuarioController extends Controller
             'nombre' => 'required',
             'apellido' => 'required',
             'telefono' => 'required|max:10',
-            'correo' => 'required|email',
+            'correo' => 'required|email|unique:users,email,' . $id,
             'password' => 'required',
             'estado' => 'required',
             'rol' => 'required',
@@ -130,14 +130,14 @@ class UsuarioController extends Controller
             // Actualizar la propiedad 'fotografia' del modelo con el nuevo valor
             $usuario->imagen = $request->imagen;
         }
-        $usuario->nombre = $request->nombre;
+        $usuario->name = $request->nombre;
         $usuario->apellido = $request->codigo;
         $usuario->telefono = $request->telefono;
         $usuario->email = $request->correo;
-        $usuario->password = $request->pais;
+        $usuario->password = $request->password;
         $usuario->status = $request->estado;
         $usuario->rol = $request->rol;
-        $usuario->usernam = $request->username;
+        $usuario->username = $request->username;
 
         // Guardar los cambios en la base de datos
         $usuario->save();
