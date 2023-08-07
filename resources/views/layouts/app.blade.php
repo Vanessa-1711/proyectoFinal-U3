@@ -194,6 +194,7 @@
                     </li>
                     <li class="mt-0.5 w-full">
                         <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
+<<<<<<< HEAD
                             href="{{ route('devoluciones', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -202,6 +203,40 @@
                                 </svg>
                             </div>
                             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Devolucion de venta</span>
+=======
+                            href="{{ route('puntoVenta', auth()->user()->username) }}">
+                            <div
+                                class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill relative top-0 text-sm leading-normal text-orange-500" viewBox="0 0 16 16">
+                                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                </svg>
+                            </div>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Punto Venta</span>
+                        </a>
+                    </li>
+                    <li class="mt-0.5 w-full">
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors {{ request()->is('ventas*') ? 'active' : '' }}"
+                            href="{{ route('ventas', auth()->user()->username) }}">
+                            <div
+                                class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill relative top-0 text-sm leading-normal text-orange-500" viewBox="0 0 16 16">
+                                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                </svg>
+                            </div>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Listado de ventas</span>
+                        </a>
+                    </li>
+                    <li class="mt-0.5 w-full">
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
+                            href="{{ route('puntoVenta', auth()->user()->username) }}">
+                            <div
+                                class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill relative top-0 text-sm leading-normal text-orange-500" viewBox="0 0 16 16">
+                                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                </svg>
+                            </div>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Devolucion de ventas</span>
+>>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7
                         </a>
                     </li>
                     <li class="w-full mt-4">
@@ -285,6 +320,8 @@
                             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar usuarios</span>
                         </a>
                     </li>
+
+                    
                 </ul>
             </div>
 
@@ -414,22 +451,29 @@
 
 </body>
 @yield('scripts')
+<!-- Este script controla un menú desplegable -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+  // Espera a que se cargue el DOM antes de ejecutar el código
+  document.addEventListener('DOMContentLoaded', function() {
+    // Obtiene referencias al botón del menú y al menú desplegable
     const menuButton = document.getElementById('menu-button');
     const menuDropdown = document.getElementById('menu-dropdown');
 
+    // Agrega un evento click al botón del menú
     menuButton.addEventListener('click', function() {
+      // Alterna la visualización del menú entre bloqueado (visible) y oculto
       menuDropdown.style.display = menuDropdown.style.display === 'none' ? 'block' : 'none';
     });
 
+    // Agrega un evento click al documento para cerrar el menú si se hace clic en cualquier lugar fuera de él
     document.addEventListener('click', function(event) {
+      // Si el objetivo del evento (el elemento clickeado) no es el botón del menú
       if (!menuButton.contains(event.target)) {
+        // Oculta el menú desplegable
         menuDropdown.style.display = 'none';
       }
     });
   });
-  
 </script>
 
 

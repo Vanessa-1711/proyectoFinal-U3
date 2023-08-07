@@ -14,7 +14,12 @@ use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ClienteImagenController;
+<<<<<<< HEAD
 use App\Http\Controllers\DevolucionesVentasController;
+=======
+use App\Http\Controllers\PuntoVentaController;
+use App\Http\Controllers\VentasController;
+>>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,6 +62,8 @@ Route::post('/formCategorias',[CategoriasController::class,'store']);
 Route::get('/categorias/{categoria}/edit', [CategoriasController::class, 'edit'])->name('categorias.editarCategoria');
 Route::put('/categorias/{categoria}', [CategoriasController::class, 'update'])->name('categorias.update');
 Route::delete('/categorias/{categoria}', [CategoriasController::class, 'delete'])->name('categorias.delete');
+Route::post('/categorias/imagen', [CategoriasController::class,'Imagenstore'])->name("imagenesCategorias.store");
+
 
 
 
@@ -73,14 +80,14 @@ Route::post('/products', [ProductController::class, 'store'])->name('products.st
 //Ruta para cargar imagenes
 Route::post('/products/imagen', [ProductController::class,'Imagenstore'])->name("imagenesProduc.store");
 // Muestra un producto específico
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{productId}', [ProductController::class, 'show'])->name('products.show');
 // Muestra el formulario para editar un producto
 Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
 // Actualiza un producto específico
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 // Elimina un producto específico
 Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.delete');
-
+Route::get('/products/subcategorias/{categoria_id}', [ProductController::class, 'getSubcategorias'])->name('getSubcategorias');
 
 
 
@@ -92,12 +99,10 @@ Route::get('/subcategorias/{subcategoria}', [SubcategoriaController::class, 'sho
 Route::get('/subcategorias/{subcategoria}/edit', [SubcategoriaController::class, 'edit'])->name('subcategorias.edit');
 Route::put('/subcategorias/{subcategoria}', [SubcategoriaController::class, 'update'])->name('subcategoria.update');
 Route::delete('/subcategorias/{subcategoria}', [SubcategoriaController::class, 'delete'])->name('subcategorias.destroy');
+Route::post('/subcategorias/imagen', [SubcategoriaController::class,'Imagenstore'])->name("imagenesSubcategoria.store");
 
 
 
-Route::post('/marcas/imagenes', [MarcaImagenController::class, 'store']);
-//Ruta para cargar imagenes
-Route::post('/imagenes', [ImagenController::class,'store'])->name("imagenes.store");
 
 Route::post('/marcas/imagen', [MarcaController::class,'Imagenstore'])->name("imagenesMarca.store");
 
@@ -109,9 +114,6 @@ Route::get('/marcas/{marca}/edit', [MarcaController::class, 'edit'])->name('marc
 Route::put('/marcas/{marca}', [MarcaController::class, 'update'])->name('marcas.update');
 Route::delete('/marcas/{marca}', [MarcaController::class, 'delete'])->name('marcas.delete');
 
-//vneta
-
-Route::get('/ventas', [VentaController::class, 'index'])->name('ventas');
 
 //clientes:
 
@@ -136,6 +138,7 @@ Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'
 Route::post('/proveedor/imagen', [ProveedorController::class,'Imagenstore'])->name("imagenProveedor.store");
 
 
+<<<<<<< HEAD
 //devoluciones de ventas
 
 Route::get('/devoluciones', [DevolucionesVentasController::class, 'index'])->name('devoluciones');
@@ -146,3 +149,13 @@ Route::get('/devoluciones/{devolucion}/edit', [DevolucionesVentasController::cla
 Route::put('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'update'])->name('devoluciones.update');
 Route::delete('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'destroy'])->name('devoluciones.destroy');
 Route::post('/devoluciones/imagen', [DevolucionesVentasController::class, 'imagenStore'])->name('devoluciones.imagen.store');
+=======
+//Punto venta 
+Route::get('/puntoVenta', [PuntoVentaController::class, 'index'])->name('puntoVenta');
+
+
+//Ventas
+Route::get('/ventas', [VentasController::class, 'index'])->name('ventas');
+
+Route::get('/ventas/detalles', [VentasController::class, 'detallesTienda'])->name('ventas.show');
+>>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7

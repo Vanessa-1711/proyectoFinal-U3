@@ -9,12 +9,21 @@ class Marca extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['nombre','descripcion', 'imagen', 'creado_por'];
+    protected $fillable = [
+        'nombre',
+        'descripcion', 
+        'imagen', 
+        'creado_por'
+    ];
+    // Definición de relaciones entre modelos
 
-    public function productos(){
-        return $this->hasMany(Product::class,'marca_id');
+    //Una marca puede tener varios productos asociados.
+    public function productos()
+    {
+        return $this->hasMany(Product::class, 'marca_id');
     }
 
+    //Una marca pertenece a un usuario creador.
     public function creador()
     {
         return $this->belongsTo(User::class, 'creado_por');

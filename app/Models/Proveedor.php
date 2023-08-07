@@ -15,5 +15,8 @@ class Proveedor extends Model
         'telefono',
         'correo',
         'fotografia',
+        'pais',
+        'estado',
+        'ciudad',
     ];
 }

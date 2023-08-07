@@ -6,8 +6,17 @@
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 @endsection
 
+@section('estilos2')
+<!-- Se incluyen las librerías y estilos para Select2 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+
 @section('titulo')
-    Agregar Producto
+    Agregar cliente
 @endsection
 
 
@@ -25,7 +34,7 @@
     <div class="flex-none w-full max-w-full px-3">
       <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-          <h6 class="dark:text-white">Registrar Marca</h6>
+          <h6 class="dark:text-white">Registrar</h6>
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
           <div class="p-6">
@@ -48,6 +57,7 @@
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
+                
 
                 <div class="mb-4">
                     <label for="codigo" class="block text-sm font-medium text-gray-700">Código:</label>
@@ -65,6 +75,42 @@
                     @enderror
                 </div>
                 
+                
+                <!-- Campos para país, estado y ciudad -->
+                <div class="mb-4">
+                    <label for="country" class="block text-sm font-medium text-gray-700">País:</label>
+                    <select name="pais" id="country" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                        <option value="">-- Seleccione un país --</option>
+                        @foreach($countries as $country)
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <br>
+                
+                <div class="mb-4">
+                    <label for="state" class="block text-sm font-medium text-gray-700">Estado:</label>
+                    <select name="estado" id="state" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-black/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                        <option value="">Seleccione un estado</option>
+                        @foreach($states as $state)
+                            <option value="{{ $state->state_id }}" data-country="{{ $state->countryid }}">{{ $state->state_name }}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+                <br>
+                
+                <div class="mb-4">
+                    <label for="city" class="block text-sm font-medium text-gray-700">Ciudad:</label>
+                    <select name="ciudad" id="city" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                        <option value="">Seleccione una ciudad</option>
+                        @foreach($cities as $city)
+                            <option value="{{ $city->id }}" data-state="{{ $city->state_id }}">{{ $city->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <br>
                 <div class="mb-4">
                     <label for="telefono" class="block text-sm font-medium text-gray-700">Telefono:</label>
                     <input type="number" id="telefono" name="telefono" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('telefono') border-red-500 @enderror" value="{{old('telefono')}}" required>
@@ -135,6 +181,58 @@ $(document).ready(function() {
     });
   });
 </script>
+
+<script>
+    document.getElementById('country').addEventListener('change', function() {
+    const selectedCountry = this.value;
+
+    // Habilitar y filtrar estados basados en el país seleccionado
+    const stateSelect = document.getElementById('state');
+    stateSelect.disabled = false;
+    const allStates = stateSelect.querySelectorAll('option[data-country]');
+    allStates.forEach(state => {
+        if (state.getAttribute('data-country') == selectedCountry) {
+            state.style.display = '';
+            state.disabled = false; // Habilitar la opción
+        } else {
+            state.style.display = 'none';
+            state.disabled = true; // Deshabilitar la opción
+        }
+    });
+
+    // Resetear y deshabilitar la selección de ciudades
+    const citySelect = document.getElementById('city');
+    citySelect.disabled = true;
+    citySelect.selectedIndex = 0; // Reiniciar el valor seleccionado
+    citySelect.querySelectorAll('option[value]').forEach(city => {
+        city.style.display = 'none';
+        city.disabled = true; // Deshabilitar la opción
+    });
+    $('#state').trigger('change.select2'); // Actualiza la representación de Select2
+});
+
+document.getElementById('state').addEventListener('change', function() {
+    const selectedState = this.value;
+
+    // Habilitar y filtrar ciudades basadas en el estado seleccionado
+    const citySelect = document.getElementById('city');
+    citySelect.disabled = false;
+    const allCities = citySelect.querySelectorAll('option[data-state]');
+    allCities.forEach(city => {
+        if (city.getAttribute('data-state') == selectedState) {
+            city.style.display = '';
+            city.disabled = false; // Habilitar la opción
+        } else {
+            city.style.display = 'none';
+            city.disabled = true; // Deshabilitar la opción
+        }
+    });
+    $('#city').trigger('change.select2'); // Actualiza la representación de Select2
+});
+
+</script>
+
+
 
 
 

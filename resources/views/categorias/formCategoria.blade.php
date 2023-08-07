@@ -1,12 +1,20 @@
 @extends('layouts.app')
 
 @section('titulo')
-    Agregar Categoria
+    Agregar Categoría
+@endsection
+
+@section('estilos')
+    {{-- Estilos de dropzone css --}}
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <!-- Agregar estilos adicionales relacionados con esta página aquí -->
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <!-- Agregar cualquier script adicional relacionado con dropzone aquí -->
 @endsection
 
 @section('contenido_top')
-    <div
-        class="absolute bg-y-50 w-full top-0 min-h-75">
+    <!-- Fondo de encabezado -->
+    <div class="absolute bg-y-50 w-full top-0 min-h-75">
         <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
     </div>
 @endsection
@@ -22,9 +30,14 @@
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
           <div class="p-6">
+            <!-- Formulario para registrar la categoría -->
+            <!-- Dropzone para subir imágenes -->
+            <form action="{{route('imagenesCategorias.store')}}" method="POST" enctype="multipart/form-data" id="dropzone" class="dropzone" style="width: 100%; border: none; padding: 0px; align-items: center">
+                @csrf
+            </form>
             <form action="{{route('formCategorias')}}" method="POST" novalidate>
                 @csrf
-
+                <!-- Mensaje de error si la sesión contiene 'mensaje' -->
                 @if(session('mensaje'))
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
                         {{session('mensaje')}}
@@ -32,6 +45,7 @@
                 @endif
                 <div class="mb-4">
                     <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
+                    <!-- Campo de entrada para el nombre -->
                     <input type="text" id="nombre" name="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{old('nombre')}}" required>
                     @error('nombre')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
@@ -39,22 +53,35 @@
                 </div>
                 <div class="mb-6">
                     <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción:</label>
-                    <textarea id="descripcion" name="descripcion"  class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid  bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" value="{{old('descripcion')}}" required></textarea>
+                    <!-- Campo de entrada para la descripción -->
+                    <textarea id="descripcion" name="descripcion"  class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid  bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" required>{{old('descripcion')}}</textarea>
                     @error('descripcion')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror  
                 </div>
                 <div class="mb-4">
-                    <label for="codigo" class="block text-sm font-medium text-gray-700">Codigo:</label>
+                    <label for="codigo" class="block text-sm font-medium text-gray-700">Código:</label>
+                    <!-- Campo de entrada para el código -->
                     <input type="text" id="codigo" name="codigo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('codigo') border-red-500 @enderror" value="{{old('codigo')}}" required>
                     @error('codigo')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
+                <!-- Campo oculto para guardar el valor de la imagen -->
+                <div class="mb-5">
+                    <input type="hidden" name="imagen"  value="{{old('imagen')}}">
+                    @error('imagen')
+                    <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                            {{$message}}
+                        </p>    
+                    @enderror
+                </div>
                 <div class="flex justify-center">
+                    <!-- Botón "Cancelar" -->
                     <button type="button" id="btnCancelar" class="btnCancelar ml-2 px-6 py-3 text-base font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
                         Cancelar
                     </button>
+                    <!-- Botón "Registrar" -->
                     <button type="submit" class="btnAceptar ml-2 px-6 py-3 text-base font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
                         Registrar
                     </button>
@@ -67,16 +94,16 @@
   </div>
 </div>
 
-
+<!-- Script para el funcionamiento del select2 -->
 <script>
-// In your Javascript (external .js resource or <script> tag)
 $(document).ready(function() {
     $('.select2').select2();
 });
 </script>
 
+<!-- Script para el manejo de modales -->
 <script>
-  document.getElementById('btnCancelar').addEventListener('click', function() {
+document.getElementById('btnCancelar').addEventListener('click', function() {
     // Muestra el SweetAlert de confirmación
     Swal.fire({
       title: '¿Estás seguro?',
@@ -93,6 +120,6 @@ $(document).ready(function() {
         window.location.href = '{{ route('categorias') }}';
       }
     });
-  });
+});
 </script>
 @endsection

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DevolucionVenta extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
 
     protected $fillable = [
         'nombre_producto',
@@ -20,3 +21,6 @@ class DevolucionVenta extends Model
         'imagen'
     ];
 }
+=======
+}
+>>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7

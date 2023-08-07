@@ -25,21 +25,35 @@ class Product extends Model
         'marca_id'
     ];
 
+    // Relaciones entre modelos
+
+    /**
+     * Un producto pertenece a una categoría.
+     */
     public function categoria()
     {
         return $this->belongsTo(Categorias::class, 'categoria_id');
     }
 
+    /**
+     * Un producto pertenece a una subcategoría.
+     */
     public function subcategoria()
     {
         return $this->belongsTo(Subcategoria::class, 'subcategoria_id');
     }
 
+    /**
+     * Un producto pertenece a un usuario creador.
+     */
     public function creador()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Un producto pertenece a una marca.
+     */
     public function marca()
     {
         return $this->belongsTo(Marca::class, 'marca_id');
