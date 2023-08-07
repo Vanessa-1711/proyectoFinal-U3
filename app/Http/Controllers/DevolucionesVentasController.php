@@ -1,20 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-<<<<<<< HEAD
+
 use App\Models\DevolucionVenta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-=======
-
-use Illuminate\Http\Request;
->>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7
 
 class DevolucionesVentasController extends Controller
 {
     //
-<<<<<<< HEAD
     public function index()
     {
         $devoluciones = DevolucionVenta::all();
@@ -106,6 +101,4 @@ class DevolucionesVentasController extends Controller
 
         return redirect()->route('devoluciones.index')->with('mensaje', 'Devolución eliminada exitosamente');
     }
-=======
->>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7
 }
