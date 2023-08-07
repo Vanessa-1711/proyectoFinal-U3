@@ -21,14 +21,14 @@ class UsuarioController extends Controller
     {
        
         $usuarios = Usuario::all();
-        return view('usuario.tabla', compact('usuario'));
+        return view('usuarios.tabla', compact('usuarios'));
     }
 
     //Muestra el formulario para crear un nuevo proveedor.
     public function create()
     {
         $usuarios = Usuario::all();
-        return view('usuario.crear');
+        return view('usuarios.crear');
     }
     
     //Almacena un nuevo proveedor en la base de datos.
@@ -36,26 +36,28 @@ class UsuarioController extends Controller
     {
         // Validar los campos del formulario antes de almacenar el proveedor
         $this->validate($request, [
-            'fotografia' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagen' => 'required',
             'nombre' => 'required',
-            'codigo' => 'required|min:5|numeric|unique:proveedores',
+            'apellido' => 'required',
             'telefono' => 'required|max:10',
             'correo' => 'required|email',
-            'pais' => 'required',
+            'password' => 'required',
             'estado' => 'required',
-            'ciudad' => '',
+            'rol' => 'required',
+            'username' => 'required',
         ]);
 
         // Crear una nueva instancia del modelo Proveedor y asignar los valores del formulario
-        Proveedor::create([
-            'nombre' => $request->nombre,
-            'codigo' => $request->codigo,
+        Usuario::create([
+            'name' => $request->nombre,
+            'apellido' => $request->apellido,
             'telefono' => $request->telefono,
-            'correo' => $request->correo,
-            'fotografia' => $request->imagen,
-            'pais' => $request->pais,
-            'estado' => $request->estado,
-            'ciudad' => $request->ciudad,
+            'email' => $request->correo,
+            'imagen' => $request->imagen,
+            'password' => $request->password,
+            'status' => $request->estado,
+            'rol' => $request->rol,
+            'username' => $request->username,
         ]);
 
         // Mostrar un mensaje de éxito y redireccionar a la página de proveedores
@@ -79,7 +81,7 @@ class UsuarioController extends Controller
         $imagenServidor->fit(1000, 1000);
 
         // Movemos la imagen a un lugar físico del servidor
-        $imagenPath = public_path('imagenProveedor') . '/' . $nombreImagen;
+        $imagenPath = public_path('imagenUsuario') . '/' . $nombreImagen;
 
         // Pasar la imagen de memoria al servidor
         $imagenServidor->save($imagenPath);
@@ -100,8 +102,8 @@ class UsuarioController extends Controller
     public function edit($id)
     {
         // Buscar el proveedor con el ID proporcionado
-        $proveedor = Proveedor::find($id);
-        return view('proveedores.editarProveedores', compact('proveedor'));
+        $usuario = Usuario::find($id);
+        return view('usuarios.editar', compact('usuario'));
     }
 
     //Actualiza un proveedor existente en la base de datos.
@@ -109,57 +111,58 @@ class UsuarioController extends Controller
     {
         // Validar los campos del formulario antes de actualizar el proveedor
         $this->validate($request, [
-            'fotografia' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nombre' => 'required',
-            'codigo' => 'required|min:5|numeric',
+            'apellido' => 'required',
             'telefono' => 'required|max:10',
             'correo' => 'required|email',
-            'pais' => 'required',
+            'password' => 'required',
             'estado' => 'required',
-            'ciudad' => '',
+            'rol' => 'required',
+            'username' => 'required',
         ]);
 
         // Buscar el proveedor por el ID
-        $proveedor = Proveedor::find($id);
-        $imagenActual = $proveedor->fotografia;
+        $usuario = Usuario::find($id);
+        $imagenActual = $usuario->imagen;
 
         // Verificar si el valor del campo de imagen ha cambiado
-        if ($request->imagen !== $proveedor->fotografia) {
+        if ($request->imagen !== $usuario->imagen) {
             // Actualizar la propiedad 'fotografia' del modelo con el nuevo valor
-            $proveedor->fotografia = $request->imagen;
+            $usuario->imagen = $request->imagen;
         }
-        $proveedor->nombre = $request->nombre;
-        $proveedor->codigo = $request->codigo;
-        $proveedor->telefono = $request->telefono;
-        $proveedor->correo = $request->correo;
-        $proveedor->pais = $request->pais;
-        $proveedor->estado = $request->estado;
-        $proveedor->ciudad = $request->ciudad;
+        $usuario->nombre = $request->nombre;
+        $usuario->apellido = $request->codigo;
+        $usuario->telefono = $request->telefono;
+        $usuario->email = $request->correo;
+        $usuario->password = $request->pais;
+        $usuario->status = $request->estado;
+        $usuario->rol = $request->rol;
+        $usuario->usernam = $request->username;
 
         // Guardar los cambios en la base de datos
-        $proveedor->save();
+        $usuario->save();
 
-        // Establecer el mensaje de éxito solo si el proveedor se edita correctamente
-        if ($proveedor->wasChanged()) {
+        // Establecer el mensaje de éxito solo si el usuario se edita correctamente
+        if ($usuario->wasChanged()) {
             $request->session()->flash('success', '¡El proveedor se ha editado exitosamente!');
         }
 
-        return redirect()->route('proveedores');
+        return redirect()->route('usuario.index');
     }
 
     //Elimina un proveedor específico de la base de datos.
-    public function destroy(Proveedor $proveedor)
+    public function destroy(Usuario $usuario)
     {
         // Comprobamos si el producto tiene imagen asociada
-        if ($proveedor->fotografia) {
-            $imagenPath = public_path('imagenProveedor') . '/' . $proveedor->fotografia;
+        if ($usuario->fotografia) {
+            $imagenPath = public_path('imagenUsuario') . '/' . $usuario->imagen;
             //Si existe la imagen en el servidor, la eliminamos
             if (file_exists($imagenPath)) {
                 unlink($imagenPath); 
             }
         }
         // Eliminar el proveedor
-        $proveedor->delete();
+        $usuario->delete();
         session()->flash('success', '¡El proveedor se ha eliminado exitosamente!');
         return redirect()->route('proveedores');
     }

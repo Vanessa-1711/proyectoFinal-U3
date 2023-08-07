@@ -327,7 +327,7 @@
                     </li>
                     <li class="mt-0.5 w-full">
                         <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
-                            href="">
+                            href="{{ route('usuario.index', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill relative top-0 text-sm leading-normal text-orange-500" viewBox="0 0 16 16">
