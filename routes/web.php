@@ -58,6 +58,8 @@ Route::post('/formCategorias',[CategoriasController::class,'store']);
 Route::get('/categorias/{categoria}/edit', [CategoriasController::class, 'edit'])->name('categorias.editarCategoria');
 Route::put('/categorias/{categoria}', [CategoriasController::class, 'update'])->name('categorias.update');
 Route::delete('/categorias/{categoria}', [CategoriasController::class, 'delete'])->name('categorias.delete');
+Route::post('/categorias/imagen', [CategoriasController::class,'Imagenstore'])->name("imagenesCategorias.store");
+
 
 
 
@@ -74,14 +76,14 @@ Route::post('/products', [ProductController::class, 'store'])->name('products.st
 //Ruta para cargar imagenes
 Route::post('/products/imagen', [ProductController::class,'Imagenstore'])->name("imagenesProduc.store");
 // Muestra un producto específico
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{productId}', [ProductController::class, 'show'])->name('products.show');
 // Muestra el formulario para editar un producto
 Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
 // Actualiza un producto específico
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 // Elimina un producto específico
 Route::delete('/products/{product}', [ProductController::class, 'delete'])->name('products.delete');
-
+Route::get('/products/subcategorias/{categoria_id}', [ProductController::class, 'getSubcategorias'])->name('getSubcategorias');
 
 
 
@@ -93,12 +95,10 @@ Route::get('/subcategorias/{subcategoria}', [SubcategoriaController::class, 'sho
 Route::get('/subcategorias/{subcategoria}/edit', [SubcategoriaController::class, 'edit'])->name('subcategorias.edit');
 Route::put('/subcategorias/{subcategoria}', [SubcategoriaController::class, 'update'])->name('subcategoria.update');
 Route::delete('/subcategorias/{subcategoria}', [SubcategoriaController::class, 'delete'])->name('subcategorias.destroy');
+Route::post('/subcategorias/imagen', [SubcategoriaController::class,'Imagenstore'])->name("imagenesSubcategoria.store");
 
 
 
-Route::post('/marcas/imagenes', [MarcaImagenController::class, 'store']);
-//Ruta para cargar imagenes
-Route::post('/imagenes', [ImagenController::class,'store'])->name("imagenes.store");
 
 Route::post('/marcas/imagen', [MarcaController::class,'Imagenstore'])->name("imagenesMarca.store");
 

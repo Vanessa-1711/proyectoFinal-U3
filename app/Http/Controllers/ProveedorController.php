@@ -137,6 +137,14 @@ class ProveedorController extends Controller
     //Elimina un proveedor específico de la base de datos.
     public function destroy(Proveedor $proveedor)
     {
+        // Comprobamos si el producto tiene imagen asociada
+        if ($proveedor->fotografia) {
+            $imagenPath = public_path('imagenProveedor') . '/' . $proveedor->fotografia;
+            //Si existe la imagen en el servidor, la eliminamos
+            if (file_exists($imagenPath)) {
+                unlink($imagenPath); 
+            }
+        }
         // Eliminar el proveedor
         $proveedor->delete();
         session()->flash('success', '¡El proveedor se ha eliminado exitosamente!');

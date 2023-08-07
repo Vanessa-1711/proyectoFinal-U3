@@ -17,6 +17,13 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
+<style>
+    .dz-image img{
+        height: 120px!important;
+        width:120px !important;
+    }
+</style>
 @endsection
 
 @section('contenido_top')

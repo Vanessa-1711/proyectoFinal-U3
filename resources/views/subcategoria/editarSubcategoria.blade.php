@@ -4,6 +4,14 @@
     Editar Subcategoría
 @endsection
 
+@section('estilos')
+    {{-- Estilos de dropzone css --}}
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <!-- Agregar estilos adicionales relacionados con esta página aquí -->
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <!-- Agregar cualquier script adicional relacionado con dropzone aquí -->
+@endsection
+
 @section('estilos2')
 <!-- Se incluyen las librerías y estilos para Select2 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -32,6 +40,10 @@
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
           <div class="p-6">
+            <!-- Dropzone para subir imágenes -->
+            <form action="{{route('imagenesSubcategoria.store')}}" method="POST" enctype="multipart/form-data" id="dropzone" class="dropzone" style="width: 100%; border: none; padding: 0px; align-items: center">
+                @csrf
+            </form>
           
             <form action="{{ route('subcategoria.update', $subcategoria->id) }}" method="POST" novalidate>
                 @csrf
@@ -43,6 +55,18 @@
                         {{session('mensaje')}}
                     </p>
                 @endif
+                <div class="mb-5">
+                    <!-- Campo oculto para almacenar el valor actual de la imagen -->
+                    <input type="hidden" name="imagen"  value="{{ $subcategoria->imagen }} ">
+                    <label class="block text-sm font-medium text-gray-700">Imagen actual:</label>
+                    <img src="{{ asset('imagenSubcategoria/' . $subcategoria->imagen) }}" alt="Imagen actual del producto" class="w-32 h-32 object-cover mt-2">
+                    @error('imagen')
+                        <!-- Mostrar mensaje de error para el campo de imagen -->
+                        <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                            {{$message}}
+                        </p>    
+                    @enderror
+                </div>
                 <div class="mb-4">
                         <label for="categoria_id" class="block text-sm font-medium text-gray-700">Categoría:</label>
                         <!-- Selector de categorías usando Select2 -->
@@ -128,7 +152,7 @@ $(document).ready(function() {
     }).then((result) => {
       if (result.isConfirmed) {
         // Redirecciona al usuario a la página "tablaProductos"
-        window.location.href = '{{ route('categorias') }}';
+        window.location.href = '{{ route('subcategorias') }}';
       }
     });
   });

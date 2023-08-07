@@ -3,6 +3,13 @@
 @section('titulo')
     Agregar Subcategoria
 @endsection
+@section('estilos')
+    {{-- Estilos de dropzone css --}}
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <!-- Agregar estilos adicionales relacionados con esta página aquí -->
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <!-- Agregar cualquier script adicional relacionado con dropzone aquí -->
+@endsection
 
 @section('estilos2')
 <!-- Se incluyen las librerías y estilos para Select2 -->
@@ -32,6 +39,9 @@
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
           <div class="p-6">
+            <form action="{{route('imagenesSubcategoria.store')}}" method="POST" enctype="multipart/form-data" id="dropzone" class="dropzone" style="width: 100%; border: none; padding: 0px; align-items: center">
+                @csrf
+            </form>
             <form action="{{route('subcategorias.store')}}" method="POST" novalidate>
                 @csrf
 
@@ -83,6 +93,15 @@
                     @error('descripcion')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror  
+                </div>
+
+                <div class="mb-5">
+                    <input type="hidden" name="imagen"  value="{{old('imagen')}}">
+                    @error('imagen')
+                    <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                            {{$message}}
+                        </p>    
+                    @enderror
                 </div>
       
                 <div class="flex justify-center">

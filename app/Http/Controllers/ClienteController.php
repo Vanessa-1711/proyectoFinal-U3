@@ -6,7 +6,9 @@ use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
-
+use App\Models\Country;
+use App\Models\City;
+use App\Models\State;
 class ClienteController extends Controller
 {
     public function __construct()
@@ -31,9 +33,12 @@ class ClienteController extends Controller
     {
         // Obtener todos los clientes desde la base de datos (esto parece innecesario aquí)
         $clientes = Cliente::all();
+        $cities = City::all();
+        $countries = Country::all();
+        $states = State::all();
 
         // Mostrar la vista 'getorClientes' y pasar los clientes como una variable llamada 'clientes'
-        return view('clientes.getorClientes', compact('clientes'));
+        return view('clientes.getorClientes', compact('clientes','countries', 'cities', 'states' ));
     }
 
     // Método para almacenar la imagen del cliente en el servidor
@@ -71,6 +76,8 @@ class ClienteController extends Controller
             'empresa' => 'required',
             'telefono' => 'required|max:10',
             'correo' => 'required|email',
+            'pais' => 'required',
+            'ciudad' => 'required',
         ]);
 
         // Crear una nueva instancia del modelo Cliente y guardarla en la base de datos
@@ -154,6 +161,14 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         $cliente->delete();
+        // Comprobamos si el producto tiene imagen asociada
+        if ($cliente->fotografia) {
+            $imagenPath = public_path('imagenCliente') . '/' . $cliente->fotografia;
+            //Si existe la imagen en el servidor, la eliminamos
+            if (file_exists($imagenPath)) {
+                unlink($imagenPath); 
+            }
+        }
         session()->flash('success', '¡El cliente se ha eliminado exitosamente!');
         return redirect()->route('clientes');
     }

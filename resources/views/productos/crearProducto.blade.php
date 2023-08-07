@@ -175,4 +175,32 @@ $(document).ready(function() {
     });
   });
 </script>
+
+<script>
+    $(document).ready(function() {
+    $('.select2').select2();
+
+    $('#categoria_id').change(function() {
+        var categoria_id = $(this).val();
+
+        // Limpia las opciones actuales del select de subcategorías
+        $('#subcategoria_id').empty();
+        $('#subcategoria_id').append('<option value="">-- Seleccione una subcategoría --</option>');
+
+        // Si hay una categoría seleccionada, realiza la petición AJAX
+        if (categoria_id) {
+            $.ajax({
+                url: '/products/subcategorias/' + categoria_id,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $.each(data, function(key, value) {
+                        $('#subcategoria_id').append('<option value="' + value.id + '">' + value.descripcion + '</option>');
+                    });
+                }
+            });
+        }
+    });
+});
+</script>
 @endsection

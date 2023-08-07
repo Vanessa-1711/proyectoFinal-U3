@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categorias;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class CategoriasController extends Controller
 {
@@ -38,7 +40,8 @@ class CategoriasController extends Controller
         $this->validate($request, [
             'nombre' => 'required|unique:categorias',
             'descripcion' => 'required',
-            'codigo' => 'required|unique:categorias',
+            'codigo' => 'required|numeric|unique:categorias',
+            'imagen' => 'required',
         ]);
 
         // Crear una nueva instancia del modelo Categorias y guardarla en la base de datos
@@ -46,12 +49,36 @@ class CategoriasController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'codigo' => $request->codigo,
+            'imagen'=> $request->imagen,
             'user_id' => auth()->user()->id,
         ]);
 
         // Redireccionar a la ruta 'categorias' (lista de categorías)
         $request->session()->flash('success', '¡La categoría se ha registrado exitosamente!');
         return redirect()->route('categorias');
+    }
+    // Método para almacenar la imagen de un producto usando Intervention Image
+    public function Imagenstore(Request $request){
+        // Identificar el archivo que se sube en dropzone
+        $imagen = $request->file('file');
+
+        // Generar un ID único para cada una de las imágenes que se cargan al servidor
+        $nombreImagen = Str::uuid() . "." . $imagen->extension();
+
+        // Implementar Intervention Image
+        $imagenServidor = Image::make($imagen);
+
+        // Agregar efectos de Intervention Image: Indicar la medida de cada imagen 
+        $imagenServidor->fit(1000, 1000);
+
+        // Movemos la imagen a un lugar físico del servidor
+        $imagenPath = public_path('imagenCategoria') . '/' . $nombreImagen;
+
+        // Pasar la imagen de memoria al servidor
+        $imagenServidor->save($imagenPath);
+
+        // Verificar que el nombre del archivo se ponga como único
+        return response()->json(['imagen' => $nombreImagen]);
     }
 
     // Método para mostrar el formulario de edición de una categoría específica
@@ -71,15 +98,17 @@ class CategoriasController extends Controller
         $this->validate($request, [
             'nombre' => 'required',
             'descripcion' => 'required',
-            'codigo' => 'required|min:5|numeric|unique:categorias',
+            'codigo' => 'required|min:5|numeric|unique:categorias,codigo,' . $id,
         ]);
 
         // Buscar la categoría por su ID en la base de datos
         $categoria = Categorias::find($id);
+        $imagenActual = $categoria->imagen;
 
-        // Si la categoría no se encuentra, redireccionar y mostrar un mensaje de error
-        if (!$categoria) {
-            return redirect()->back()->with('error', 'Categoría no encontrada');
+        // Verificar si el valor del campo de imagen ha cambiado
+        if ($request->imagen !== $categoria->imagen) {
+            // Actualizar la propiedad 'imagen' del modelo con el nuevo valor
+            $categoria->imagen = $request->imagen;
         }
 
         // Actualizar los campos de la categoría con los valores enviados desde el formulario
@@ -101,6 +130,14 @@ class CategoriasController extends Controller
     {
         // Buscar la categoría por su ID en la base de datos
         $categoria = Categorias::find($id_categoria);
+        // Comprobamos si el producto tiene imagen asociada
+        if ($categoria->imagen) {
+            $imagenPath = public_path('imagenCategoria') . '/' . $categoria->imagen;
+            //Si existe la imagen en el servidor, la eliminamos
+            if (file_exists($imagenPath)) {
+                unlink($imagenPath); 
+            }
+        }
 
         // Si la categoría tiene productos relacionados, eliminarlos también
         if ($categoria->productos()->exists()) {

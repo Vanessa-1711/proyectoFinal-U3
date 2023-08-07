@@ -68,6 +68,11 @@ class ProductController extends Controller
         $request->session()->flash('success', '¡El producto se ha registrado exitosamente!');
         return redirect()->route('tablaProductos');
     }
+    public function getSubcategorias($categoria_id)
+    {
+        $subcategorias = Subcategoria::where('categoria_id', $categoria_id)->get();
+        return response()->json($subcategorias);
+    }
 
     // Método para mostrar los detalles de un producto específico
     public function show(string $id)
@@ -166,7 +171,16 @@ class ProductController extends Controller
     {
         $product = Product::find($id_producto);
         // Eliminar el producto
+        // Comprobamos si el producto tiene imagen asociada
+        if ($product->imagen) {
+            $imagenPath = public_path('imagenProductos') . '/' . $product->imagen;
+            //Si existe la imagen en el servidor, la eliminamos
+            if (file_exists($imagenPath)) {
+                unlink($imagenPath); 
+            }
+        }
         $product->delete();
         session()->flash('success', '¡El producto se ha eliminado exitosamente!');
+        return redirect()->route('tablaProductos');
     }
 }

@@ -141,6 +141,14 @@ class MarcaController extends Controller
                 $producto->delete();
             }
         }
+        // Comprobamos si el producto tiene imagen asociada
+        if ($marca->imagen) {
+            $imagenPath = public_path('imagenMarcas') . '/' . $marca->imagen;
+            //Si existe la imagen en el servidor, la eliminamos
+            if (file_exists($imagenPath)) {
+                unlink($imagenPath); 
+            }
+        }
 
         // Eliminar la marca
         $marca->delete();
