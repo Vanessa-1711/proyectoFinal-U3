@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use App\Models\Usuario;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use App\Models\Country;
-use App\Models\State;
-use App\Models\City;
-class ProveedorController extends Controller
+
+class UsuarioController extends Controller
 {
     public function __construct()
     {
@@ -22,19 +20,15 @@ class ProveedorController extends Controller
     public function index()
     {
        
-        $proveedores = Proveedor::all();
-        return view('proveedores.tablaProveedores', compact('proveedores'));
+        $usuarios = Usuario::all();
+        return view('usuario.tabla', compact('usuario'));
     }
 
     //Muestra el formulario para crear un nuevo proveedor.
     public function create()
     {
-        $proveedores = Proveedor::all();
-        $countries = Country::all();
-        $cities = City::all();
-        $states = State::all();
-        $proveedores = Proveedor::all();
-        return view('proveedores.gestorProveedores', compact('proveedores','countries', 'cities', 'states'));
+        $usuarios = Usuario::all();
+        return view('usuario.crear');
     }
     
     //Almacena un nuevo proveedor en la base de datos.

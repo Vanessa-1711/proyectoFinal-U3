@@ -139,6 +139,15 @@ Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'
 Route::post('/proveedor/imagen', [ProveedorController::class,'Imagenstore'])->name("imagenProveedor.store");
 
 
+//Usuarios
+Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario');
+Route::get('/usuario/create', [UsuarioController::class, 'create'])->name('usuario.create');
+Route::post('/usuario', [UsuarioController::class, 'store'])->name('usuario.store');
+Route::get('/usuario/{usuario}', [UsuarioController::class, 'show'])->name('usuario.show');
+Route::get('/usuario/{usuario}/edit', [UsuarioController::class, 'edit'])->name('usuario.edit');
+Route::put('/usuario/{usuario}', [UsuarioController::class, 'update'])->name('usuario.update');
+Route::delete('/usuario/{usuario}', [UsuarioController::class, 'destroy'])->name('usuario.destroy');
+Route::post('/usuario/imagen', [UsuarioController::class,'Imagenstore'])->name("imagenusuario.store");
 
 //devoluciones de ventas
 
