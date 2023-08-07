@@ -14,12 +14,12 @@ use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ClienteImagenController;
-<<<<<<< HEAD
+
 use App\Http\Controllers\DevolucionesVentasController;
-=======
+
 use App\Http\Controllers\PuntoVentaController;
 use App\Http\Controllers\VentasController;
->>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -138,7 +138,7 @@ Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'
 Route::post('/proveedor/imagen', [ProveedorController::class,'Imagenstore'])->name("imagenProveedor.store");
 
 
-<<<<<<< HEAD
+
 //devoluciones de ventas
 
 Route::get('/devoluciones', [DevolucionesVentasController::class, 'index'])->name('devoluciones');
@@ -149,7 +149,7 @@ Route::get('/devoluciones/{devolucion}/edit', [DevolucionesVentasController::cla
 Route::put('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'update'])->name('devoluciones.update');
 Route::delete('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'destroy'])->name('devoluciones.destroy');
 Route::post('/devoluciones/imagen', [DevolucionesVentasController::class, 'imagenStore'])->name('devoluciones.imagen.store');
-=======
+
 //Punto venta 
 Route::get('/puntoVenta', [PuntoVentaController::class, 'index'])->name('puntoVenta');
 
@@ -158,4 +158,4 @@ Route::get('/puntoVenta', [PuntoVentaController::class, 'index'])->name('puntoVe
 Route::get('/ventas', [VentasController::class, 'index'])->name('ventas');
 
 Route::get('/ventas/detalles', [VentasController::class, 'detallesTienda'])->name('ventas.show');
->>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7
+

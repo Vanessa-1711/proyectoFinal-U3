@@ -51,7 +51,6 @@
                       <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                       @enderror
                     </div>
-
                     <a class="font-bold uppercase text-zinc-50 text-sm"  href="{{route('register')}}"> Registrar usuario</a>
                     <div class="text-center">
                       <button type="submit" class="inline-block w-full px-16 py-3.5 mt-6 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-blue-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25" style="background-color:#734D84;">Sign in</button>

@@ -77,7 +77,7 @@ class ClienteController extends Controller
             'telefono' => 'required|max:10',
             'correo' => 'required|email',
             'pais' => 'required',
-            'ciudad' => 'required',
+            'ciudad' => '',
         ]);
 
         // Crear una nueva instancia del modelo Cliente y guardarla en la base de datos

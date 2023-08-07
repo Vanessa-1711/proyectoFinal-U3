@@ -6,7 +6,9 @@ use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-
+use App\Models\Country;
+use App\Models\State;
+use App\Models\City;
 class ProveedorController extends Controller
 {
     public function __construct()
@@ -19,8 +21,11 @@ class ProveedorController extends Controller
     //Muestra una tabla con todos los proveedores registrados.
     public function index()
     {
+        $countries = Country::all();
+        $cities = City::all();
+        $states = State::all();
         $proveedores = Proveedor::all();
-        return view('proveedores.tablaProveedores', compact('proveedores'));
+        return view('proveedores.gestorProveedores', compact('proveedores','countries', 'cities', 'states'));
     }
 
     //Muestra el formulario para crear un nuevo proveedor.
@@ -40,6 +45,9 @@ class ProveedorController extends Controller
             'codigo' => 'required|min:5|numeric|unique:proveedores',
             'telefono' => 'required|max:10',
             'correo' => 'required|email',
+            'pais' => 'required',
+            'estado' => 'required',
+            'ciudad' => '',
         ]);
 
         // Crear una nueva instancia del modelo Proveedor y asignar los valores del formulario
@@ -49,6 +57,9 @@ class ProveedorController extends Controller
             'telefono' => $request->telefono,
             'correo' => $request->correo,
             'fotografia' => $request->imagen,
+            'pais' => $request->pais,
+            'estado' => $request->estado,
+            'ciudad' => $request->ciudad,
         ]);
 
         // Mostrar un mensaje de éxito y redireccionar a la página de proveedores
@@ -107,6 +118,9 @@ class ProveedorController extends Controller
             'codigo' => 'required|min:5|numeric',
             'telefono' => 'required|max:10',
             'correo' => 'required|email',
+            'pais' => 'required',
+            'estado' => 'required',
+            'ciudad' => '',
         ]);
 
         // Buscar el proveedor por el ID
@@ -122,6 +136,9 @@ class ProveedorController extends Controller
         $proveedor->codigo = $request->codigo;
         $proveedor->telefono = $request->telefono;
         $proveedor->correo = $request->correo;
+        $proveedor->pais = $request->pais;
+        $proveedor->estado = $request->estado;
+        $proveedor->ciudad = $request->ciudad;
 
         // Guardar los cambios en la base de datos
         $proveedor->save();

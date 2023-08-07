@@ -194,7 +194,7 @@
                     </li>
                     <li class="mt-0.5 w-full">
                         <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
-<<<<<<< HEAD
+
                             href="{{ route('devoluciones', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -203,7 +203,7 @@
                                 </svg>
                             </div>
                             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Devolucion de venta</span>
-=======
+
                             href="{{ route('puntoVenta', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -236,7 +236,7 @@
                                 </svg>
                             </div>
                             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Devolucion de ventas</span>
->>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7
+
                         </a>
                     </li>
                     <li class="w-full mt-4">

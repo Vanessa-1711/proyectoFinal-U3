@@ -140,22 +140,43 @@
             }
         });
 
-        function confirmDelete(categoriaId) {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: 'Esta acción no se puede deshacer',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Si el usuario confirma, envía el formulario manualmente
-                    document.getElementById('deleteForm-' + categoriaId).submit();
-                }
-            });
-        }
+        // function confirmDelete(categoriaId) {
+        //     Swal.fire({
+        //         title: '¿Estás seguro?',
+        //         text: 'Esta acción no se puede deshacer',
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#d33',
+        //         cancelButtonColor: '#3085d6',
+        //         confirmButtonText: 'Sí, eliminar',
+        //         cancelButtonText: 'Cancelar'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             // Si el usuario confirma, envía el formulario manualmente
+        //             document.getElementById('deleteForm-' + categoriaId).submit();
+        //         }
+        //     });
+        // }
+
+            function confirmDelete(categoriaId) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'Al eliminar esta categoría, todas sus subcategorías serán eliminadas. Esta acción no se puede deshacer',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario confirma, envía el formulario manualmente
+                        document.getElementById('deleteForm-' + categoriaId).submit();
+                    }
+                });
+            }
+
+
     </script>
+    
 @endsection
