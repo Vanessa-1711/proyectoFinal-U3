@@ -14,9 +14,13 @@ use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ClienteImagenController;
+
+use App\Http\Controllers\DevolucionesVentasController;
+
 use App\Http\Controllers\PuntoVentaController;
 use App\Http\Controllers\GestionComprasController;
 use App\Http\Controllers\VentasController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -135,12 +139,25 @@ Route::delete('/proveedores/{proveedor}', [ProveedorController::class, 'destroy'
 Route::post('/proveedor/imagen', [ProveedorController::class,'Imagenstore'])->name("imagenProveedor.store");
 
 
+
+//devoluciones de ventas
+
+Route::get('/devoluciones', [DevolucionesVentasController::class, 'index'])->name('devoluciones');
+Route::get('/devoluciones/create', [DevolucionesVentasController::class, 'create'])->name('devoluciones.create');
+Route::post('/devoluciones', [DevolucionesVentasController::class, 'store'])->name('devoluciones.store');
+Route::get('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'show'])->name('devoluciones.show');
+Route::get('/devoluciones/{devolucion}/edit', [DevolucionesVentasController::class, 'edit'])->name('devoluciones.edit');
+Route::put('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'update'])->name('devoluciones.update');
+Route::delete('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'destroy'])->name('devoluciones.destroy');
+Route::post('/devoluciones/imagen', [DevolucionesVentasController::class, 'imagenStore'])->name('devoluciones.imagen.store');
+
 //Punto venta 
 Route::get('/puntoVenta', [PuntoVentaController::class, 'index'])->name('puntoVenta');
 
 
 //Ventas
 Route::get('/ventas', [VentasController::class, 'index'])->name('ventas');
+
 
 Route::get('/compras', [GestionComprasController::class, 'index'])->name('compras.index');
 Route::get('/compras2', [GestionComprasController::class, 'index2'])->name('compras2.index');
@@ -150,3 +167,5 @@ Route::get('/compras/getProducto/{id_producto}',[GestionComprasController::class
 
 
 //gestor compras 
+
+Route::get('/ventas/detalles', [VentasController::class, 'detallesTienda'])->name('ventas.show');

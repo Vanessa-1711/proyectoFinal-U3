@@ -77,38 +77,37 @@
                 
                 
                 <!-- Campos para país, estado y ciudad -->
+                <!-- Campos para país, estado y ciudad -->
                 <div class="mb-4">
                     <label for="country" class="block text-sm font-medium text-gray-700">País:</label>
-                    <select name="pais" id="country" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                    <select name="pais" id="country" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
                         <option value="">-- Seleccione un país --</option>
                         @foreach($countries as $country)
                             <option value="{{ $country->id }}">{{ $country->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <br>
                 
                 <div class="mb-4">
                     <label for="state" class="block text-sm font-medium text-gray-700">Estado:</label>
-                    <select name="estado" id="state" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-black/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                    <select name="estado" id="state" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-black/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
                         <option value="">Seleccione un estado</option>
                         @foreach($states as $state)
                             <option value="{{ $state->state_id }}" data-country="{{ $state->countryid }}">{{ $state->state_name }}</option>
                         @endforeach
-
+  
                     </select>
                 </div>
-                <br>
                 
-                <div class="mb-4">
+                {{-- <div class="mb-4">
                     <label for="city" class="block text-sm font-medium text-gray-700">Ciudad:</label>
-                    <select name="ciudad" id="city" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                    <select name="ciudad" id="city" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
                         <option value="">Seleccione una ciudad</option>
                         @foreach($cities as $city)
-                            <option value="{{ $city->id }}" data-state="{{ $city->state_id }}">{{ $city->name }}</option>
+                            <option value="{{ $city->city_id }}" data-state="{{ $city->state_id }}">{{ $city->name }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
 
                 <br>
                 <div class="mb-4">
@@ -183,59 +182,67 @@ $(document).ready(function() {
 </script>
 
 <script>
-    document.getElementById('country').addEventListener('change', function() {
-    const selectedCountry = this.value;
+let statesBackup = [];
+let citiesBackup = [];
 
-    // Habilitar y filtrar estados basados en el país seleccionado
+// Almacena todas las opciones iniciales para poder restaurarlas
+document.addEventListener('DOMContentLoaded', (event) => {
     const stateSelect = document.getElementById('state');
-    stateSelect.disabled = false;
-    const allStates = stateSelect.querySelectorAll('option[data-country]');
-    allStates.forEach(state => {
-        if (state.getAttribute('data-country') == selectedCountry) {
-            state.style.display = '';
-            state.disabled = false; // Habilitar la opción
-        } else {
-            state.style.display = 'none';
-            state.disabled = true; // Deshabilitar la opción
+    const citySelect = document.getElementById('city');
+
+    statesBackup = Array.from(stateSelect.options);
+    citiesBackup = Array.from(citySelect.options);
+});
+
+document.getElementById('country').addEventListener('change', function() {
+    const selectedCountry = this.value;
+    const stateSelect = document.getElementById('state');
+    const citySelect = document.getElementById('city');
+
+    // Restaura las opciones originales
+    stateSelect.options.length = 0;
+    statesBackup.forEach(option => {
+        stateSelect.options.add(option);
+    });
+
+    // Filtra las opciones basándose en el país seleccionado
+    Array.from(stateSelect.options).forEach(option => {
+        if (option.getAttribute('data-country') != selectedCountry) {
+            stateSelect.remove(option.index);
         }
     });
 
-    // Resetear y deshabilitar la selección de ciudades
-    const citySelect = document.getElementById('city');
+    // Deshabilita y resetea la selección de ciudades
     citySelect.disabled = true;
-    citySelect.selectedIndex = 0; // Reiniciar el valor seleccionado
-    citySelect.querySelectorAll('option[value]').forEach(city => {
-        city.style.display = 'none';
-        city.disabled = true; // Deshabilitar la opción
-    });
-    $('#state').trigger('change.select2'); // Actualiza la representación de Select2
+    citySelect.selectedIndex = 0;
+    citySelect.options.length = 0; // Remueve todas las opciones
+
+    // Actualiza la representación de Select2
+    $('#state').trigger('change.select2');
+    $('#city').trigger('change.select2');
 });
 
 document.getElementById('state').addEventListener('change', function() {
     const selectedState = this.value;
-
-    // Habilitar y filtrar ciudades basadas en el estado seleccionado
     const citySelect = document.getElementById('city');
-    citySelect.disabled = false;
-    const allCities = citySelect.querySelectorAll('option[data-state]');
-    allCities.forEach(city => {
-        if (city.getAttribute('data-state') == selectedState) {
-            city.style.display = '';
-            city.disabled = false; // Habilitar la opción
-        } else {
-            city.style.display = 'none';
-            city.disabled = true; // Deshabilitar la opción
+
+    // Restaura las opciones originales
+    citySelect.options.length = 0;
+    citiesBackup.forEach(option => {
+        citySelect.options.add(option);
+    });
+
+    // Filtra las opciones basándose en el estado seleccionado
+    Array.from(citySelect.options).forEach(option => {
+        if (option.getAttribute('data-state') != selectedState) {
+            citySelect.remove(option.index);
         }
     });
-    $('#city').trigger('change.select2'); // Actualiza la representación de Select2
+
+    // Actualiza la representación de Select2
+    $('#city').trigger('change.select2');
 });
 
 </script>
-
-
-
-
-
-
 @endsection
 

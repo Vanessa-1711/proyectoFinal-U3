@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
+
 @section('estilos')
-<!-- Enlace al archivo CSS de Dropzone -->
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-<!-- Enlace al archivo JS de Dropzone -->
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 @endsection
 
@@ -11,83 +10,102 @@
     Agregar Proveedor
 @endsection
 
+
 @section('contenido_top')
-<!-- Fondo para la sección superior -->
-<div class="absolute bg-y-50 w-full top-0 min-h-75">
-    <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
-</div>
+    <div
+        class="absolute bg-y-50 w-full top-0 min-h-75">
+        <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
+    </div>
 @endsection
 
 @section('contenido')
-<!-- Contenedor principal -->
 <div class="w-full px-6 py-6 mx-auto">
-  <!-- Formulario para registrar un nuevo proveedor -->
+  <!-- Formulario de registro de categoría -->
   <div class="flex flex-wrap -mx-3">
     <div class="flex-none w-full max-w-full px-3">
       <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-        <!-- Encabezado del formulario -->
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-          <h6 class="dark:text-white">Registrar Proveedor</h6>
+          <h6 class="dark:text-white">Registrar Marca</h6>
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
           <div class="p-6">
-            <!-- Formulario de registro de proveedor con Dropzone para la imagen -->
-            <form action="{{route('imagenProveedor.store')}}" method="post" enctype="multipart/form-data" id="dropzone" class="dropzone" style="width: 100%; border:none;padding:0px; align-items:center">
+            <form action="{{route('imagenProveedor.store')}}" method="post" enctype="multipart/form-data" id="dropzone" class="dropzone " style="width: 100%; border:none;padding:0px; align-items:center">
                 @csrf
             </form>
 
-            <!-- Formulario para registrar los detalles del proveedor -->
             <form action="{{ route('proveedores.store') }}" method="POST" novalidate>
                 @csrf
-                <!-- Mensaje de confirmación de éxito o error -->
+
                 @if(session('mensaje'))
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
                         {{session('mensaje')}}
                     </p>
                 @endif
-                <!-- Campo para ingresar el nombre del proveedor -->
                 <div class="mb-4">
                     <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
                     <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{old('nombre')}}" required>
-                    <!-- Mensaje de error en caso de haber problemas con el nombre -->
                     @error('nombre')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
 
-                <!-- Campo para ingresar el código del proveedor -->
                 <div class="mb-4">
                     <label for="codigo" class="block text-sm font-medium text-gray-700">Código:</label>
                     <input type="text" id="codigo" name="codigo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('codigo') border-red-500 @enderror" value="{{old('codigo')}}" required>
-                    <!-- Mensaje de error en caso de haber problemas con el código -->
                     @error('codigo')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
+
+                <!-- Campos para país, estado y ciudad -->
+                <div class="mb-4">
+                  <label for="country" class="block text-sm font-medium text-gray-700">País:</label>
+                  <select name="pais" id="country" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                      <option value="">-- Seleccione un país --</option>
+                      @foreach($countries as $country)
+                          <option value="{{ $country->id }}">{{ $country->name }}</option>
+                      @endforeach
+                  </select>
+              </div>
+              
+              <div class="mb-4">
+                  <label for="state" class="block text-sm font-medium text-gray-700">Estado:</label>
+                  <select name="estado" id="state" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-black/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                      <option value="">Seleccione un estado</option>
+                      @foreach($states as $state)
+                          <option value="{{ $state->state_id }}" data-country="{{ $state->countryid }}">{{ $state->state_name }}</option>
+                      @endforeach
+
+                  </select>
+              </div>
+              
+              {{-- <div class="mb-4">
+                  <label for="city" class="block text-sm font-medium text-gray-700">Ciudad:</label>
+                  <select name="ciudad" id="city" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                      <option value="">Seleccione una ciudad</option>
+                      @foreach($cities as $city)
+                          <option value="{{ $city->city_id }}" data-state="{{ $city->state_id }}">{{ $city->name }}</option>
+                      @endforeach
+                  </select>
+              </div> --}}
                 
-                <!-- Campo para ingresar el teléfono del proveedor -->
                 <div class="mb-4">
                     <label for="telefono" class="block text-sm font-medium text-gray-700">Telefono:</label>
                     <input type="number" id="telefono" name="telefono" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('telefono') border-red-500 @enderror" value="{{old('telefono')}}" required>
-                    <!-- Mensaje de error en caso de haber problemas con el teléfono -->
                     @error('telefono')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
 
-                <!-- Campo para ingresar el correo del proveedor -->
                 <div class="mb-4">
                     <label for="correo" class="block text-sm font-medium text-gray-700">Correo:</label>
                     <input type="email" id="correo" name="correo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('correo') border-red-500 @enderror" value="{{old('correo')}}" required>
-                    <!-- Mensaje de error en caso de haber problemas con el correo -->
                     @error('correo')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
-                <!-- Campo oculto para la imagen del proveedor -->
                 <div class="mb-5">
                     <input type="hidden" name="imagen"  value="{{old('imagen')}}">
-                    <!-- Mensaje de error en caso de haber problemas con la imagen -->
                     @error('imagen')
                     <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
                             {{$message}}
@@ -95,7 +113,6 @@
                     @enderror
                 </div>
                 
-                <!-- Botones para cancelar y registrar el proveedor -->
                 <div class="flex justify-center">
                     <button type="button" id="btnCancelar" class="btnCancelar mr-2 px-4 py-2 text-sm font-medium text-gray-600 bg-transparent rounded-md hover:text-gray-800 focus:outline-none">
                         Cancelar
@@ -113,15 +130,14 @@
   </div>
 </div>
 
-<!-- Script para cargar la librería Select2 y aplicarla a elementos con la clase select2 -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+// In your Javascript (external .js resource or <script> tag)
 $(document).ready(function() {
     $('.select2').select2();
 });
 </script>
 
-<!-- Script para mostrar una alerta de confirmación antes de cancelar el registro -->
 <script>
   document.getElementById('btnCancelar').addEventListener('click', function() {
     // Muestra el SweetAlert de confirmación
@@ -136,11 +152,69 @@ $(document).ready(function() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Redirecciona al usuario a la página "proveedores"
+        // Redirecciona al usuario a la página "tablaProductos"
         window.location.href = '{{ route('proveedores') }}';
       }
     });
   });
 </script>
 
+
+<script>
+    
+  document.getElementById('country').addEventListener('change', function() {
+  const selectedCountry = this.value;
+
+  // Habilitar y filtrar estados basados en el país seleccionado
+  const stateSelect = document.getElementById('state');
+  stateSelect.disabled = false;
+  const allStates = stateSelect.querySelectorAll('option[data-country]');
+  allStates.forEach(state => {
+      if (state.getAttribute('data-country') == selectedCountry) {
+          state.style.display = '';
+          state.disabled = false; // Habilitar la opción
+      } else {
+          state.style.display = 'none';
+          state.disabled = true; // Deshabilitar la opción
+      }
+  });
+
+  // Resetear y deshabilitar la selección de ciudades
+  const citySelect = document.getElementById('city');
+  citySelect.disabled = true;
+  citySelect.selectedIndex = 0; // Reiniciar el valor seleccionado
+  citySelect.querySelectorAll('option[value]').forEach(city => {
+      city.style.display = 'none';
+      city.disabled = true; // Deshabilitar la opción
+  });
+  $('#state').trigger('change.select2'); // Actualiza la representación de Select2
+});
+
+document.getElementById('state').addEventListener('change', function() {
+    const selectedState = this.value;
+    console.log('Estado seleccionado: ' + selectedState);
+
+    // Habilitar y filtrar ciudades basadas en el estado seleccionado
+    const citySelect = document.getElementById('city');
+    citySelect.disabled = false;
+    const allCities = citySelect.querySelectorAll('option[data-state]');
+    allCities.forEach(city => {
+        console.log('Ciudad: ' + city.value + ', data-state: ' + city.getAttribute('data-state'));
+        if (city.getAttribute('data-state') == selectedState) {
+            city.style.display = '';
+            city.disabled = false; // Habilitar la opción
+        } else {
+            city.style.display = 'none';
+            city.disabled = true; // Deshabilitar la opción
+        }
+    });
+
+    // Actualiza la representación de Select2
+    $('#city').trigger('change.select2');
+});
+
+
+</script>
+
 @endsection
+
