@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -40,7 +41,7 @@ class UsuarioController extends Controller
             'nombre' => 'required',
             'apellido' => 'required',
             'telefono' => 'required|max:10',
-            'correo' => 'required|email',
+            'correo' => 'required|email|unique:users,email',
             'password' => 'required',
             'estado' => 'required',
             'rol' => 'required',
@@ -54,7 +55,7 @@ class UsuarioController extends Controller
             'telefono' => $request->telefono,
             'email' => $request->correo,
             'imagen' => $request->imagen,
-            'password' => $request->password,
+            'password' => Hash::make( $request->password ),
             'status' => $request->estado,
             'rol' => $request->rol,
             'username' => $request->username,
@@ -62,7 +63,7 @@ class UsuarioController extends Controller
 
         // Mostrar un mensaje de éxito y redireccionar a la página de proveedores
         $request->session()->flash('success', '¡El Proveedor se ha registrado exitosamente!');
-        return redirect()->route('proveedores');
+        return redirect()->route('usuario.index');
     }
 
      //Método para almacenar la imagen de un proveedor usando Intervention Image.
@@ -115,7 +116,6 @@ class UsuarioController extends Controller
             'apellido' => 'required',
             'telefono' => 'required|max:10',
             'correo' => 'required|email|unique:users,email,' . $id,
-            'password' => 'required',
             'estado' => 'required',
             'rol' => 'required',
             'username' => 'required',
@@ -124,6 +124,9 @@ class UsuarioController extends Controller
         // Buscar el proveedor por el ID
         $usuario = Usuario::find($id);
         $imagenActual = $usuario->imagen;
+        if ($request->filled('password')) {
+            $usuario->password = Hash::make($request->password);
+        }
 
         // Verificar si el valor del campo de imagen ha cambiado
         if ($request->imagen !== $usuario->imagen) {
@@ -131,10 +134,9 @@ class UsuarioController extends Controller
             $usuario->imagen = $request->imagen;
         }
         $usuario->name = $request->nombre;
-        $usuario->apellido = $request->codigo;
+        $usuario->apellido = $request->apellido;
         $usuario->telefono = $request->telefono;
         $usuario->email = $request->correo;
-        $usuario->password = $request->password;
         $usuario->status = $request->estado;
         $usuario->rol = $request->rol;
         $usuario->username = $request->username;
@@ -164,6 +166,6 @@ class UsuarioController extends Controller
         // Eliminar el proveedor
         $usuario->delete();
         session()->flash('success', '¡El proveedor se ha eliminado exitosamente!');
-        return redirect()->route('proveedores');
+        return redirect()->route('usuario.index');
     }
 }
