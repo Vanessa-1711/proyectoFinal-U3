@@ -33,12 +33,12 @@ class ClienteController extends Controller
     {
         // Obtener todos los clientes desde la base de datos (esto parece innecesario aquí)
         $clientes = Cliente::all();
-        $cities = City::all();
+        // $cities = City::all();
         $countries = Country::all();
         $states = State::all();
 
         // Mostrar la vista 'getorClientes' y pasar los clientes como una variable llamada 'clientes'
-        return view('clientes.getorClientes', compact('clientes','countries', 'cities', 'states' ));
+        return view('clientes.getorClientes', compact('clientes','countries', 'states' ));
     }
 
     // Método para almacenar la imagen del cliente en el servidor
@@ -77,7 +77,7 @@ class ClienteController extends Controller
             'telefono' => 'required|max:10',
             'correo' => 'required|email',
             'pais' => 'required',
-            'ciudad' => '',
+            'ciudad' => 'sometimes',
         ]);
 
         // Crear una nueva instancia del modelo Cliente y guardarla en la base de datos
@@ -87,6 +87,9 @@ class ClienteController extends Controller
         $cliente->empresa = $request->empresa;
         $cliente->telefono = $request->telefono;
         $cliente->correo = $request->correo;
+        $cliente->pais = $request->pais;
+        $cliente->estado = $request->estado;
+        $cliente->ciudad = $request->input('ciudad');
         $cliente->fotografia = $request->imagen; // Aquí asumo que la imagen es una cadena con el nombre de la imagen en el servidor
         $cliente->save();
 
