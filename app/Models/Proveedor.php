@@ -19,4 +19,13 @@ class Proveedor extends Model
         'estado',
         'ciudad',
     ];
+
+    public function country() {
+        return $this->belongsTo(Country::class, 'pais', 'id');
+    }
+    
+    public function state() {
+        return $this->belongsTo(State::class, 'estado', 'state_id');
+    }
+    
 }

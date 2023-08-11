@@ -32,7 +32,7 @@ class ProveedorController extends Controller
         $countries = Country::all();
         // $cities = City::all();
         $states = State::all();
-        $proveedores = Proveedor::all();
+
         return view('proveedores.gestorProveedores', compact('proveedores','countries', 'states'));
     }
     
@@ -57,7 +57,7 @@ class ProveedorController extends Controller
             'codigo' => $request->codigo,
             'telefono' => $request->telefono,
             'correo' => $request->correo,
-            'fotografia' => $request->imagen,
+            'fotografia' => $request->fotografia,
             'pais' => $request->pais,
             'estado' => $request->estado,
             'ciudad' => $request->ciudad,

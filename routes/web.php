@@ -21,6 +21,7 @@ use App\Http\Controllers\PuntoVentaController;
 use App\Http\Controllers\GestionComprasController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\CotizacionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -180,3 +181,25 @@ Route::get('/compras/{comprasId}', [GestionComprasController::class, 'show'])->n
 //gestor compras 
 
 Route::get('/ventas/detalles', [VentasController::class, 'detallesTienda'])->name('ventas.show');
+
+
+//cotizaciones
+
+
+// Listado de cotizaciones
+Route::get('/cotizaciones', [CotizacionController::class, 'index'])->name('cotizaciones.index');
+
+// Mostrar formulario para crear una nueva cotización
+Route::get('/cotizaciones/crear', [CotizacionController::class, 'create'])->name('cotizaciones.create');
+
+// Almacenar una nueva cotización
+Route::post('/cotizaciones', [CotizacionController::class, 'store'])->name('cotizaciones.store');
+
+// Mostrar formulario para editar una cotización existente
+Route::get('/cotizaciones/{id}/editar', [CotizacionController::class, 'edit'])->name('cotizaciones.edit');
+
+// Actualizar una cotización existente
+Route::put('/cotizaciones/{id}', [CotizacionController::class, 'update'])->name('cotizaciones.update');
+
+// Eliminar una cotización
+Route::delete('/cotizaciones/{id}', [CotizacionController::class, 'destroy'])->name('cotizaciones.destroy');

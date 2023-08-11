@@ -78,6 +78,7 @@ class ClienteController extends Controller
             'correo' => 'required|email',
             'pais' => 'required',
             'ciudad' => 'sometimes',
+            'fotografia' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Crear una nueva instancia del modelo Cliente y guardarla en la base de datos
