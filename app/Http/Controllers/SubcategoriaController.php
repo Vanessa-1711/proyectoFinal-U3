@@ -66,7 +66,7 @@ class SubcategoriaController extends Controller
     {
         // Validar los campos del formulario antes de almacenar la subcategoría
         $this->validate($request, [
-            'nombre' => 'required',
+            
             'categoria_id' => 'required',
             'nombre' => 'required',
             'imagen'=> 'required',
@@ -103,11 +103,13 @@ class SubcategoriaController extends Controller
     {
         // Validar los campos del formulario antes de actualizar la subcategoría
         $this->validate($request, [
-            'nombre' => 'required',
+
             'categoria_id' => 'required',
             'nombre' => 'required',
             'codigo' => 'required|min:5|numeric',
             'descripcion' => 'required',
+            'imagen'=> 'required',
+            
         ]);
         
 
