@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use App\Models\Country;
 use App\Models\State;
-use App\Models\City;
 class ProveedorController extends Controller
 {
     public function __construct()
@@ -31,10 +30,10 @@ class ProveedorController extends Controller
     {
         $proveedores = Proveedor::all();
         $countries = Country::all();
-        $cities = City::all();
+        // $cities = City::all();
         $states = State::all();
         $proveedores = Proveedor::all();
-        return view('proveedores.gestorProveedores', compact('proveedores','countries', 'cities', 'states'));
+        return view('proveedores.gestorProveedores', compact('proveedores','countries', 'states'));
     }
     
     //Almacena un nuevo proveedor en la base de datos.
@@ -49,7 +48,7 @@ class ProveedorController extends Controller
             'correo' => 'required|email',
             'pais' => 'required',
             'estado' => 'required',
-            'ciudad' => '',
+            'ciudad' => 'sometimes',
         ]);
 
         // Crear una nueva instancia del modelo Proveedor y asignar los valores del formulario
@@ -122,7 +121,7 @@ class ProveedorController extends Controller
             'correo' => 'required|email',
             'pais' => 'required',
             'estado' => 'required',
-            'ciudad' => '',
+            'ciudad' => 'sometimes',
         ]);
 
         // Buscar el proveedor por el ID
@@ -141,7 +140,7 @@ class ProveedorController extends Controller
         $proveedor->pais = $request->pais;
         $proveedor->estado = $request->estado;
         $proveedor->ciudad = $request->ciudad;
-
+        
         // Guardar los cambios en la base de datos
         $proveedor->save();
 

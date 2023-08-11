@@ -108,7 +108,14 @@
                         @endforeach
                     </select>
                 </div> --}}
-
+                <div class="mb-4">
+                    <label for="ciudad" class="block text-sm font-medium text-gray-700">Ciudad:</label>
+                    <input type="text" name="ciudad" id="ciudad" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('ciudad') border-red-500 @enderror" value="{{old('ciudad')}}" required>
+                    @error('ciudad')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                    @enderror
+                </div>
+                
                 <br>
                 <div class="mb-4">
                     <label for="telefono" class="block text-sm font-medium text-gray-700">Telefono:</label>

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('titulo')
-    <!-- Título de la página -->
     Editar Marcas
 @endsection
 

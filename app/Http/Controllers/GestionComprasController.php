@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Compra;
 use App\Models\Product;
+use App\Models\DetalleCompra;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
@@ -11,27 +12,18 @@ class GestionComprasController extends Controller
     //
     public function index()
     {
-        //$compras = Compra::with('supplier')->get();
-        return view('gestorCompras.tablaCompras');
+        $compras = Compra::all();
+
+        return view('gestorCompras.tablaCompras', compact('compras'));
     }
 
-    public function index2()
-    {
-        //$compras = Compra::with('supplier')->get();
-        return view('gestorCompras.tablaCompras2');
-    }
+
 
     public function create()
     {
         $proveedores = Proveedor::all();
         $productos = Product::all();
         return view('gestorCompras.crearCompra', ['proveedores' => $proveedores, 'productos' => $productos]);
-    }
-    public function create2()
-    {
-        $proveedores = Proveedor::all();
-        $productos = Product::all();
-        return view('gestorCompras.crearCompra2', ['proveedores' => $proveedores, 'productos' => $productos]);
     }
 
     //Funcion para obtener producto
@@ -56,36 +48,51 @@ class GestionComprasController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'proveedor'=>'required',
             'fecha'=>'required',
             'referencia'=>'required|unique:compras',
             'descripcion'=>'required',
-            'producto_ids'=>'required',
-            'stocks'=>'required'
+            'proveedor_id'=>'required',
         ]); 
 
 
         // Almacena la nueva compra en la base de datos.
         $compra = new Compra();
         // Aquí asignas los valores de $request a los campos de $compra
-        $compra->proveedores_id = $request->proveedores_id;
+        $compra->proveedores_id = $request->proveedor_id;
         $compra->fecha = $request->fecha;
         $compra->referencia = $request->referencia;
         $compra->descripcion = $request->descripcion;
-        $compra->subtotal = $request->subtotal;
-        $compra->total = $request->total;
+        $compra->subtotal = $request->subtotal_input;
+        $compra->total = $request->total_input;
         $compra->save();
 
         // Aquí guardas los detalles de la compra.
-        foreach ($request->productos as $producto) {
-            $detalle = new DetalleCompra();
-            $detalle->compras_id = $compra->id;
-            $detalle->productos_id = $producto['id'];
-            $detalle->stock = $producto['stock'];
-            $detalle->precio_compra = $producto['precio_compra'];
-            $detalle->save();
+        foreach ($request->productos as $productoData) {
+            $producto = Product::find($productoData['product_id']);
+            if ($producto) {
+                // Actualizar el stock del producto
+                $producto->unidades_disponibles += $productoData['stock'];
+                $producto->save();
+        
+                // Guardar el detalle de la compra
+                $detalle = new DetalleCompra();
+                $detalle->compras_id = $compra->id;
+                $detalle->products_id = $producto->id;
+                $detalle->stock = $productoData['stock'];
+                $detalle->precio_compra = $productoData['precio_compra'];
+                $detalle->subtotal = $productoData['subtotal'];
+                $detalle->total = $productoData['total'];
+                $detalle->save();
+            }
         }
+        
 
         return redirect()->route('compras.index')->with('success', 'Compra realizada con éxito');
+    }
+     //Funcion para redirigir a la vista de editar compra
+     public function show($id_compra){
+        $compra = Compra::findOrFail($id_compra);
+        $detalle_compra=DetalleCompra::with('producto')->where('compras_id',$id_compra)->get();
+        return view('gestorCompras.verCompra',compact('compra'),['detalle_compra'=>$detalle_compra]);
     }
 }

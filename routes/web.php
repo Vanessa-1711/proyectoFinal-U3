@@ -171,11 +171,10 @@ Route::get('/ventas', [VentasController::class, 'index'])->name('ventas');
 
 
 Route::get('/compras', [GestionComprasController::class, 'index'])->name('compras.index');
-Route::get('/compras2', [GestionComprasController::class, 'index2'])->name('compras2.index');
 Route::get('/compras/crear', [GestionComprasController::class, 'create'])->name('compras.create');
-Route::get('/compras2/crear', [GestionComprasController::class, 'create2'])->name('compras2.create');
-Route::post('/compras2', [GestionComprasController::class, 'store'])->name('compras.store');
+Route::post('/compras', [GestionComprasController::class, 'store'])->name('compras.store');
 Route::get('/compras/getProducto/{id_producto}',[GestionComprasController::class,'getProduct'])->name('compras.getProducto');
+Route::get('/compras/{comprasId}', [GestionComprasController::class, 'show'])->name('compras.show');
 
 
 //gestor compras 

@@ -107,10 +107,10 @@
 
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $cliente->pais}}</p>
+                          <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $proveedor->pais}}</p>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $cliente->estado}}</p>
+                          <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $proveedor->estado}}</p>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <!-- Muestra la fotografía del proveedor -->
                           <img class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl" style="text-align: center ; margin-top: 10px;" src="{{ asset('imagenProveedor/'.$proveedor->fotografia) }}" width="100">

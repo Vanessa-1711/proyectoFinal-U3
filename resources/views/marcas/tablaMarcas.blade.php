@@ -20,7 +20,6 @@
 @endsection
 
 @section('titulo')
-    <!-- Título de la página -->
     Marcas
 @endsection
 
