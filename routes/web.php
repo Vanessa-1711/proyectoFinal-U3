@@ -174,6 +174,7 @@ Route::get('/compras', [GestionComprasController::class, 'index'])->name('compra
 Route::get('/compras2', [GestionComprasController::class, 'index2'])->name('compras2.index');
 Route::get('/compras/crear', [GestionComprasController::class, 'create'])->name('compras.create');
 Route::get('/compras2/crear', [GestionComprasController::class, 'create2'])->name('compras2.create');
+Route::post('/compras2', [GestionComprasController::class, 'store'])->name('compras.store');
 Route::get('/compras/getProducto/{id_producto}',[GestionComprasController::class,'getProduct'])->name('compras.getProducto');
 
 

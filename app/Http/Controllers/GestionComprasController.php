@@ -52,4 +52,40 @@ class GestionComprasController extends Controller
 
         return response()->json($producto);
     }
+
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+            'proveedor'=>'required',
+            'fecha'=>'required',
+            'referencia'=>'required|unique:compras',
+            'descripcion'=>'required',
+            'producto_ids'=>'required',
+            'stocks'=>'required'
+        ]); 
+
+
+        // Almacena la nueva compra en la base de datos.
+        $compra = new Compra();
+        // Aquí asignas los valores de $request a los campos de $compra
+        $compra->proveedores_id = $request->proveedores_id;
+        $compra->fecha = $request->fecha;
+        $compra->referencia = $request->referencia;
+        $compra->descripcion = $request->descripcion;
+        $compra->subtotal = $request->subtotal;
+        $compra->total = $request->total;
+        $compra->save();
+
+        // Aquí guardas los detalles de la compra.
+        foreach ($request->productos as $producto) {
+            $detalle = new DetalleCompra();
+            $detalle->compras_id = $compra->id;
+            $detalle->productos_id = $producto['id'];
+            $detalle->stock = $producto['stock'];
+            $detalle->precio_compra = $producto['precio_compra'];
+            $detalle->save();
+        }
+
+        return redirect()->route('compras.index')->with('success', 'Compra realizada con éxito');
+    }
 }

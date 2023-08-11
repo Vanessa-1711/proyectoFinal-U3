@@ -13,6 +13,16 @@ class Compra extends Model
         'proveedor_id',
         'referencia',
         'total',
+        'subtotal',
         'descripcion'
-    ];  
+    ];
+    public function detalles()
+    {
+        return $this->hasMany(DetalleCompra::class);
+    }
+
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class);
+    }  
 }
