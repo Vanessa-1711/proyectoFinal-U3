@@ -175,4 +175,12 @@ class ClienteController extends Controller
         session()->flash('success', '¡El cliente se ha eliminado exitosamente!');
         return redirect()->route('clientes');
     }
+
+    public function getStatesByCountry(Request $request) {
+        $countryId = $request->get('countryid');
+        
+        $states = State::where('countryid', $countryId)->get();
+    
+        return response()->json($states);
+    }
 }

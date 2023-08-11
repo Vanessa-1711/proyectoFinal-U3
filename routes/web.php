@@ -128,6 +128,7 @@ Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name
 Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
 Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 Route::post('/clientes/imagen', [ClienteController::class,'Imagenstore'])->name("imagenesClientes.store");
+Route::get('/getStates', [ClienteController::class,'getStatesByCountry'])->name("getStates");
 
 //proveedores
 Route::get('/proveedores', [ProveedorController::class, 'index'])->name('proveedores');

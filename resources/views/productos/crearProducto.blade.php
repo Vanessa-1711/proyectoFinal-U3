@@ -78,7 +78,7 @@
                         <option value="">-- Seleccione una subcategoría --</option>
                         @foreach($subcategorias as $subcategoria)
                             <option value="{{ $subcategoria->id }}" {{ old('subcategoria_id') == $subcategoria->id ? 'selected' : '' }}>
-                                {{ $subcategoria->descripcion }}
+                                {{ $subcategoria->nombre }}
                             </option>
                         @endforeach
                     </select>

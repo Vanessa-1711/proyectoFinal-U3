@@ -105,18 +105,15 @@
                 </div>
                 <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-700">password:</label>
-                    <input type="password" id="password" name="password" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('password') border-red-500 @enderror" value="{{$usuario->password}}" required>
-                    @error('password')
-                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
-                    @enderror
+                    <input type="password" id="password" name="password" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('password') border-red-500 @enderror" value="" required>
                 </div>
                 
                 <div class="mb-4">
                     <label for="estado" class="block text-sm font-medium text-gray-700">Estado del usuario:</label>
                     <select name="estado" id="estado" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('estado') border-red-500 @enderror">
                         <option value="{{$usuario->status}}">-- Seleccione un estado --</option>
-                        <option value="activo" {{ old('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
-                        <option value="desactivo" {{ old('estado') == 'desactivo' ? 'selected' : '' }}>Desactivo</option>
+                        <option value="activo" {{ $usuario->status == 'activo' ? 'selected' : '' }}>Activo</option>
+                        <option value="desactivo" {{ $usuario->status == 'desactivo' ? 'selected' : '' }}>Desactivo</option>
                     </select>
                     @error('estado')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
@@ -127,7 +124,7 @@
                     <label for="rol" class="block text-sm font-medium text-gray-700">Rol:</label>
                     <select name="rol" id="rol" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-black/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('rol') border-red-500 @enderror">
                         <option value="{{$usuario->rol}}">Seleccione un rol</option>
-                        <option value="vendedor" {{ old('rol') == 'vendedor' ? 'selected' : '' }}>Vendedor</option>
+                        <option value="vendedor" {{ $usuario->rol == 'vendedor' ? 'selected' : '' }}>Vendedor</option>
                     </select>
                     @error('rol')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
@@ -178,7 +175,7 @@ $(document).ready(function() {
     }).then((result) => {
       if (result.isConfirmed) {
         // Redirecciona al usuario a la página "tablaProductos"
-        window.location.href = '{{ route('tablaProductos') }}';
+        window.location.href = '{{ route('usuario.index') }}';
       }
     });
   });

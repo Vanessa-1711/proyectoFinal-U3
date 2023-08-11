@@ -10,7 +10,7 @@
         <div class="container z-1">
           <div class="flex flex-wrap -mx-3">
             <div class="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-9/12 lg:w-7/12 xl:w-4/12 border-4 rounded-lg h-96" style="width: 50%; height: 720px;margin-left: -100px;border-radius: 20px; background-color:#B38CC4; border: 2px solid #B38CC4;">
-              <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-none lg:py4 dark:bg-gray-950 rounded-2xl bg-clip-border" style="margin-top: 80px;width: 70%; height: 80%; margin-left: auto; margin-right: auto; text-align: center;">
+              <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-none lg:py4 dark:bg-gray-950 rounded-2xl bg-clip-border" style="margin-top: 40px;width: 70%; height: 90%; margin-left: auto; margin-right: auto; text-align: center;">
                 <div class="p-6 pb-0 mb-0">
                   <img src="{{asset('img/usuario.png')}}" style="width: 30%; margin: 0 auto;" alt="">
                   <br>
@@ -52,6 +52,8 @@
                       @enderror
                     </div>
                     <a class="font-bold uppercase text-zinc-50 text-sm"  href="{{route('register')}}"> Registrar usuario</a>
+                    <p>Vanessa Itzaiana García Cervates</p>
+                    <p>Yanel Azucena Mireles Sena</p>
                     <div class="text-center">
                       <button type="submit" class="inline-block w-full px-16 py-3.5 mt-6 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-blue-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25" style="background-color:#734D84;">Sign in</button>
                     </div>
