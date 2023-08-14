@@ -23,6 +23,21 @@ class GestionComprasController extends Controller
     {
         $proveedores = Proveedor::all();
         $productos = Product::all();
+        if ($proveedores->isEmpty() || $productos->isEmpty()) {
+            $message = '';
+        
+            if ($proveedores->isEmpty() && $productos->isEmpty()) {
+                $message = 'Es necesario tener proveedores y productos registradas.';
+            } elseif ($proveedores->isEmpty()) {
+                $message = 'Es necesario tener proveedores registradas.';
+            } else {
+                $message = 'Es necesario tener productos registradas.';
+            }
+        
+            // Si alguna de las dos colecciones está vacía, crea un mensaje de alerta y redirige al usuario
+            session()->flash('info', $message);
+            return redirect('/compras');
+        }
         return view('gestorCompras.crearCompra', ['proveedores' => $proveedores, 'productos' => $productos]);
     }
 
@@ -54,7 +69,6 @@ class GestionComprasController extends Controller
             'proveedor_id'=>'required',
         ]); 
 
-
         // Almacena la nueva compra en la base de datos.
         $compra = new Compra();
         // Aquí asignas los valores de $request a los campos de $compra
@@ -66,6 +80,7 @@ class GestionComprasController extends Controller
         $compra->total = $request->total_input;
         $compra->save();
 
+        dd($request->productos);
         // Aquí guardas los detalles de la compra.
         foreach ($request->productos as $productoData) {
             $producto = Product::find($productoData['product_id']);

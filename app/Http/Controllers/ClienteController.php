@@ -31,14 +31,12 @@ class ClienteController extends Controller
     // Método para mostrar el formulario de creación de cliente
     public function create()
     {
-        // Obtener todos los clientes desde la base de datos (esto parece innecesario aquí)
-        $clientes = Cliente::all();
         // $cities = City::all();
         $countries = Country::all();
         $states = State::all();
 
         // Mostrar la vista 'getorClientes' y pasar los clientes como una variable llamada 'clientes'
-        return view('clientes.getorClientes', compact('clientes','countries', 'states' ));
+        return view('clientes.getorClientes', compact('countries', 'states' ));
     }
 
     // Método para almacenar la imagen del cliente en el servidor
@@ -57,7 +55,7 @@ class ClienteController extends Controller
         $imagenServidor->fit(1000, 1000);
         
         // Movemos la imagen a una ubicación física en el servidor
-        $imagenPath = public_path('imagenCliente') . '/' . $nombreImagen;
+        $imagenPath = public_path('uploads') . '/' . $nombreImagen;
         
         // Pasamos la imagen de memoria al servidor
         $imagenServidor->save($imagenPath);
@@ -71,14 +69,14 @@ class ClienteController extends Controller
     {
         //Verifica si todos los campos se llenaron correctamente
         $request->validate([
+            'fotografia' => 'required',
             'nombre' => 'required',
-            'codigo' => 'required|min:5|numeric|unique:clientes',
+            'codigo' => 'required|numeric|unique:clientes',
             'empresa' => 'required',
             'telefono' => 'required|max:10',
             'correo' => 'required|email',
             'pais' => 'required',
             'ciudad' => 'sometimes',
-            'fotografia' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Crear una nueva instancia del modelo Cliente y guardarla en la base de datos
@@ -114,8 +112,10 @@ class ClienteController extends Controller
     {
         // Buscar el cliente en la base de datos por su identificador único ($id)
         $cliente = Cliente::find($id);
+        $countries = Country::all();
+        $states = State::all();
         // Devolver la vista 'clientes.editarClientes' y pasar el cliente encontrado como dato
-        return view('clientes.editarClientes', compact('cliente'));
+        return view('clientes.editarClientes', compact('cliente', 'countries', 'states' ));
     }
 
     //Metodo para actualizar los datos del cliente
@@ -123,12 +123,13 @@ class ClienteController extends Controller
     {
         //Validacion
         $this->validate($request, [
-            'fotografia' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nombre' => 'required',
-            'codigo' => 'required|min:5|numeric|unique:clientes',
+            'codigo' => 'required|numeric|unique:clientes,codigo,' . $id,
             'empresa' => 'required',
             'telefono' => 'required|max:10',
             'correo' => 'required|email',
+            'pais' => 'required',
+            'ciudad' => 'sometimes',
         ]);
         
         // Obtener el cliente por su ID en la base de datos
@@ -149,6 +150,9 @@ class ClienteController extends Controller
         $cliente->empresa = $request->empresa;
         $cliente->telefono = $request->telefono;
         $cliente->correo = $request->correo;
+        $cliente->pais = $request->pais;
+        $cliente->estado = $request->estado;
+        $cliente->ciudad = $request->input('ciudad');
 
         // Guardar los cambios en la base de datos
         $cliente->save();

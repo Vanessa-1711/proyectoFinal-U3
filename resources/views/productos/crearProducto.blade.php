@@ -203,4 +203,24 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var imageId = document.querySelector('input[name="imagen"]').value;
+
+    if (imageId) {
+        // Obtener la URL de la imagen usando AJAX y el imageId
+        fetch('/imagenProductos/' + imageId)
+        .then(response => response.json())
+        .then(data => {
+            var imageUrl = data.imageUrl;
+
+            // Agrega la imagen a Dropzone
+            var mockFile = { name: "Imagen", size: 12345 };
+            myDropzone.displayExistingFile(mockFile, imageUrl);
+        });
+    }
+});
+
+</script>
 @endsection

@@ -42,8 +42,6 @@
                 <div class="mb-5">
                     <!-- Campo oculto para almacenar el valor actual de la imagen -->
                     <input type="hidden" name="imagen"  value="{{ $marca->imagen }} ">
-                    <label class="block text-sm font-medium text-gray-700">Imagen actual:</label>
-                    <img src="{{ asset('imagenMarcas/' . $marca->imagen) }}" alt="Imagen actual del producto" class="w-32 h-32 object-cover mt-2">
                     @error('imagen')
                         <!-- Mostrar mensaje de error para el campo de imagen -->
                         <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
@@ -55,7 +53,7 @@
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700">Nombre:</label>
                     <!-- Campo de entrada para el nombre de la marca -->
-                    <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{$marca->nombre}}" placeholder="Nombre" >
+                    <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{old('nombre',$marca->nombre)}}" placeholder="Nombre" >
                     @error('nombre')
                         <!-- Mostrar mensaje de error para el campo de nombre -->
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>

@@ -125,7 +125,7 @@ Añadir Compra
                             </div>
                             <div class="mt-4 text-center">
                                 <button id="btnCancelar" type="button" class="buttonAgregar px-8 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all rounded-lg cursor-pointer text-sm ease-in shadow-md bg-blue-500 hover:shadow-xs hover:-translate-y-px tracking-tight-rem bg-x-25 mx-auto">
-                                    <i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Regresar
+                                    Regresar
                                 </button>
                             </div>
                         </div>
@@ -180,23 +180,8 @@ Añadir Compra
 @section('scripts')
 <script>
   document.getElementById('btnCancelar').addEventListener('click', function() {
-    // Muestra el SweetAlert de confirmación
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Si cancelas, los datos ingresados se perderán.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#8078C1',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, estoy seguro',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Redirecciona al usuario a la página "tablaProductos"
         window.location.href = '{{ route('compras.index') }}';
-      }
-    });
-  });
+      });
 </script>
 <!-- Script para inicializar Select2 -->
 <script>

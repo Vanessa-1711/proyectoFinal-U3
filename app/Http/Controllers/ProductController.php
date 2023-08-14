@@ -34,6 +34,21 @@ class ProductController extends Controller
         $categorias = Categorias::all();
         $subcategorias = Subcategoria::all();
         $marcas = Marca::all();
+        if ($categorias->isEmpty() || $marcas->isEmpty()) {
+            $message = '';
+        
+            if ($categorias->isEmpty() && $marcas->isEmpty()) {
+                $message = 'Es necesario tener categorías y marcas registradas.';
+            } elseif ($categorias->isEmpty()) {
+                $message = 'Es necesario tener categorías registradas.';
+            } else {
+                $message = 'Es necesario tener marcas registradas.';
+            }
+        
+            // Si alguna de las dos colecciones está vacía, crea un mensaje de alerta y redirige al usuario
+            session()->flash('info', $message);
+            return redirect('/products');
+        }
         return view('productos.crearProducto', compact('categorias', 'subcategorias', 'marcas'));
     }
 
@@ -44,8 +59,8 @@ class ProductController extends Controller
         $this->validate($request,[
             'nombre' => 'required',
             'categoria_id' => 'required',
-            'precio_compra' => 'required',
-            'precio_venta' => 'required',
+            'precio_compra' => 'required|numeric|min:0',
+            'precio_venta' => 'required|numeric|min:0',
             'unidades_disponibles' => 'required',
             'marca_id' => 'required',
             'imagen' => 'required',
@@ -65,7 +80,7 @@ class ProductController extends Controller
         $product->save();
         
         // Mostrar un mensaje de éxito y redireccionar a la página de la tabla de productos
-        $request->session()->flash('success', '¡El producto se ha registrado exitosamente!');
+        $request->session()->flash('success', '¡El producto se ha creado exitosamente!');
         return redirect()->route('tablaProductos');
     }
     public function getSubcategorias($categoria_id)
@@ -108,7 +123,7 @@ class ProductController extends Controller
         $imagenServidor->fit(1000, 1000);
 
         // Movemos la imagen a un lugar físico del servidor
-        $imagenPath = public_path('imagenProductos') . '/' . $nombreImagen;
+        $imagenPath = public_path('uploads') . '/' . $nombreImagen;
 
         // Pasar la imagen de memoria al servidor
         $imagenServidor->save($imagenPath);

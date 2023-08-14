@@ -54,8 +54,6 @@
                 <div class="mb-5">
                     <!-- Campo oculto para almacenar el valor actual de la imagen -->
                     <input type="hidden" name="imagen"  value="{{ $usuario->imagen }} ">
-                    <label class="block text-sm font-medium text-gray-700">Imagen actual:</label>
-                    <img src="{{ asset('imagenUsuario/' . $usuario->imagen) }}" alt="Imagen actual del producto" class="w-32 h-32 object-cover mt-2">
                     @error('imagen')
                         <!-- Mostrar mensaje de error para el campo de imagen -->
                         <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
@@ -65,7 +63,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{$usuario->name}}" required>
+                    <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{old('nombre', $usuario->name)}}" required>
                     @error('nombre')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
@@ -74,7 +72,7 @@
 
                 <div class="mb-4">
                     <label for="apellido" class="block text-sm font-medium text-gray-700">Apellido:</label>
-                    <input type="text" id="apellido" name="apellido" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('apellido') border-red-500 @enderror" value="{{$usuario->apellido}}" required>
+                    <input type="text" id="apellido" name="apellido" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('apellido') border-red-500 @enderror" value="{{old('apellido',$usuario->apellido)}}" required>
                     @error('apellido')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
@@ -82,7 +80,7 @@
 
                 <div class="mb-4">
                     <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
-                    <input type="text" id="username" name="username" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('username') border-red-500 @enderror" value="{{$usuario->username}}" required>
+                    <input type="text" id="username" name="username" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('username') border-red-500 @enderror" value="{{old('username',$usuario->username)}}" required>
                     @error('username')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
@@ -90,7 +88,7 @@
 
                 <div class="mb-4">
                     <label for="telefono" class="block text-sm font-medium text-gray-700">Telefono:</label>
-                    <input type="number" id="telefono" name="telefono" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('telefono') border-red-500 @enderror" value="{{$usuario->telefono}}" required>
+                    <input type="number" id="telefono" name="telefono" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('telefono') border-red-500 @enderror" value="{{old('telefono',$usuario->telefono)}}" required>
                     @error('telefono')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
@@ -98,7 +96,7 @@
 
                 <div class="mb-4">
                     <label for="correo" class="block text-sm font-medium text-gray-700">Correo:</label>
-                    <input type="email" id="correo" name="correo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('correo') border-red-500 @enderror" value="{{$usuario->email}}" required>
+                    <input type="email" id="correo" name="correo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('correo') border-red-500 @enderror" value="{{old('correo',$usuario->email)}}" required>
                     @error('correo')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
@@ -111,9 +109,11 @@
                 <div class="mb-4">
                     <label for="estado" class="block text-sm font-medium text-gray-700">Estado del usuario:</label>
                     <select name="estado" id="estado" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('estado') border-red-500 @enderror">
-                        <option value="{{$usuario->status}}">-- Seleccione un estado --</option>
-                        <option value="activo" {{ $usuario->status == 'activo' ? 'selected' : '' }}>Activo</option>
-                        <option value="desactivo" {{ $usuario->status == 'desactivo' ? 'selected' : '' }}>Desactivo</option>
+                        
+                        <!-- Aquí mostramos el estado actual o un mensaje por defecto -->
+                        <option value="" disabled {{ old('estado', $usuario->status) ? '' : 'selected' }}>-- Seleccione un estado --</option>
+                        <option value="activo" {{ old('estado', $usuario->status) == 'activo' ? 'selected' : '' }}>Activo</option>
+                        <option value="desactivo" {{ old('estado', $usuario->status) == 'desactivo' ? 'selected' : '' }}>Desactivo</option>
                     </select>
                     @error('estado')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
@@ -123,13 +123,18 @@
                 <div class="mb-4">
                     <label for="rol" class="block text-sm font-medium text-gray-700">Rol:</label>
                     <select name="rol" id="rol" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-black/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('rol') border-red-500 @enderror">
-                        <option value="{{$usuario->rol}}">Seleccione un rol</option>
-                        <option value="vendedor" {{ $usuario->rol == 'vendedor' ? 'selected' : '' }}>Vendedor</option>
+                        
+                        <!-- Aquí mostramos el rol actual o un mensaje por defecto -->
+                        <option value="" disabled {{ old('rol', $usuario->rol) ? '' : 'selected' }}>Seleccione un rol</option>
+                        <option value="vendedor" {{ old('rol', $usuario->rol) == 'vendedor' ? 'selected' : '' }}>Vendedor</option>
+                        <!-- Añade más roles aquí de ser necesario -->
+
                     </select>
                     @error('rol')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
+
                 
                 <br>
                 

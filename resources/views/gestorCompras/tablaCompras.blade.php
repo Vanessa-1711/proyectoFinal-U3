@@ -86,7 +86,7 @@ Gestor Compras
                                         </td>
                                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                             <div class="flex items-center justify-center">
-                                                <img src="{{ asset('imagenProveedor/' . $compra->proveedor->fotografia) }}" alt="{{ $compra->proveedor->nombre }}" class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;">
+                                                <img src="{{ asset('imagenProveedor/' . $compra->proveedor->fotografia) }}" alt="{{ $compra->proveedor->nombre }}" class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;margin-right: 5px;">
                                                 <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $compra->proveedor->nombre }}</p>
                                             </div>
                                         </td>

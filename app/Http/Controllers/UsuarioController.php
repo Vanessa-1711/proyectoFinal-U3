@@ -82,7 +82,7 @@ class UsuarioController extends Controller
         $imagenServidor->fit(1000, 1000);
 
         // Movemos la imagen a un lugar físico del servidor
-        $imagenPath = public_path('imagenUsuario') . '/' . $nombreImagen;
+        $imagenPath = public_path('uploads') . '/' . $nombreImagen;
 
         // Pasar la imagen de memoria al servidor
         $imagenServidor->save($imagenPath);

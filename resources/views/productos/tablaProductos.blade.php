@@ -83,7 +83,7 @@
                           <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->id }}</a>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent ">
-                          <img src="{{ asset('imagenProductos/' . $product->imagen) }}" alt="Imagen del producto"  class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;">
+                          <img src="{{ asset('uploads/' . $product->imagen) }}" alt="Imagen del producto"  class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;">
                         </td>
                         <td class="p-2 align-middle text-center bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $product->nombre }}</a>
@@ -159,6 +159,17 @@
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Aceptar'
           });
+        }
+        const infMessage = '{{ session('info') }}';
+        if (infMessage) {
+            // Muestra el SweetAlert de éxito
+            Swal.fire({
+                title: 'Error',
+                text: infMessage,
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+            });
         }
       });
 

@@ -80,7 +80,7 @@
                 <!-- Campos para país, estado y ciudad -->
                 <div class="mb-4">
                     <label for="country" class="block text-sm font-medium text-gray-700">País:</label>
-                    <select name="pais" id="country" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                    <select name="pais" id="country" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
                         <option value="">-- Seleccione un país --</option>
                         @foreach($countries as $country)
                             <option value="{{ $country->id }}">{{ $country->name }}</option>
@@ -90,7 +90,7 @@
                 
                 <div class="mb-4">
                     <label for="state" class="block text-sm font-medium text-gray-700">Estado:</label>
-                    <select name="estado" id="state" class="focus:shadow-primary-outline dark:bg-gray-950 dark:text-black/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                    <select name="estado" id="state" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-black/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
                         <option value="">Seleccione un estado</option>
                         @foreach($states as $state)
                             <option value="{{ $state->state_id }}" data-country="{{ $state->countryid }}">{{ $state->state_name }}</option>
@@ -164,6 +164,14 @@
 // In your Javascript (external .js resource or <script> tag)
 $(document).ready(function() {
     $('.select2').select2();
+
+    const statesBackup = Array.from($('#state option'));
+    $('#country').change(function() {
+        const countryId = $(this).val();
+        const filteredStates = statesBackup.filter(option => $(option).data('country') == countryId || !$(option).val());
+        $('#state').empty().append(filteredStates);
+        $('#state').trigger('change');  // Re-initialize select2 for the updated options
+    });
 });
 </script>
 

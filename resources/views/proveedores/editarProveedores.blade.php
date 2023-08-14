@@ -7,6 +7,14 @@
 <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 @endsection
 
+@section('estilos2')
+<!-- Agregar librerías y estilos requeridos para Select2 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+
 @section('titulo')
     Editar Proveedor
 @endsection
@@ -49,8 +57,6 @@
                 <!-- Campo para mostrar la imagen actual del proveedor -->
                 <div class="mb-5">
                     <input type="hidden" name="imagen" value="{{ $proveedor->fotografia }}">
-                    <label class="block text-sm font-medium text-gray-700">Imagen actual:</label>
-                    <img src="{{ asset('imagenProveedor/' . $proveedor->fotografia) }}" alt="Imagen actual del producto" class="w-32 h-32 object-cover mt-2">
                     
                     <!-- Mensaje de error en caso de haber problemas con la imagen -->
                     @error('imagen')
@@ -75,6 +81,40 @@
                     <input type="text" id="codigo" name="codigo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('codigo') border-red-500 @enderror" value="{{old('codigo', $proveedor->codigo)}}" required>
                     <!-- Mensaje de error en caso de haber problemas con el código -->
                     @error('codigo')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                    @enderror
+                </div>
+                <!-- Campos para país, estado y ciudad -->
+                <div class="mb-4">
+                    <label for="country" class="block text-sm font-medium text-gray-700">País:</label>
+                    <select name="pais" id="country" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                        <option value="">-- Seleccione un país --</option>
+                        @foreach($countries as $country)
+                          <option value="{{ $country->id }}" {{ $country->id == old('country', $proveedor->pais) ? 'selected' : '' }}>
+                            {{ $country->name }}
+                          </option>
+                           
+                        @endforeach
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="state" class="block text-sm font-medium text-gray-700">Estado:</label>
+                    <select name="estado" id="state" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-black/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none">
+                        <option value="">Seleccione un estado</option>
+                        @foreach($states as $state)
+                        <option value="{{ $state->state_id}}" {{ $state->state_id == old('state', $proveedor->estado) ? 'selected' : '' }} >
+                            {{ $state->state_name }}
+                          </option>
+                        @endforeach
+  
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="ciudad" class="block text-sm font-medium text-gray-700">Ciudad:</label>
+                    <input type="text" name="ciudad" id="ciudad" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('ciudad') border-red-500 @enderror" value="{{old('ciudad', $proveedor->ciudad)}}" required>
+                    @error('ciudad')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
                 </div>
@@ -140,7 +180,7 @@ $(document).ready(function() {
     }).then((result) => {
       if (result.isConfirmed) {
         // Redirecciona al usuario a la página "tablaProductos"
-        window.location.href = '{{ route('tablaProductos') }}';
+        window.location.href = '{{ route('proveedores') }}';
       }
     });
   });

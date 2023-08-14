@@ -58,16 +58,28 @@
 
 
   
-  .dropzone {
+ /* Estilos para el Dropzone */
+.dropzone {
     position: relative !important;
     width: 500px !important;
     height: 200px !important;
     margin: 0 auto !important; /* Esto centra horizontalmente */
-    border: 2px dashed #000000 !important;
+    margin-left: auto; /* Ajusta el margen izquierdo para centrarlo más hacia la derecha */
     padding: 10px !important;
     background-color: #ffffff !important;
+    border: 3px dotted #000000 !important; /* Borde punteado */
     align-items: center !important;
-  }
+    display: flex; /* Agrega flexbox para centrar la imagen */
+    justify-content: center; /* Centra horizontalmente */
+}
+
+/* Estilos para la imagen dentro del Dropzone */
+.dropzone img {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del Dropzone */
+    max-height: 100%; /* Asegura que la imagen no exceda la altura del Dropzone */
+    object-fit: contain; /* Ajusta el tamaño de la imagen mientras mantiene la proporción */
+}
+
 
   .btnCancelar{
     color: white!important; 

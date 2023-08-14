@@ -44,7 +44,7 @@
         <div class="flex-auto px-0 pt-0 pb-2">
           <div class="p-6">
                 <!-- Formulario para subir imágenes utilizando Dropzone -->
-                <form action="{{route('imagenesProduc.store')}}" method="post" enctype="multipart/form-data" id="dropzone" class="dropzone " style="width: 100%; border:none;padding:0px; align-items:center">
+                <form action="{{route('imagenesProduc.store')}}" method="post" enctype="multipart/form-data" id="dropzone" class="dropzone " style="width: 50%!important; border:none;padding:0px; align-items:center!important">
                     @csrf
                 </form>
                 <!-- Formulario principal para editar el producto -->
@@ -59,18 +59,13 @@
                     @endif
                     <div class="mb-5">
                         <input type="hidden" name="imagen"  value="{{ $product->imagen }} ">
-                        <label class="block text-sm font-medium text-gray-700">Imagen actual:</label>
-                        <img src="{{ asset('imagenProductos/' . $product->imagen) }}" alt="Imagen actual del producto" class="w-32 h-32 object-cover mt-2">
-                        
                         @error('imagen')
-                        <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
-                                {{$message}}
-                            </p>    
+                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="mb-4">
                         <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{ $product->nombre }}" required>
+                        <input type="text" name="nombre" id="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{ old('nombre', $product->nombre) }}" required>
                         @error('nombre')
                             <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                         @enderror
@@ -80,7 +75,7 @@
                         <select name="categoria_id" id="categoria_id" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('categoria_id') border-red-500 @enderror" required>
                             <option value="">-- Seleccione una categoría --</option>
                             @foreach($categorias as $categoria)
-                                <option value="{{ $categoria->id }}" {{ $categoria->id == $product->categoria_id ? 'selected' : '' }}>
+                                <option value="{{ $categoria->id }}" {{ $categoria->id == old('categoria_id', $product->categoria_id) ? 'selected' : '' }}>
                                     {{ $categoria->nombre }}
                                 </option>
                             @endforeach
@@ -96,7 +91,7 @@
                         <select name="subcategoria_id" id="subcategoria_id" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('subcategoria_id') border-red-500 @enderror" required>
                             <option value="">-- Seleccione una subcategoría --</option>
                             @foreach($subcategorias as $subcategoria)
-                                <option value="{{ $subcategoria->id }}" {{ $subcategoria->id == $product->subcategoria_id ? 'selected' : '' }}>
+                                <option  value="{{ $subcategoria->id }}" {{ $subcategoria->id == old('subcategoria_id', $product->subcategoria_id) ? 'selected' : '' }}>
                                     {{ $subcategoria->nombre }}
                                 </option>
                             @endforeach
@@ -110,7 +105,7 @@
                         <select name="marca_id" id="marca_id" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('marca_id') border-red-500 @enderror" required>
                             <option value="">-- Seleccione una marca --</option>
                             @foreach($marcas as $marca)
-                                <option value="{{ $marca->id }}" {{ $marca->id == $product->marca_id ? 'selected' : '' }}>
+                                <option value="{{ $marca->id }}" {{ $marca->id == old('marca_id', $product->marca_id) ? 'selected' : '' }}>
                                     {{ $marca->nombre }}
                                 </option>
                             @endforeach
@@ -121,21 +116,21 @@
                     </div>
                     <div class="mb-4">
                         <label for="precio_compra" class="block text-sm font-medium text-gray-700">Precio de compra:</label>
-                        <input type="text" name="precio_compra" id="precio_compra" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('precio_compra') border-red-500 @enderror" value="{{ $product->precio_compra }}" required>
+                        <input type="text" name="precio_compra" id="precio_compra" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('precio_compra') border-red-500 @enderror" value="{{ old('precio_compra', $product->precio_compra) }}" required>
                         @error('precio_compra')
                             <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="mb-4">
                         <label for="precio_venta" class="block text-sm font-medium text-gray-700">Precio de venta:</label>
-                        <input type="text" name="precio_venta" id="precio_venta" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('precio_venta') border-red-500 @enderror" value=" {{ $product->precio_venta }}" required>
+                        <input type="text" name="precio_venta" id="precio_venta" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('precio_venta') border-red-500 @enderror" value="{{ old('precio_venta', $product->precio_venta) }}" required>
                         @error('precio_venta')
                             <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="mb-4">
                         <label for="unidades_disponibles" class="block text-sm font-medium text-gray-700">Unidades disponibles:</label>
-                        <input type="text" name="unidades_disponibles" id="unidades_disponibles" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('unidades_disponibles') border-red-500 @enderror" value=" {{ $product->unidades_disponibles }}" required>
+                        <input type="text" name="unidades_disponibles" id="unidades_disponibles" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('unidades_disponibles') border-red-500 @enderror" value="{{ old('unidades_disponibles', $product->unidades_disponibles) }}" required>
                         @error('unidades_disponibles')
                             <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                         @enderror

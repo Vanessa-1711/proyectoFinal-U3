@@ -52,7 +52,7 @@ class SubcategoriaController extends Controller
         $imagenServidor->fit(1000, 1000);
 
         // Movemos la imagen a un lugar físico del servidor
-        $imagenPath = public_path('imagenSubcategoria') . '/' . $nombreImagen;
+        $imagenPath = public_path('uploads') . '/' . $nombreImagen;
 
         // Pasar la imagen de memoria al servidor
         $imagenServidor->save($imagenPath);
@@ -106,7 +106,7 @@ class SubcategoriaController extends Controller
 
             'categoria_id' => 'required',
             'nombre' => 'required',
-            'codigo' => 'required|min:5|numeric',
+            'codigo' => 'required|numeric|unique:subcategorias,codigo,' . $id,
             'descripcion' => 'required',
             'imagen'=> 'required',
             

@@ -85,7 +85,7 @@ SubCategorias
                                             <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $subcategoria->id }}</p>
                                         </td>
                                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                                <img class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="text-align: center ; margin-top: 10px;" src="{{ asset('imagenSubcategoria/'.$subcategoria->imagen) }}" width="100">
+                                                <img class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="text-align: center ; margin-top: 10px;" src="{{ asset('uploads/'.$subcategoria->imagen) }}" width="100">
                                             </td>
                                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                             <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $subcategoria->categoria->nombre }}</p>

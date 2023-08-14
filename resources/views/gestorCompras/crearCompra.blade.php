@@ -199,7 +199,6 @@ $(document).ready(function() {
 </script>
 
 
-
 <script>
 $(document).ready(function() {
     let subtotal = 0;
@@ -271,7 +270,7 @@ $(document).ready(function() {
                     let totalProducto = subtotal + impuesto;
                     var newRow = `
                         <tr>
-                            <td style="text-align: center;"><img src="{{ asset('imagenProductos') }}/${productDetails.imagen}" class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"></td>
+                            <td style="text-align: center;"><img src="{{ asset('uploads') }}/${productDetails.imagen}" class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"></td>
                             <td style="text-align: center;">${productDetails.nombre}</td>
                             <td style="text-align: center;">${productDetails.unidades_disponibles}</td>
                             <td style="text-align: center;">${stockToAdd}</td>
@@ -327,6 +326,8 @@ $(document).ready(function() {
 });
 
 </script>
+
+
 
 
 

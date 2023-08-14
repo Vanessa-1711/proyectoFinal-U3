@@ -120,7 +120,7 @@
                           
                           <!-- Muestra la fotografía del proveedor -->
                           <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                          <img class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl" style="text-align: center ; margin-top: 10px;" src="{{ asset('imagenProveedor/'.$proveedor->fotografia) }}" width="100">
+                          <img class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl" style="text-align: center ; margin-top: 10px;" src="{{ asset('uploads/'.$proveedor->fotografia) }}" width="100">
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent" style="margin-right: 8px; margin-left:8px;">
                           <div style="display: flex; align-items: center; justify-content: left;">
