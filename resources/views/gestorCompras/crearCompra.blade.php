@@ -174,6 +174,8 @@ Añadir Compra
                         </div>
                     </div>
 
+                    <input type="hidden" name="carrito" id="carrito">
+
                     <!-- Fin de la tarjeta de totales -->
 
 
@@ -198,44 +200,68 @@ $(document).ready(function() {
 });
 </script>
 
-
 <script>
 $(document).ready(function() {
-    let subtotal = 0;
-    let iva = 0;
-    let total = 0;
+    let carrito = [];
+    
+    // Comprobar si hay datos antiguos en 'carrito'
+    @if(old('carrito'))
+        carrito = {!! json_encode(json_decode(urldecode(old('carrito')))) !!};
+        renderizarCarrito();
+    @endif
 
     function updateValues() {
-        total = 0;
-        
-        $('#myTable tbody tr').each(function() {
-            let precio = parseFloat($(this).find("td").eq(4).text());
-            let cantidad = parseInt($(this).find("td").eq(3).text());
-            total += precio * cantidad;
+        let total = 0;
+        carrito.forEach(producto => {
+            total += producto.precio_compra * producto.stock;
         });
-
-        iva = total * 0.16; // Obtenemos el IVA de la cantidad total
-        subtotal = total - iva;
+        
+        let iva = total * 0.16; 
+        let subtotal = total - iva;
 
         $('#subtotal').text(`$${subtotal.toFixed(2)}`);
         $('#iva-value').text(`$${iva.toFixed(2)}`);
         $('#total').text(`$${total.toFixed(2)}`);
 
-        // Actualiza los inputs ocultos
         $('#subtotal_input').val(subtotal.toFixed(2));
         $('#iva_input').val(iva.toFixed(2));
         $('#total_input').val(total.toFixed(2));
     }
 
+    function updateHiddenInput() {
+        $('#carrito').val(JSON.stringify(carrito));
+    }
 
-    // Función para agregar stock
+    function renderizarCarrito() {
+        $('#myTable tbody').empty();
+
+        carrito.forEach(producto => {
+            let newRow = `
+                <tr>
+                    <td style="text-align: center;"><img src="{{ asset('uploads') }}/${producto.imagen}" class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"></td>
+                    <td style="text-align: center;">${producto.nombre}</td>
+                    <td style="text-align: center;">${producto.unidades_disponibles}</td>
+                    <td style="text-align: center;">${producto.stock}</td>
+                    <td style="text-align: center;">${producto.precio_compra}</td>
+                    <td style="text-align: center;">${producto.subtotal}</td>
+                    <td style="text-align: center;">${producto.precio_venta}</td>
+                    <td style="text-align: center;">${producto.total}</td>
+                    <td><button class="btn-borrar">Eliminar</button></td>
+                </tr>
+            `;
+            $('#myTable tbody').append(newRow);
+        });
+
+        updateValues();
+        updateHiddenInput();
+    }
+
     $('#add_stock').click(function(e) {
         e.preventDefault();
 
         var productoId = $("#producto").val();
         var stockToAdd = parseInt($("#stock").val());
-        var urlProducto = "{{ route('compras.getProducto', ['id_producto' => 'ID_PRODUCTO']) }}"
-            .replace('ID_PRODUCTO', productoId);
+        var urlProducto = "{{ route('compras.getProducto', ['id_producto' => 'ID_PRODUCTO']) }}".replace('ID_PRODUCTO', productoId);
 
         if (!productoId || isNaN(stockToAdd) || stockToAdd <= 0) {
             Swal.fire({
@@ -251,55 +277,27 @@ $(document).ready(function() {
             type: 'GET',
             dataType: 'json',
             success: function(productDetails) {
-                var existingRow = null;
-                $('#myTable tbody tr').each(function() {
-                    var productIdCell = $(this).find("td").eq(1);
-                    if (productIdCell.text() == productDetails.nombre) {
-                        existingRow = $(this);
-                        return false;
-                    }
-                });
+                let productoExistente = carrito.find(p => p.nombre === productDetails.nombre);
 
-                if (existingRow) {
-                    var currentStockCell = existingRow.find("td").eq(3);
-                    var currentStock = parseInt(currentStockCell.text());
-                    currentStockCell.text(currentStock + stockToAdd);
+                if (productoExistente) {
+                    productoExistente.stock += stockToAdd;
                 } else {
-                    let impuesto = productDetails.precio_compra * stockToAdd * 0.16;
-                    let subtotal = (productDetails.precio_compra * stockToAdd) - impuesto;
-                    let totalProducto = subtotal + impuesto;
-                    var newRow = `
-                        <tr>
-                            <td style="text-align: center;"><img src="{{ asset('uploads') }}/${productDetails.imagen}" class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"></td>
-                            <td style="text-align: center;">${productDetails.nombre}</td>
-                            <td style="text-align: center;">${productDetails.unidades_disponibles}</td>
-                            <td style="text-align: center;">${stockToAdd}</td>
-                            <td style="text-align: center;">${productDetails.precio_compra}</td>
-                            <td style="text-align: center;">${subtotal}</td>
-                            <td style="text-align: center;">${productDetails.precio_venta}</td>
-                            <td style="text-align: center;">${productDetails.precio_compra * stockToAdd}</td>
-                            <td><button class="btn-borrar">Eliminar</button></td>
-                        </tr>
-                    `;
-                    $('#myTable tbody').append(newRow);
+                    carrito.push({
+                        product_id: productDetails.id,
+                        nombre: productDetails.nombre,
+                        stock: stockToAdd,
+                        precio_compra: productDetails.precio_compra,
+                        subtotal: (productDetails.precio_compra * stockToAdd) - (productDetails.precio_compra * stockToAdd * 0.16),
+                        total: productDetails.precio_compra * stockToAdd,
+                        imagen: productDetails.imagen,
+                        unidades_disponibles: productDetails.unidades_disponibles,
+                        precio_venta: productDetails.precio_venta
+                    });
+                }
 
-                    // Agregar inputs ocultos para almacenar los productos
-                    var hiddenInputs = `
-                        <input type="hidden" name="productos[${productDetails.id}][product_id]" value="${productDetails.id}">
-                        <input type="hidden" name="productos[${productDetails.id}][stock]" value="${stockToAdd}">
-                        <input type="hidden" name="productos[${productDetails.id}][precio_compra]" value="${productDetails.precio_compra}">
-                        <input type="hidden" name="productos[${productDetails.id}][subtotal]" value="${subtotal}">
-                        <input type="hidden" name="productos[${productDetails.id}][total]" value="${totalProducto}">
-                    `;
-                    $('#formularioProductos').append(hiddenInputs);
-                    }
-
+                renderizarCarrito();
                 $("#producto").prop('selectedIndex', 0).trigger('change');
                 $("#stock").val('');
-
-                // Actualiza los valores después de agregar producto
-                updateValues();
-
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 Swal.fire({
@@ -311,20 +309,15 @@ $(document).ready(function() {
         });
     });
 
-    // Función para eliminar un producto de la tabla
     $(document).on('click', '.btn-borrar', function(e) {
         e.preventDefault();
 
         let productName = $(this).closest('tr').find("td").eq(1).text();
-
-        // Eliminar los inputs ocultos relacionados con el producto que está siendo eliminado
-        $(`input[name="productos[][nombre][value='${productName}']"]`).remove();
-        $(this).closest('tr').remove();
-
-        updateValues();
+        carrito = carrito.filter(producto => producto.nombre !== productName);
+        
+        renderizarCarrito();
     });
 });
-
 </script>
 
 

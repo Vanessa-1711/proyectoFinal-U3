@@ -82,7 +82,7 @@ Añadir Compra
                                     @foreach ($detalle_compra as $detalles) 
                                     <tr>
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                    <img src="{{ asset('imagenProductos/' . $detalles->producto->imagen) }}" alt="{{ $detalles->producto->nombre }}" class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;">
+                                    <img src="{{ asset('uploads/' . $detalles->producto->imagen) }}" alt="{{ $detalles->producto->nombre }}" class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;">
                                     </td>
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                         <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->producto->nombre }}</p>

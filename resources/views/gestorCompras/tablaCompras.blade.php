@@ -86,7 +86,7 @@ Gestor Compras
                                         </td>
                                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                             <div class="flex items-center justify-center">
-                                                <img src="{{ asset('imagenProveedor/' . $compra->proveedor->fotografia) }}" alt="{{ $compra->proveedor->nombre }}" class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;margin-right: 5px;">
+                                                <img src="{{ asset('uploads/' . $compra->proveedor->fotografia) }}" alt="{{ $compra->proveedor->nombre }}" class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;margin-right: 5px;">
                                                 <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $compra->proveedor->nombre }}</p>
                                             </div>
                                         </td>
@@ -107,11 +107,6 @@ Gestor Compras
                                                 <a href="{{ route('compras.show', $compra->id) }}" class="buttonVer text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
                                                     <i class="far fa-eye"></i>
                                                 </a>
-                                                <!-- Primer botón - Editar -->
-                                                <a href="{{ route('categorias.editarCategoria', $compra->id) }}" class="buttonEditar text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </a>
-
                                             </div>
                                         </td>
                                         <!-- ... otras columnas aquí, similares a las anteriores ... -->

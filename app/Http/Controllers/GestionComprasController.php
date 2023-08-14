@@ -68,6 +68,7 @@ class GestionComprasController extends Controller
             'descripcion'=>'required',
             'proveedor_id'=>'required',
         ]); 
+        //dd($request->all());
 
         // Almacena la nueva compra en la base de datos.
         $compra = new Compra();
@@ -80,10 +81,10 @@ class GestionComprasController extends Controller
         $compra->total = $request->total_input;
         $compra->save();
 
-        dd($request->productos);
+        $productosCarrito = json_decode($request->carrito, true);
         // Aquí guardas los detalles de la compra.
-        foreach ($request->productos as $productoData) {
-            $producto = Product::find($productoData['product_id']);
+        foreach ($productosCarrito as $productoData) {
+            $producto = Product::find($productoData['product_id']); // Asegúrate de que los objetos en el carrito tengan el atributo 'product_id'
             if ($producto) {
                 // Actualizar el stock del producto
                 $producto->unidades_disponibles += $productoData['stock'];
@@ -100,7 +101,7 @@ class GestionComprasController extends Controller
                 $detalle->save();
             }
         }
-        
+            
 
         return redirect()->route('compras.index')->with('success', 'Compra realizada con éxito');
     }
