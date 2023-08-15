@@ -187,7 +187,7 @@ Route::get('/ventas/detalles', [VentasController::class, 'detallesTienda'])->nam
 
 
 // Listado de cotizaciones
-Route::get('/cotizaciones', [CotizacionController::class, 'index'])->name('cotizaciones.index');
+Route::get('/cotizaciones/tabla', [CotizacionController::class, 'index'])->name('cotizaciones.index');
 
 // Mostrar formulario para crear una nueva cotización
 Route::get('/cotizaciones/crear', [CotizacionController::class, 'create'])->name('cotizaciones.create');
@@ -203,3 +203,5 @@ Route::put('/cotizaciones/{id}', [CotizacionController::class, 'update'])->name(
 
 // Eliminar una cotización
 Route::delete('/cotizaciones/{id}', [CotizacionController::class, 'destroy'])->name('cotizaciones.destroy');
+
+Route::get('/cotizaciones/getProducto/{id_producto}',[CotizacionController::class,'getProduct'])->name('cotizaciones.getProducto');

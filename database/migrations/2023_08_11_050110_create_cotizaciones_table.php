@@ -12,7 +12,7 @@ class CreateCotizacionesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('producto_id');
             $table->string('referencia')->unique();
-            $table->string('cliente');
+            $table->foreignId('cliente')->constrained()->onDelete('cascade');
             $table->enum('estatus', ['enviada', 'pendiente', 'otro']);
             $table->decimal('total', 8, 2);
             $table->text('descripcion')->nullable();
