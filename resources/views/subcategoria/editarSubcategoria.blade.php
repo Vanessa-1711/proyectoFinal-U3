@@ -58,8 +58,6 @@
                 <div class="mb-5">
                     <!-- Campo oculto para almacenar el valor actual de la imagen -->
                     <input type="hidden" name="imagen"  value="{{ $subcategoria->imagen }} ">
-                    <label class="block text-sm font-medium text-gray-700">Imagen actual:</label>
-                    <img src="{{ asset('imagenSubcategoria/' . $subcategoria->imagen) }}" alt="Imagen actual del producto" class="w-32 h-32 object-cover mt-2">
                     @error('imagen')
                         <!-- Mostrar mensaje de error para el campo de imagen -->
                         <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
@@ -73,7 +71,7 @@
                         <select name="categoria_id" id="categoria_id" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('categoria_id') border-red-500 @enderror" required>
                             <option value="">-- Seleccione una categoría --</option>
                             @foreach($categorias as $categoria)
-                                <option value="{{ $categoria->id }}" {{ $categoria->id == $subcategoria->categoria_id ? 'selected' : '' }}>
+                                <option value="{{ $categoria->id }}" {{ $categoria->id == old('categoria_id', $subcategoria->categoria_id) ? 'selected' : '' }}>
                                     {{ $categoria->nombre }}
                                 </option>
                             @endforeach
@@ -86,7 +84,7 @@
                 <div class="mb-4">
                     <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
                     <!-- Campo de texto para el nombre de la subcategoría -->
-                    <input type="text" id="nombre" name="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{ $subcategoria->nombre }}" required>
+                    <input type="text" id="nombre" name="nombre" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('nombre') border-red-500 @enderror" value="{{(old('nombre',$subcategoria->nombre) }}" required>
                     @error('nombre')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror  
@@ -95,7 +93,7 @@
                 <div class="mb-4">
                     <label for="codigo" class="block text-sm font-medium text-gray-700">Codigo:</label>
                     <!-- Campo de texto para el código de la subcategoría -->
-                    <input type="text" id="codigo" name="codigo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('codigo') border-red-500 @enderror" value="{{ $subcategoria->codigo }}" required>
+                    <input type="text" id="codigo" name="codigo" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('codigo') border-red-500 @enderror" value="{{ old('codigo',$subcategoria->codigo) }}" required>
                     @error('codigo')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror
@@ -104,7 +102,7 @@
                 <div class="mb-6">
                     <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción:</label>
                     <!-- Campo de texto para la descripción de la subcategoría -->
-                    <textarea id="descripcion" name="descripcion"  class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid  bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" required>{{ $subcategoria->descripcion }}</textarea>
+                    <textarea id="descripcion" name="descripcion"  class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid  bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" required>{{old('descripcion', $subcategoria->descripcion) }}</textarea>
                     @error('descripcion')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                     @enderror  

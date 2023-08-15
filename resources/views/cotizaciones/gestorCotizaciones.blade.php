@@ -42,7 +42,7 @@ Añadir cotizacion
                         <div class="w-full mr-4">
                             <label for="categoria_id" class="block text-sm font-medium text-gray-700">Nombre del cliente:</label>
                             <!-- Selector de categorías usando Select2 -->
-                            <select name="cliente_id" id="cliente_id" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('cliente') border-red-500 @enderror" >
+                            <select name="cliente" id="cliente" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('cliente') border-red-500 @enderror" >
                                 <option value="">-- Seleccione un cliente --</option>
                                 @foreach($clientes as $cliente)
                                     <option value="{{ $cliente->id }}" {{ old('cliente') == $cliente->id ? 'selected' : '' }}>
@@ -112,9 +112,9 @@ Añadir cotizacion
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Nombre del producto</th>
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Stock</th>
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Unidades vendidas</th>
-                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Precio de cotizacion</th>
+                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">precio de venta</th>
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Subtotal</th>
-                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Costo Unitario</th>
+                                        
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Costo Total</th>
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;"></th>
                                     </tr>
@@ -283,19 +283,19 @@ $(document).ready(function() {
                     productDetails.unidades_disponibles -= stockToSell; // Restar el stock vendido al disponible
                 } else {
     
-                    let impuesto = productDetails.precio_cotizacion * stockToAdd * 0.16;
-                    let subtotal = (productDetails.precio_cotizacion * stockToAdd) - impuesto;
+                    let impuesto = productDetails.precio_venta * stockToSell * 0.16;
+                    let subtotal = (productDetails.precio_venta * stockToSell) - impuesto;
                     let totalProducto = subtotal + impuesto;
                     var newRow = `
                         <tr>
                             <td style="text-align: center;"><img src="{{ asset('imagenProductos') }}/${productDetails.imagen}" class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"></td>
                             <td style="text-align: center;">${productDetails.nombre}</td>
                             <td style="text-align: center;">${productDetails.unidades_disponibles}</td>
-                            <td style="text-align: center;">${stockToAdd}</td>
-                            <td style="text-align: center;">${productDetails.precio_cotizacion}</td>
-                            <td style="text-align: center;">${subtotal}</td>
+                            <td style="text-align: center;">${stockToSell}</td>
                             <td style="text-align: center;">${productDetails.precio_venta}</td>
-                            <td style="text-align: center;">${productDetails.precio_cotizacion * stockToAdd}</td>
+                            <td style="text-align: center;">${subtotal}</td>
+                            
+                            <td style="text-align: center;">${productDetails.precio_venta * stockToSell}</td>
                             <td><button class="btn-borrar">Eliminar</button></td>
                         </tr>
                     `;
@@ -304,8 +304,8 @@ $(document).ready(function() {
                     // Agregar inputs ocultos para almacenar los productos
                     var hiddenInputs = `
                         <input type="hidden" name="productos[${productDetails.id}][product_id]" value="${productDetails.id}">
-                        <input type="hidden" name="productos[${productDetails.id}][sale]" value="${stockToAdd}">
-                        <input type="hidden" name="productos[${productDetails.id}][precio_cotizacion]" value="${productDetails.precio_cotizacion}">
+                        <input type="hidden" name="productos[${productDetails.id}][sale]" value="${stockToSell}">
+                        <input type="hidden" name="productos[${productDetails.id}][precio_venta]" value="${productDetails.precio_venta}">
                         <input type="hidden" name="productos[${productDetails.id}][subtotal]" value="${subtotal}">
                         <input type="hidden" name="productos[${productDetails.id}][total]" value="${totalProducto}">
                     `;

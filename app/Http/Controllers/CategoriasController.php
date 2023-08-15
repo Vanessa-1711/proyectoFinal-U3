@@ -72,7 +72,7 @@ class CategoriasController extends Controller
         $imagenServidor->fit(1000, 1000);
 
         // Movemos la imagen a un lugar físico del servidor
-        $imagenPath = public_path('imagenCategoria') . '/' . $nombreImagen;
+        $imagenPath = public_path('uploads') . '/' . $nombreImagen;
 
         // Pasar la imagen de memoria al servidor
         $imagenServidor->save($imagenPath);
@@ -98,7 +98,7 @@ class CategoriasController extends Controller
         $this->validate($request, [
             'nombre' => 'required',
             'descripcion' => 'required',
-            'codigo' => 'required|min:5|numeric|unique:categorias,codigo,' . $id,
+            'codigo' => 'required|numeric|unique:categorias,codigo,' . $id,
         ]);
 
         // Buscar la categoría por su ID en la base de datos

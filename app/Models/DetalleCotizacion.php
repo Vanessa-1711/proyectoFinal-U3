@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class DetalleCotizacion extends Model
 {
     use HasFactory;
-    use HasFactory;
+   
     protected $table = 'detalles_cotizacion';
     protected $fillable = [
-        'ventas_id',
+        'cotizaciones_id',
         'products_id',
         'sale',
         'precio_venta',

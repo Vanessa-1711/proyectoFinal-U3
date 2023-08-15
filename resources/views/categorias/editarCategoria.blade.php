@@ -48,8 +48,6 @@
                 <div class="mb-5">
                     <!-- Campo oculto para almacenar el valor actual de la imagen -->
                     <input type="hidden" name="imagen"  value="{{ $categoria->imagen }} ">
-                    <label class="block text-sm font-medium text-gray-700">Imagen actual:</label>
-                    <img src="{{ asset('imagenCategoria/' . $categoria->imagen) }}" alt="Imagen actual del producto" class="w-32 h-32 object-cover mt-2">
                     @error('imagen')
                         <!-- Mostrar mensaje de error para el campo de imagen -->
                         <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">

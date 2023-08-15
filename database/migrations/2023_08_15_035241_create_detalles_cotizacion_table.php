@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('compras', function (Blueprint $table) {
+        Schema::create('detalles_cotizacion', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('proveedores_id')->constrained()->onDelete('cascade');
-            $table->date('fecha');
-            $table->string('referencia');
-            $table->string('descripcion');
+            $table->foreignId('cotizaciones_id')->constrained()->onDelete('cascade');
+            $table->foreignId('products_id')->constrained()->onDelete('cascade');
+            $table->integer('sale');
+            $table->integer('precio_venta')->nullable();
             $table->decimal('subtotal');
             $table->decimal('total');
             $table->timestamps();
@@ -24,11 +24,10 @@ return new class extends Migration
     }
 
     /**
-     * 
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('compras');
+        Schema::dropIfExists('detalles_cotizacion');
     }
 };

@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="{{asset('css/nucleo-icons.css')}}">
     <link rel="stylesheet" href="{{asset('css/nucleo-svg.css')}}">
     <link rel="stylesheet" href="{{asset('css/argon-dashboard-tailwind.css')}}">
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
 
@@ -124,7 +124,7 @@
                                         d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                                 </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar productos</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Productos</span>
                         </a>
                     </li>
                     <li class="w-full mt-4">
@@ -142,7 +142,7 @@
                                     d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                             </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar categorías</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Categorías</span>
                         </a>
                     </li>
                     <li class="mt-0.5 w-full">
@@ -156,7 +156,7 @@
                                     d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                             </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar subcategorías</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Subcategorías</span>
                         </a>
                     </li>
                     <li class="w-full mt-4">
@@ -173,7 +173,7 @@
                                   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
                                 </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar marcas</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Marcas</span>
                         </a>
                     </li>
                     <li class="w-full mt-4">
@@ -182,19 +182,19 @@
                     </li>
                     <li class="mt-0.5 w-full">
                         <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
-                            href="">
+                            href="{{ route('ventas', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-piggy-bank-fill relative top-0 text-sm leading-normal text-orange-500 " viewBox="0 0 16 16">
                                   <path d="M7.964 1.527c-2.977 0-5.571 1.704-6.32 4.125h-.55A1 1 0 0 0 .11 6.824l.254 1.46a1.5 1.5 0 0 0 1.478 1.243h.263c.3.513.688.978 1.145 1.382l-.729 2.477a.5.5 0 0 0 .48.641h2a.5.5 0 0 0 .471-.332l.482-1.351c.635.173 1.31.267 2.011.267.707 0 1.388-.095 2.028-.272l.543 1.372a.5.5 0 0 0 .465.316h2a.5.5 0 0 0 .478-.645l-.761-2.506C13.81 9.895 14.5 8.559 14.5 7.069c0-.145-.007-.29-.02-.431.261-.11.508-.266.705-.444.315.306.815.306.815-.417 0 .223-.5.223-.461-.026a.95.95 0 0 0 .09-.255.7.7 0 0 0-.202-.645.58.58 0 0 0-.707-.098.735.735 0 0 0-.375.562c-.024.243.082.48.32.654a2.112 2.112 0 0 1-.259.153c-.534-2.664-3.284-4.595-6.442-4.595Zm7.173 3.876a.565.565 0 0 1-.098.21.704.704 0 0 1-.044-.025c-.146-.09-.157-.175-.152-.223a.236.236 0 0 1 .117-.173c.049-.027.08-.021.113.012a.202.202 0 0 1 .064.199Zm-8.999-.65a.5.5 0 1 1-.276-.96A7.613 7.613 0 0 1 7.964 3.5c.763 0 1.497.11 2.18.315a.5.5 0 1 1-.287.958A6.602 6.602 0 0 0 7.964 4.5c-.64 0-1.255.09-1.826.254ZM5 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
                                 </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar venta</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Ventas</span>
                         </a>
                     </li>
                     <li class="mt-0.5 w-full">
                         <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors {{ request()->is('ventas*') ? 'active' : '' }}"
-                            href="{{ route('ventas', auth()->user()->username) }}">
+                             href="{{--{{ route('ventas}', auth()->user()->username) }}--}}"> 
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill relative top-0 text-sm leading-normal text-orange-500" viewBox="0 0 16 16">
@@ -206,7 +206,7 @@
                     </li>
                     <li class="mt-0.5 w-full">
                         <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
-                            href="{{ route('puntoVenta', auth()->user()->username) }}">
+                            href="">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill relative top-0 text-sm leading-normal text-orange-500" viewBox="0 0 16 16">
@@ -230,7 +230,7 @@
                                   <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm.5 10v-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1z"/>
                                 </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar recibo</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Recibo</span>
                         </a>
                     </li>
                     <li class="w-full mt-4">
@@ -238,7 +238,7 @@
                             Gestor de compras</h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors {{ request()->is('compra*') ? 'active' : '' }}"
                             href="{{ route('compras.index', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -262,8 +262,7 @@
                                   <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5H0V4zm11.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zM0 11v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1H0z"/>
                                 </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar
-                                cotización</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Cotización</span>
                         </a>
                     </li>
                     <li class="w-full mt-4">
@@ -279,7 +278,7 @@
                                   <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
                                 </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar clientes</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Clientes</span>
                         </a>
                     </li>
                     <li class="w-full mt-4">
@@ -295,7 +294,7 @@
                                   <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
                                 </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar proveedores</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Proveedores</span>
                         </a>
                     </li>
                     <li class="w-full mt-4">
@@ -303,7 +302,7 @@
                         </h6>
                     </li>
                     <li class="mt-0.5 w-full">
-                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
+                        <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors {{ request()->is('usuario*') ? 'active' : '' }}"
                             href="{{ route('usuario.index', auth()->user()->username) }}">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
@@ -311,7 +310,7 @@
                                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                                 </svg>
                             </div>
-                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Registrar usuarios</span>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Usuarios</span>
                         </a>
                     </li>
 

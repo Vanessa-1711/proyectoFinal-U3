@@ -90,7 +90,7 @@
         <div class="flex flex-col items-center mt-4">
             <!-- Muestra la imagen del producto -->
             <div class="flex justify-center">
-              <img src="{{ asset('imagenProductos/' . $product->imagen) }}" alt="Imagen del producto" style="width: 200px;">
+              <img src="{{ asset('uploads/' . $product->imagen) }}" alt="Imagen del producto" style="width: 200px;">
             </div>
             <!-- Muestra el nombre de la imagen del producto -->
             <p class="text-center mt-2">{{ $product->imagen }}</p>

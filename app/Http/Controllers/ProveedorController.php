@@ -84,7 +84,7 @@ class ProveedorController extends Controller
         $imagenServidor->fit(1000, 1000);
 
         // Movemos la imagen a un lugar físico del servidor
-        $imagenPath = public_path('imagenProveedor') . '/' . $nombreImagen;
+        $imagenPath = public_path('uploads') . '/' . $nombreImagen;
 
         // Pasar la imagen de memoria al servidor
         $imagenServidor->save($imagenPath);
@@ -106,7 +106,9 @@ class ProveedorController extends Controller
     {
         // Buscar el proveedor con el ID proporcionado
         $proveedor = Proveedor::find($id);
-        return view('proveedores.editarProveedores', compact('proveedor'));
+        $countries = Country::all();
+        $states = State::all();
+        return view('proveedores.editarProveedores', compact('proveedor', 'countries', 'states'));
     }
 
     //Actualiza un proveedor existente en la base de datos.
@@ -114,7 +116,6 @@ class ProveedorController extends Controller
     {
         // Validar los campos del formulario antes de actualizar el proveedor
         $this->validate($request, [
-            'fotografia' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nombre' => 'required',
             'codigo' => 'required|min:5|numeric',
             'telefono' => 'required|max:10',
