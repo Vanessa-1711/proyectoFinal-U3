@@ -12,7 +12,15 @@
 .categoria-tarjeta.selected h3 {
     color: black;
 }
+.no-spinners::-webkit-inner-spin-button,
+.no-spinners::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+.no-spinners {
+  -moz-appearance: textfield;
+}
 </style>
 @endsection
 
@@ -68,11 +76,11 @@
                     <br>
                 <!-- Tarjetas del slider -->
                 @foreach ($categorias as $categoria)
-                <div id="categoria-{{ $categoria->id }}" class="swiper-slide categoria-tarjeta w-1/2 md:w-2/5 lg:w-1/4 cursor-pointer" data-id="{{ $categoria->id }}">
+                <div id="categoria-{{ $categoria->id }}" class="swiper-slide categoria-tarjeta w-1/2 md:w-2/5 lg:w-1/4" data-id="{{ $categoria->id }}">
                     <div class="w-full h-full flex flex-col items-center justify-center">
                         <img src="{{ asset('uploads/' . $categoria->imagen) }}" 
                             alt="Imagen del producto"  
-                            class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl mb-2" 
+                            class="text-xs font-semibold leading-tight dark:text-white text-slate-400 mb-2" 
                             style="max-width: 60px; max-height: 120px;">
                         <h3 class="mt-2">{{ $categoria->nombre }}</h3>
                     </div>
@@ -108,22 +116,80 @@
                             <h3 class="text-xl text-center font-bold">Carrito</h3>
                             
                             <!-- Formulario -->
-                            <form action="#" method="post"> <!-- Puedes especificar una URL en 'action' y un método HTTP para cuando se envíe el formulario -->
+                            <form action="{{ route('ventas.store') }}" method="post" novalidate> <!-- Puedes especificar una URL en 'action' y un método HTTP para cuando se envíe el formulario -->
+                                @csrf
+
                                 <div class="mt-4">
-                                    <label for="usuarioSelect" class="block text-sm font-medium text-gray-700">Selecciona un usuario</label>
-                                    <select id="usuarioSelect" name="usuario" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                        <!-- Opciones del select -->
-                                        <!-- Suponiendo que en tu controlador pasaste un array de usuarios a la vista, puedes llenar el select así: -->
+                                    <label for="cliente_id" class="block text-sm font-medium text-gray-700">Selecciona un usuario</label>
+                                    <select id="cliente_id" name="cliente_id" style="width: 360px;" class="select2 mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('cliente_id') border-red-500 @enderror">
+                                        <option value="">-- Seleccione un proveedor --</option>
                                         @foreach($clientes as $cliente)
-                                            <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
+                                        <option value="{{ $cliente->id }}" {{ old('cliente_id') == $cliente->id ? 'selected' : '' }}>{{ $cliente->nombre }}</option>
                                         @endforeach
                                     </select>
+                                    @error('cliente_id')
+                                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                                    @enderror
+
+                                </div>
+                                <div class="mt-4">
+                                    <label for="referencia" class="block text-sm font-medium text-gray-700">Referencia</label>
+                                    <input type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ old('referencia') }}">
+                                    @error('referencia')
+                                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                                    @enderror
+                                    
+                                    
+                                </div>
+                                <br>
+                                <div class="flex flex-col items-center justify-center h-screen">
+                                    <h4 class="mb-4">Lista de productos</h4>
+                                    <button id="eliminarTodosProductos" type="button" class="buttonAgregar px-5 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all rounded-lg cursor-pointer text-sm ease-in shadow-md bg-blue-500 hover:shadow-xs hover:-translate-y-px tracking-tight-rem bg-x-25">
+                                        <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Eliminar todos los productos
+                                    </button>
                                 </div>
 
-                                <!-- Sección de productos en el carrito -->
+
                                 <div id="listaProductosCarrito" class="mt-4">
                                     <!-- Las tarjetas de productos se agregarán aquí -->
                                 </div>
+
+                                <!-- Sección de Subtotal, IVA y Total -->
+                                <div class="mt-4">
+                                    <div class="flex justify-between">
+                                        <span class="font-medium">Subtotal:</span>
+                                        <span id="subtotal" class="font-medium">$0.00</span> <!-- Aquí debes insertar el valor del subtotal -->
+                                    </div>
+                                    <div class="flex justify-between mt-2">
+                                        <span class="font-medium">IVA (16%):</span>
+                                        <span id="iva" class="font-medium">$0.00</span> <!-- Aquí debes insertar el valor del IVA, generalmente es un porcentaje del subtotal -->
+                                    </div>
+                                    <div class="flex justify-between mt-2">
+                                        <span class="font-bold">Total:</span>
+                                        <span id="total" class="font-bold">$0.00</span> <!-- Aquí debes insertar el valor total (subtotal + IVA) -->
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center mt-0 pb-0 pl-4 mb-2 pt-2" >
+                                    <label for="cambio" class="mr-2">Pago con:</label>
+                                    <input style="outline:none; width: 70px; border:1px solid #b0b1b9; border-radius: 10px; color:black; padding:5px; padding-left: 10px" type="number" id="pagocon" name="pagocon" min="0" step="any" value="{{old('pagocon')}}">
+                                    <div id="mensajeCambio" class="mt-2"></div>
+                                </div>
+                                @error('pagocon')
+                                    <p style="background-color: #f56565; color: #fff;margin-top: 0.5rem;border-radius: 0.5rem;font-size: 0.875rem; padding: 0.5rem; text-align: center;" class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">
+                                        {{$message}}
+                                    </p>    
+                                @enderror
+                                <input type="hidden" name="subtotal_input" id="subtotal_input" value="0.00">
+                                <input type="hidden" name="iva_input" id="iva_input" value="0.00">
+                                <input type="hidden" name="total_input" id="total_input" value="0.00">
+                                <input type="hidden" id="cambio" name="cambio" value="0.00">
+
+
+                                <input type="hidden" id="carrito" name="carrito" class="@error('carrito') border-red-500 @enderror">
+                                @error('carrito')
+                                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                                @enderror
 
                                 <!-- Botón de envío -->
                                 <div class="mt-4">
@@ -146,6 +212,12 @@
 @endsection
 
 @section('scripts')
+<script>
+$(document).ready(function() {
+    $('.select2').select2();
+});
+</script>
+
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
   // Inicializar el slider cuando el documento esté listo
@@ -163,113 +235,112 @@
 </script>
 
 <script>
+
+
 $(document).ready(function(){
-
-// Cargar todos los productos al inicio
-cargarTodosLosProductos();
-
-$('.categoria-tarjeta').on('click', function(e) {
-    e.preventDefault();
-    const categoriaId = $(this).data('id');
-    cargarProductosPorCategoria(categoriaId);
-    $('.categoria-tarjeta').removeClass('selected');
-    $(this).addClass('selected');
-});
-
-var urlProducto = "{{ route('ventas.getProducto')}}";
-
-$(document).on('click', '.agregar-btn', function(e) {
-    e.preventDefault();
+    let carrito = [];
     
-    const productoTarjeta = $(this).closest('.producto-tarjeta');
-    const productId = productoTarjeta.attr('id').split('-')[1];
-    const nombreProducto = $(this).siblings('h3').text();
-    const precioProducto = parseFloat($(this).siblings('p').eq(0).text().replace('Precio: $', ''));
-    
-    let productoEnCarrito = $(`#productoCarrito-${productId}`);
+    // Comprobar si hay datos antiguos en 'carrito'
+    @if(old('carrito'))
+        carrito = {!! json_encode(json_decode(urldecode(old('carrito')))) !!};
+        renderizarCarrito();
+    @endif
 
-    if (productoEnCarrito.length) {
-        let cantidad = parseInt(productoEnCarrito.find('.cantidad').text()) + 1;
-        let total = cantidad * precioProducto;
-        
-        productoEnCarrito.find('.cantidad').text(cantidad);
-        productoEnCarrito.find('.total').text(`Total: $${total.toFixed(2)}`);
-    } else {
-        let tarjetaProducto = `
-        <div id="productoCarrito-${productId}" class="producto-agregado flex justify-between items-center border p-2 mt-2">
-            <img src="${productoTarjeta.find('img').attr('src')}" alt="Imagen del producto" class="w-16 h-16 rounded-lg mr-4">
-            <div>
-                <h4 class="font-semibold">${nombreProducto}</h4>
-                <p class="precio-producto ml-2">Precio: $${precioProducto.toFixed(2)}</p>
-                <div class="flex items-center">
-                    <button type="button" class="cantidad-btn" data-action="decrementar"><i class="fas fa-minus"></i></button>
-                    <span class="cantidad mx-2">1</span>
-                    <button type="button" class="cantidad-btn" data-action="incrementar"><i class="fas fa-plus"></i></button>
+    // Cargar todos los productos al inicio
+    cargarTodosLosProductos();
+
+    function updateValues() {
+        let total = 0;
+        carrito.forEach(producto => {
+            total += producto.precio_compra * producto.stock;
+        });
+
+        let iva = total * 0.16;
+        let subtotal = total - iva;
+
+        $('#subtotal').text(`$${subtotal.toFixed(2)}`);
+        $('#iva').text(`$${iva.toFixed(2)}`);
+        $('#total').text(`$${total.toFixed(2)}`);
+
+        $('#subtotal_input').val(subtotal.toFixed(2));
+        $('#iva_input').val(iva.toFixed(2));
+        $('#total_input').val(total.toFixed(2));
+    }
+
+    function renderizarCarrito() {
+        $('#listaProductosCarrito').empty();
+
+        carrito.forEach(producto => {
+            let tarjetaProducto = `
+            <div id="productoCarrito-${producto.id}" class="producto-agregado flex justify-between items-center border p-2 mt-2 rounded">
+                <img src="${producto.imagen}" alt="Imagen del producto" style="width: 160px; height: 160px;"  class="w-16 h-16 rounded-lg mr-4">
+                <div>
+                    <h4 class="font-semibold" style="text-align: center;">${producto.nombre}</h4>
+                    <p class="precio-producto">Precio: $${producto.precio_compra.toFixed(2)}</p>
+                    <p class="total">Total: $${(producto.precio_compra * producto.stock).toFixed(2)}</p>
+                    <div class="flex items-center">
+                        <button type="button" class="cantidad-btn bg-blue-500 rounded-full w-6 h-6 flex items-center justify-center" style="transition: transform 150ms; transform: translateY(0);" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'" data-action="decrementar">
+                            <i class="fas fa-minus text-white"></i>
+                        </button>
+                        <input type="number" class="no-spinners focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none mx-2" value="${producto.stock}" min="1" max="${producto.unidades_disponibles}" style="width: 50px; text-align: center;outline:none;" data-id="${producto.id}" oninput="validarCantidadInput(${producto.id}, this)" />
+                        <button type="button" class="cantidad-btn bg-blue-500 rounded-full w-6 h-6 flex items-center justify-center" style="transition: transform 150ms; transform: translateY(0);" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'" data-action="incrementar">
+                            <i class="fas fa-plus text-white"></i>
+                        </button>
+
+                    </div>
                 </div>
-                <p class="total">Total: $${precioProducto.toFixed(2)}</p>
-            </div>
-            <button type="button" class="eliminar-btn"><i class="fas fa-trash-alt"></i></button>
+                <button type="button" class="eliminar-btn flex items-center justify-center" style="background-color: #FF7F7F; color: white; width: 32px; height: 32px; transition: transform 150ms; transform: translateY(0); border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
 
-        </div>`;
-        
-        $('#listaProductosCarrito').append(tarjetaProducto);
+
+
+            </div>`;
+
+            
+            $('#listaProductosCarrito').append(tarjetaProducto);
+        });
+
+        updateValues();
+        $('#carrito').val(JSON.stringify(carrito));
     }
-});
 
-$(document).on('click', '.cantidad-btn', function(e) {
-    const accion = $(this).data('action');
-    const productoEnCarrito = $(this).closest('.producto-agregado');
+    function validarCantidadInput(productId, inputElement) {
+    const cantidad = parseInt(inputElement.value);
+    const productoTarjeta = $(`#producto-${productId}`);
+    const unidadesDisponibles = parseInt(productoTarjeta.find('p').eq(2).text().replace('Unidades disponibles: ', ''));
     
-    var precioTexto = productoEnCarrito.find('.precio-producto').text().trim();
-    console.log("Texto de precio:", precioTexto);
-
-    const precioProducto = parseFloat(precioTexto.replace('Precio: $', '').replace(',', ''));
-    console.log("Precio convertido:", precioProducto);
-
-    let cantidad = parseInt(productoEnCarrito.find('.cantidad').text());
-    if(isNaN(cantidad)) {
-        cantidad = 1;
-    }
-    console.log("Cantidad:", cantidad);
-
-    console.log("Acción:", accion);
-    console.log("Precio del producto:", precioProducto);
-    console.log("Cantidad antes:", cantidad);
-    
-    if (accion === "incrementar") {
-        cantidad += 1;
-    } else if (accion === "decrementar" && cantidad > 1) {
-        cantidad -= 1;
+    // Comprobar si la cantidad excede las unidades disponibles y ajustar si es necesario
+    if (cantidad > unidadesDisponibles) {
+        inputElement.value = unidadesDisponibles;  // Establece el input al máximo de unidades disponibles
+        productoTarjeta.find('.mensaje-error').text("No quedan productos disponibles. Se han agregado el máximo de productos disponibles.").show();
+    } else {
+        productoTarjeta.find('.mensaje-error').hide();
     }
 
-    let total = cantidad * precioProducto;
-    console.log("Cantidad después:", cantidad);
-    console.log("Total calculado:", total);
+    // Actualizar el carrito
+    let producto = carrito.find(p => p.id == productId);
+    if (producto) {
+        producto.stock = parseInt(inputElement.value);  // Aquí usamos el valor ajustado del input, no la variable "cantidad"
+    }
 
-    productoEnCarrito.find('.cantidad').text(cantidad);
-    productoEnCarrito.find('.total').text(`Total: $${total.toFixed(2)}`);
-});
-$(document).on('click', '.eliminar-btn', function(e) {
-    e.preventDefault();
-    const productoEnCarrito = $(this).closest('.producto-agregado');
-    productoEnCarrito.remove();
-});
-
-function cargarTodosLosProductos() {
-    $.ajax({
-        url: "{{ route('ventas.getProducto') }}",
-        method: 'GET',
-        dataType: 'json',
-        success: function(productos) {
-            renderizarProductos(productos);
-        },
-        error: function(error) {
-            console.error("Error al cargar productos:", error);
-        }
-    });
+    // Actualizar el total y otros valores en la interfaz
+    renderizarCarrito();
 }
-
-function cargarProductosPorCategoria(categoriaId) {
+    function cargarTodosLosProductos() {
+        $.ajax({
+            url: "{{ route('ventas.getProducto') }}",
+            method: 'GET',
+            dataType: 'json',
+            success: function(productos) {
+                renderizarProductos(productos);
+            },
+            error: function(error) {
+                console.error("Error al cargar productos:", error);
+            }
+        });
+    }   
+    function cargarProductosPorCategoria(categoriaId) {
         $.ajax({
             url: "{{ route('ventas.productosByCategoria', '') }}/" + categoriaId,
             method: 'GET',
@@ -281,28 +352,228 @@ function cargarProductosPorCategoria(categoriaId) {
                 console.error("Error al cargar productos por categoría:", error);
             }
         });
-}
+    }
 
-function renderizarProductos(productos) {
-    let contenido = '';
-    productos.forEach(producto => {
-        contenido += `
-        <div id="producto-${producto.id}" class="producto-tarjeta bg-white w-48" style="margin-right: 10px; margin-bottom: 10px;">
-            <div class="product-info relative">
-                <img class="w-1/2 mx-auto my-4" src="{{ asset('uploads') }}/${producto.imagen}" 
-                    alt="Imagen del producto"  
-                    class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl mb-2" 
-                    style="max-width: 150px; max-height: 150px;">
-                <h3 class="mt-2">${producto.nombre}</h3>
-                <p>Precio: $${producto.precio_venta}</p>
-                <p>Marca: ${producto.marca.nombre}</p>
-                <p>Unidades disponibles: ${producto.unidades_disponibles}</p>
-                <a href="#" class="agregar-btn"><i class="fas fa-shopping-cart mr-2"></i>Agregar producto</a>
-            </div>
-        </div>`;
+    function renderizarProductos(productos) {
+        let contenido = '';
+        if (productos.length === 0) {
+            contenido = '<h3>Esta categoría no tiene productos.</h3>';
+        } else {
+            productos.forEach(producto => {
+                let botonAgregar = `<a href="#" class="agregar-btn"><i class="fas fa-shopping-cart mr-2"></i>Agregar producto</a>`;
+                
+                // Verifica si el stock es 0 o menor
+                if (producto.unidades_disponibles <= 0) {
+                    botonAgregar = '<h4 style="color: red;">Agotado</h4>';
+                }
+
+                contenido += `
+                <div id="producto-${producto.id}" class="producto-tarjeta bg-white w-48" style="margin-right: 10px; margin-bottom: 10px;">
+                    <div class="product-info relative">
+                        <img class="w-1/2 mx-auto my-4" src="{{ asset('uploads') }}/${producto.imagen}" 
+                            alt="Imagen del producto"  
+                            class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl mb-2" 
+                            style="max-width: 150px; max-height: 150px;">
+                        <h3 class="mt-2">${producto.nombre}</h3>
+                        <p>Precio: $${producto.precio_venta}</p>
+                        <p>Marca: ${producto.marca.nombre}</p>
+                        <p>Unidades disponibles: ${producto.unidades_disponibles}</p>
+                        ${botonAgregar}
+                        <p class="mensaje-error mt-1" style="color: red; display: none;">No hay unidades disponibles para esa cantidad</p>
+                    </div>
+                </div>`;
+            });
+        }
+        $('#productos-section').html(contenido);
+    }
+
+
+
+
+
+    $('.categoria-tarjeta').on('click', function(e) {
+        e.preventDefault();
+        const categoriaId = $(this).data('id');
+
+        if ($(this).hasClass('selected')) {
+            cargarTodosLosProductos(); // Si ya está seleccionada, cargamos todos los productos nuevamente
+            $(this).removeClass('selected');
+        } else {
+            cargarProductosPorCategoria(categoriaId);
+            $('.categoria-tarjeta').removeClass('selected');
+            $(this).addClass('selected');
+        }
     });
-    $('#productos-section').html(contenido);
-}
+
+    var urlProducto = "{{ route('ventas.getProducto')}}";
+
+    $(document).on('click', '.agregar-btn', function(e) {
+        e.preventDefault();
+        
+        const productoTarjeta = $(this).closest('.producto-tarjeta');
+        const productId = productoTarjeta.attr('id').split('-')[1];
+        const nombreProducto = $(this).siblings('h3').text();
+        const precioProducto = parseFloat($(this).siblings('p').eq(0).text().replace('Precio: $', ''));
+        const unidadesDisponibles = parseInt($(this).siblings('p').eq(2).text().replace('Unidades disponibles: ', ''));
+        
+        let productoEnCarrito = carrito.find(p => p.id == productId);
+        let cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.stock : 0;
+        let cantidadDeseada = 1; // Porque estás añadiendo 1 cada vez que haces clic en el botón
+
+        let cantidadTotal = cantidadEnCarrito + cantidadDeseada;
+
+        if (cantidadTotal > unidadesDisponibles) {
+            productoTarjeta.find('.mensaje-error').show();
+            return;  // No continuar si no hay unidades disponibles.
+        } else {
+            productoTarjeta.find('.mensaje-error').hide();
+        }
+
+        if (productoEnCarrito) {
+            productoEnCarrito.stock = cantidadTotal;
+        } else {
+            let productoNuevo = {
+                id: productId,
+                nombre: nombreProducto,
+                precio_compra: precioProducto,
+                stock: cantidadDeseada,
+                imagen: productoTarjeta.find('img').attr('src')
+            };
+            carrito.push(productoNuevo);
+        }
+
+        renderizarCarrito();
+    });
+
+
+    $(document).on('click', '.cantidad-btn', function(e) {
+        const accion = $(this).data('action');
+        const productoEnCarrito = $(this).closest('.producto-agregado');
+        
+        const precioTexto = productoEnCarrito.find('.precio-producto').text().trim();
+        const precioProducto = parseFloat(precioTexto.replace('Precio: $', '').replace(',', ''));
+        
+        let inputCantidad = productoEnCarrito.find('input[type="number"]');
+        let cantidad = parseInt(inputCantidad.val());
+        if(isNaN(cantidad)) {
+            cantidad = 1;
+        }
+
+        if (accion === "incrementar") {
+            cantidad += 1;
+        } else if (accion === "decrementar" && cantidad > 1) {
+            cantidad -= 1;
+        }
+
+        const productId = productoEnCarrito.attr('id').split('-')[1];
+        const productoTarjeta = $(`#producto-${productId}`);
+        const unidadesDisponibles = parseInt(productoTarjeta.find('p').eq(2).text().replace('Unidades disponibles: ', ''));
+
+        if (cantidad <= unidadesDisponibles && cantidad > 0) {
+            productoTarjeta.find('.mensaje-error').hide();
+        } else {
+            productoTarjeta.find('.mensaje-error').show();
+            return; // No continuar si no hay unidades disponibles.
+        }
+        inputCantidad.val(cantidad);
+        // Actualiza la cantidad en el objeto carrito
+        let producto = carrito.find(p => p.id == productId);
+        if(producto) {
+            producto.stock = cantidad; // Actualiza la cantidad en el carrito
+        }
+
+        renderizarCarrito(); // Renderizar de nuevo el carrito para reflejar los cambios
+    });
+
+    $(document).on('click', '.eliminar-btn', function(e) {
+        e.preventDefault();
+        
+        // Encuentra la tarjeta del producto en el carrito.
+        const productoEnCarrito = $(this).closest('.producto-agregado');
+        const productId = productoEnCarrito.attr('id').split('-')[1];
+        
+        // Elimina el producto del carrito.
+        carrito = carrito.filter(producto => producto.id != productId);
+        
+        // Ocultar el mensaje de error en la tarjeta del producto.
+        const productoTarjeta = $(`#producto-${productId}`);
+        productoTarjeta.find('.mensaje-error').hide();
+
+        // Actualizar la interfaz.
+        renderizarCarrito();
+    });
+    
+    $(document).on('change', '.cantidad-input', function(e) {
+            const productoEnCarrito = $(this).closest('.producto-agregado');
+            let cantidad = parseInt($(this).val());
+            const productId = productoEnCarrito.attr('id').split('-')[1];
+            const productoTarjeta = $(`#producto-${productId}`);
+            const unidadesDisponibles = parseInt(productoTarjeta.find('p').eq(2).text().replace('Unidades disponibles: ', ''));
+
+            if (cantidad <= unidadesDisponibles && cantidad > 0) {
+                productoTarjeta.find('.mensaje-error').hide();
+            } else {
+                productoTarjeta.find('.mensaje-error').show();
+                $(this).val(cantidad > 0 ? unidadesDisponibles : 1);
+                cantidad = $(this).val();
+            }
+
+            let producto = carrito.find(p => p.id == productId);
+            if (producto) {
+                producto.stock = cantidad;
+            }
+
+            let total = cantidad * parseFloat(productoEnCarrito.find('.precio-producto').text().trim().replace('Precio: $', '').replace(',', ''));
+            productoEnCarrito.find('.total').text(`Total: $${total.toFixed(2)}`);
+            updateValues();
+        });
+        $(document).on('click', '#eliminarTodosProductos', function(e) {
+            e.preventDefault();
+            
+            // Vacía el array del carrito
+            carrito = [];
+            
+            // Oculta todos los mensajes de error
+            $('.mensaje-error').hide();
+            
+            // Actualiza la interfaz
+            renderizarCarrito();
+        });
+
+
+
+        $(document).on('input', 'input[data-id]', function() {
+            const productoId = $(this).data('id');
+            validarCantidadInput(productoId, this);
+        });
+
+        $(document).ready(function() {
+            $('#pagocon').on('input', function() {
+                var pagoCon = parseFloat($(this).val());
+                var totalCompra = parseFloat($('#total').text().replace('$', '')); // Asumiendo que el total ya tiene el símbolo de '$'
+
+                if (isNaN(pagoCon)) {
+                    $('#mensajeCambio').text('Por favor, ingrese una cantidad válida.');
+                    $('#cambio').val('0.00'); // Asegúrate de resetear el valor del cambio en el input oculto
+                    return;
+                }
+
+                if (pagoCon < totalCompra) {
+                    $('#mensajeCambio').text('El monto no es suficiente para cubrir el total.');
+                    $('#cambio').val('0.00'); // Asegúrate de resetear el valor del cambio en el input oculto
+                } else {
+                    var cambio = pagoCon - totalCompra;
+                    $('#mensajeCambio').text('Cambio: $' + cambio.toFixed(2));
+                    $('#cambio').val(cambio.toFixed(2)); // Aquí estamos estableciendo el valor del cambio en el input oculto
+                }
+            });
+        });
+
+
+    
+
+
+
 
 });
 

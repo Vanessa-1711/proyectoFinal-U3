@@ -60,15 +60,13 @@ class GestionComprasController extends Controller
         return response()->json($producto);
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $this->validate($request,[
             'fecha'=>'required',
             'referencia'=>'required|unique:compras',
             'descripcion'=>'required',
             'proveedor_id'=>'required',
         ]); 
-        //dd($request->all());
 
         // Almacena la nueva compra en la base de datos.
         $compra = new Compra();
@@ -79,32 +77,36 @@ class GestionComprasController extends Controller
         $compra->descripcion = $request->descripcion;
         $compra->subtotal = $request->subtotal_input;
         $compra->total = $request->total_input;
-        $compra->save();
+        $compraExitosa = $compra->save();
 
-        $productosCarrito = json_decode($request->carrito, true);
-        // Aquí guardas los detalles de la compra.
-        foreach ($productosCarrito as $productoData) {
-            $producto = Product::find($productoData['product_id']); // Asegúrate de que los objetos en el carrito tengan el atributo 'product_id'
-            if ($producto) {
-                // Actualizar el stock del producto
-                $producto->unidades_disponibles += $productoData['stock'];
-                $producto->save();
-        
-                // Guardar el detalle de la compra
-                $detalle = new DetalleCompra();
-                $detalle->compras_id = $compra->id;
-                $detalle->products_id = $producto->id;
-                $detalle->stock = $productoData['stock'];
-                $detalle->precio_compra = $productoData['precio_compra'];
-                $detalle->subtotal = $productoData['subtotal'];
-                $detalle->total = $productoData['total'];
-                $detalle->save();
-            }
-        }
+        if ($compraExitosa) {
+            $productosCarrito = json_decode($request->carrito, true);
+            // Aquí guardas los detalles de la compra.
+            foreach ($productosCarrito as $productoData) {
+                $producto = Product::find($productoData['product_id']); 
+                if ($producto) {
+                    // Actualizar el stock del producto
+                    $producto->unidades_disponibles += $productoData['stock'];
+                    $producto->save();
             
+                    // Guardar el detalle de la compra
+                    $detalle = new DetalleCompra();
+                    $detalle->compras_id = $compra->id;
+                    $detalle->products_id = $producto->id;
+                    $detalle->stock = $productoData['stock'];
+                    $detalle->precio_compra = $productoData['precio_compra'];
+                    $detalle->subtotal = $productoData['subtotal'];
+                    $detalle->total = $productoData['total'];
+                    $detalle->save();
+                }
+            }
 
-        return redirect()->route('compras.index')->with('success', 'Compra realizada con éxito');
+            return redirect()->route('compras.index')->with('success', 'Compra realizada con éxito');
+        } else {
+            return redirect()->route('compras.index');
+        }
     }
+
      //Funcion para redirigir a la vista de editar compra
      public function show($id_compra){
         $compra = Compra::findOrFail($id_compra);

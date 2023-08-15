@@ -62,9 +62,11 @@ class ProveedorController extends Controller
             'estado' => $request->estado,
             'ciudad' => $request->ciudad,
         ]);
-
+        
         // Mostrar un mensaje de éxito y redireccionar a la página de proveedores
-        $request->session()->flash('success', '¡El Proveedor se ha registrado exitosamente!');
+        if($nuevoProveedor) {
+            $request->session()->flash('success', '¡El Proveedor se ha registrado exitosamente!');
+        }
         return redirect()->route('proveedores');
     }
 

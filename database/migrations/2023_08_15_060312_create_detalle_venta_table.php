@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('subcategorias', function (Blueprint $table) {
-            //Agregar capo a tabla de usuarios 
-            //$table -> string('username');
-
-            //Agregar capo a tabla de usuarios Unico
-            $table->string('imagen');
+        Schema::create('detalle_venta', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->integer('cantidad');
+            $table->foreignId('venta_id')->constrained('venta');
+            $table->foreignId('products_id')->constrained('products');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('detalle_venta');
     }
 };
