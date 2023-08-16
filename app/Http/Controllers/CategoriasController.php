@@ -20,7 +20,7 @@ class CategoriasController extends Controller
     public function index()
     {
         // Obtener todas las categorías desde la base de datos
-        $categorias = Categorias::all();
+        $categorias = Categorias::where('eliminado', 0)->get();
 
         // Mostrar la vista 'gestorCategorias' y pasar las categorías como una variable llamada 'categorias'
         return view('categorias.gestorCategorias')->with('categorias', $categorias);
@@ -50,6 +50,7 @@ class CategoriasController extends Controller
             'descripcion' => $request->descripcion,
             'codigo' => $request->codigo,
             'imagen'=> $request->imagen,
+            'eliminado'=>0,
             'user_id' => auth()->user()->id,
         ]);
 
@@ -125,7 +126,7 @@ class CategoriasController extends Controller
         return redirect()->route('categorias');
     }
 
-    // Método para eliminar una categoría de la base de datos
+    /*
     public function delete($id_categoria)
     {
         // Buscar la categoría por su ID en la base de datos
@@ -161,5 +162,34 @@ class CategoriasController extends Controller
         // Redireccionar a la página de lista de categorías (o a otra página de elección) y mostrar un mensaje de éxito
         session()->flash('success', '¡El producto se ha eliminado exitosamente!');
         return redirect()->route('categorias');
+    }*/
+
+    public function delete($id_categoria)
+    {
+        // Buscar la categoría por su ID en la base de datos
+        $marca = Categorias::find($id_categoria);
+
+        if ($categoria->productos()->exists()) {
+            $productos = $categoria->productos;
+            foreach ($productos as $producto) {
+                $producto->eliminado = 1;
+                $producto->save();
+            }
+        }
+        // Si la categoría tiene subcategorías relacionadas, eliminarlas realmente de la base de datos
+        if ($categoria->subcategorias()->exists()) {
+            $subcategorias = $categoria->subcategorias;
+            foreach ($subcategorias as $subcategoria) {
+                $subcategoria->delete();
+            }
+        }
+
+        // Marcamos la categoría como "eliminada" y actualizamos el campo en la base de datos
+        $categoria->eliminado = 1;
+        $categoria->save();
+
+        // Redireccionar a la página de lista de categorías (o a otra página de elección) y mostrar un mensaje de éxito
+        session()->flash('success', '¡La categoría se ha eliminado exitosamente!');
+        //return redirect()->route('categorias');
     }
 }

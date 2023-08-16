@@ -19,6 +19,7 @@ class Categorias extends Model
         'codigo',
         'descripcion',
         'imagen',
+        'eliminado',
         'user_id'
     ];
 
@@ -32,20 +33,14 @@ class Categorias extends Model
         return $this->hasMany(Product::class, 'categoria_id');
     }
 
-    /**
-     * Una categoría pertenece a un usuario creador.
-     */
     public function creador()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * Una categoría puede pertenecer a una subcategoría.
-     */
     public function subcategorias()
     {
-        return $this->belongsTo(Subcategoria::class, 'categoria_id');
+        return $this->hasMany(Subcategoria::class, 'categoria_id');
     }
 
 }

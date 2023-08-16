@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('subcategorias', function (Blueprint $table) {
-            //Agregar capo a tabla de usuarios 
-            //$table -> string('username');
-
-            //Agregar capo a tabla de usuarios Unico
-            $table->string('imagen');
+        Schema::table('categorias', function (Blueprint $table) {
+            //
+            $table->tinyInteger('eliminado')->default(0);
         });
     }
 
@@ -25,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('categorias', function (Blueprint $table) {
+            //
+            $table->dropColumn('eliminado');
+        });
     }
 };

@@ -20,8 +20,8 @@ class VentasController extends Controller
     }
     public function create()
     {
-        $categorias = Categorias::all();
-        $productos = Product::all();
+        $categorias = Categorias::where('eliminado', 0)->get();
+        $productos = Product::where('eliminado', 0)->get();
         $clientes = Cliente::all();
         if ($categorias->isEmpty() || $productos->isEmpty()) {
             $message = '';
@@ -44,21 +44,25 @@ class VentasController extends Controller
     }
 
     public function getAllProducts(){
-        $productos = Product::with('marca')->get();
+        $productos = Product::with('marca')->where('eliminado', 0)->get();
         return response()->json($productos);
     }
 
     public function getProductsByCategory($categoriaId){
-        $productos = Product::with('marca')->where('categoria_id', $categoriaId)->get();
-        
+        $productos = Product::with('marca')
+                            ->where('categoria_id', $categoriaId)
+                            ->where('eliminado', 0)
+                            ->get();
+            
         foreach ($productos as $producto) {
             $impuesto = $producto->precio_compra * 0.15;
             $producto->costo_total = $producto->precio_venta + round($impuesto);
             $producto->impuesto = round($impuesto);
         }
-
+    
         return response()->json($productos);
     }
+    
 
     public function store(Request $request)
     {  

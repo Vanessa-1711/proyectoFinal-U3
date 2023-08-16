@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_country', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('sortname', 3);
-            $table->string('name', 150);
+        Schema::table('marcas', function (Blueprint $table) {
+            // Agregar la columna 'eliminado' con valor por defecto de 0 (no eliminado)
+            $table->tinyInteger('eliminado')->default(0);
         });
     }
 
@@ -23,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_country');
+        Schema::table('marca', function (Blueprint $table) {
+            $table->dropColumn('eliminado');
+        });
     }
 };

@@ -26,7 +26,7 @@ class GestionComprasController extends Controller
     public function create()
     {
         $proveedores = Proveedor::all();
-        $productos = Product::all();
+        $productos = Product::where('eliminado', 0)->get();
         if ($proveedores->isEmpty() || $productos->isEmpty()) {
             $message = '';
         

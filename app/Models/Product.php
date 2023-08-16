@@ -21,6 +21,7 @@ class Product extends Model
         'precio_compra',
         'precio_venta',
         'unidades_disponibles',
+        'eliminado',
         'user_id',
         'marca_id'
     ];
