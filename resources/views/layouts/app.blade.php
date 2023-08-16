@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ asset('img/tienda.png') }}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js" integrity="sha512-sk0cNQsixYVuaLJRG0a/KRJo9KBkwTDqr+/V94YrifZ6qi8+OO3iJEoHi0LvcTVv1HaBbbIvpx+MCjOuLVnwKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/styleTablas.css') }}">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
     <!-- Agrega esta línea en el encabezado de tu archivo HTML -->
@@ -126,6 +129,26 @@
                                 </svg>
                             </div>
                             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Productos</span>
+                        </a>
+                    </li>
+                    
+                    <li class="w-full mt-4">
+                        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-black opacity-60">
+                            Importar
+                        </h6>
+                    </li>
+                    <li class="mt-0.5 w-full">
+                        <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors"
+                            href="{{ route('importar.index') }}">
+                            <div
+                                class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.25 9.75h4.875a2.625 2.625 0 010 5.25H12M8.25 9.75L10.5 7.5M8.25 9.75L10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185z" />
+                                </svg>
+                            </div>
+                            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Importar productos</span>
                         </a>
                     </li>
                     <li class="w-full mt-4">

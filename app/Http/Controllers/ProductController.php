@@ -9,6 +9,7 @@ use App\Models\Subcategoria;
 use App\Models\Marca;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -25,7 +26,10 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::where('eliminado', 0)->get();
-        return view('productos.tablaProductos', compact('products'));
+        return view('productos.tablaProductos', compact('products'))->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
     }
 
     // Método para mostrar el formulario para crear un nuevo producto
@@ -62,8 +66,8 @@ class ProductController extends Controller
             'precio_compra' => 'required|numeric|min:0',
             'precio_venta' => 'required|numeric|min:0',
             'unidades_disponibles' => 'required',
-            'marca_id' => 'required',
-            'imagen' => 'required',
+            'marca_id' => '',
+            
         ]);
         
         // Crear una nueva instancia del modelo Product y asignar los valores del formulario
@@ -143,7 +147,7 @@ class ProductController extends Controller
             'precio_compra' => 'required',
             'precio_venta' => 'required',
             'unidades_disponibles' => 'required',
-            'marca_id' => 'required',
+            'marca_id' => '',
         ]);
 
         // Buscar el producto por el ID
@@ -210,4 +214,5 @@ class ProductController extends Controller
         session()->flash('success', '¡El producto se ha eliminado exitosamente!');
         return redirect()->route('tablaProductos');
     }
+
 }

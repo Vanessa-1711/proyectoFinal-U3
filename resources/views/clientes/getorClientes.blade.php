@@ -190,7 +190,7 @@ $(document).ready(function() {
     }).then((result) => {
       if (result.isConfirmed) {
         // Redirecciona al usuario a la página "tablaProductos"
-        window.location.href = '{{ route('tablaProductos') }}';
+        window.location.href = '{{ route('clientes') }}';
       }
     });
   });

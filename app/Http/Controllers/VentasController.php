@@ -12,11 +12,19 @@ use Carbon\Carbon;
 
 class VentasController extends Controller
 {
+    public function __construct(){
+        //protegemos la url
+        //al metodo index con el constructor le pasamos el parametro de autenticacion
+        $this->middleware('auth');
+    }
     public function index()
     {
         // Mostrar la vista 'gestorCategorias' y pasar las categorías como una variable llamada 'categorias'
         $ventas = Venta::all();
-        return view('ventas.tablaVentas', ['ventas' => $ventas]);
+        return view('ventas.tablaVentas', ['ventas' => $ventas])->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
     }
     public function create()
     {
@@ -116,6 +124,16 @@ class VentasController extends Controller
 
         
         
+    }
+
+    public function show($id)
+    {
+        // Buscar el producto con el ID proporcionado
+        $venta = Venta::with('cliente')->find($id);
+        $detalles = DetalleVenta::with('producto')->where('venta_id', $id)->get();
+        $venta = Venta::findOrFail($id);
+        return view('ventas.detallesVentas')->with(['venta' => $venta,'detalles' => $detalles ]);
+
     }
 
 

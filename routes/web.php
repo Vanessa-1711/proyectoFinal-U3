@@ -22,6 +22,7 @@ use App\Http\Controllers\GestionComprasController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CotizacionController;
+use App\Http\Controllers\ImportarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -182,6 +183,7 @@ Route::get('/ventas', [VentasController::class, 'index'])->name('ventas');
 Route::get('/ventas/create', [VentasController::class, 'create'])->name('ventas.create');
 Route::get('/ventas/productos', [VentasController::class, 'getAllProducts'])->name('ventas.getProducto');
 Route::get('/ventas/productos/categoria/{categoriaId}', [VentasController::class, 'getProductsByCategory'])->name('ventas.productosByCategoria');
+Route::get('/ventas/show/{ventas}', [VentasController::class, 'show'])->name('venta.show');
 Route::post('/ventas', [VentasController::class, 'store'])->name('ventas.store');
 
 
@@ -194,9 +196,6 @@ Route::get('/compras/getProducto/{id_producto}',[GestionComprasController::class
 Route::get('/compras/{comprasId}', [GestionComprasController::class, 'show'])->name('compras.show');
 
 
-//gestor compras 
-
-Route::get('/ventas/detalles', [VentasController::class, 'detallesTienda'])->name('ventas.show');
 
 
 //cotizaciones
@@ -226,3 +225,7 @@ Route::get('/cotizaciones/getProducto/{id_producto}',[CotizacionController::clas
 Route::get('/cotizaciones/show/{id}', [CotizacionController::class, 'show'])->name('cotizaciones.show');
 
 
+
+//Ruta para la vista de importar productos
+Route::get('/importar',[ImportarController::class,'index'])->name('importar.index');
+Route::post('/importarProductos',[ImportarController::class,'store'])->name('importar.store');

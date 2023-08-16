@@ -21,7 +21,10 @@ class SubcategoriaController extends Controller
     public function index()
     {
         $subcategorias = Subcategoria::all();
-        return view('subcategoria.tablaSubcategoria', compact('subcategorias'));
+        return view('subcategoria.tablaSubcategoria', compact('subcategorias'))->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
     }
 
     //Muestra el formulario para crear una nueva subcategoría.

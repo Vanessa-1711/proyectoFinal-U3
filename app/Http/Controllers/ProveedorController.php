@@ -22,7 +22,10 @@ class ProveedorController extends Controller
     {
        
         $proveedores = Proveedor::all();
-        return view('proveedores.tablaProveedores', compact('proveedores'));
+        return view('proveedores.tablaProveedores', compact('proveedores'))->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
     }
 
     //Muestra el formulario para crear un nuevo proveedor.

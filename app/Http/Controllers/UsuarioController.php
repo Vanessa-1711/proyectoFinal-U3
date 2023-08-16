@@ -22,7 +22,10 @@ class UsuarioController extends Controller
     {
        
         $usuarios = Usuario::all();
-        return view('usuarios.tabla', compact('usuarios'));
+        return view('usuarios.tabla', compact('usuarios'))->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
     }
 
     //Muestra el formulario para crear un nuevo proveedor.

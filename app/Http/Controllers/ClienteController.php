@@ -25,7 +25,10 @@ class ClienteController extends Controller
         $clientes = Cliente::all();
 
         // Mostrar la vista 'tablaClientes' y pasar los clientes como una variable llamada 'clientes'
-        return view('clientes.tablaClientes', compact('clientes'));
+        return view('clientes.tablaClientes', compact('clientes'))->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
     }
 
     // Método para mostrar el formulario de creación de cliente

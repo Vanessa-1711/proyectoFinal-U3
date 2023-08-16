@@ -112,9 +112,16 @@ Cotizacion
                                                     <i class="far fa-eye"></i>
                                                 </a>
                                                 <!-- Primer botón - Editar -->
-                                                <a href="{{ route('categorias.editarCategoria', $cotizacion->id) }}" class="buttonEditar text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
+                                                {{-- <a href="{{ route('cotizaciones.edit', $cotizacion->id) }}" class="buttonEditar text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
                                                     <i class="fas fa-pencil-alt"></i>
-                                                </a>
+                                                </a> --}}
+                                                <form action="{{ route('cotizaciones.destroy', $cotizacion->id) }}" method="POST" id="deleteForm-{{ $cotizacion->id }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" style="color: white; background-color: red;" class="buttonBorrar rounded-full p-2" onclick="confirmDelete({{ $cotizacion->id }})">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
 
                                             </div>
                                         </td>

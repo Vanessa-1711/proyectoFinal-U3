@@ -20,11 +20,6 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
-    <!-- Agregar estilos personalizados aquí (si es necesario) -->
-    <style>
-      
-    </style>
-
 @endsection
 
 @section('titulo')
@@ -119,7 +114,7 @@
 
                                                 <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent" style="margin-right: 8px; margin-left:8px;">
                                                     <div style="display: flex; align-items: center; justify-content: left;">
-                                                        <a href="{{ route('ventas.show') }}" class="buttonVer text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
+                                                        <a href="{{ route('venta.show', $ventas->id) }}" class="buttonVer text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
                                                           <i class="far fa-eye"></i>
                                                         </a>
                                                     </div>

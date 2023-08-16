@@ -44,6 +44,7 @@
               </svg>
               Agregar Productos
           </a>
+
         </div>
 
         <!-- Tabla para mostrar los productos -->

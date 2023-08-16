@@ -19,7 +19,10 @@ class MarcaController extends Controller
     public function index()
     {
         $marcas = Marca::where('eliminado', 0)->get();
-        return view('marcas.tablaMarcas', compact('marcas'));
+        return view('marcas.tablaMarcas', compact('marcas'))->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
     }
 
     // Método para mostrar el formulario para crear una nueva marca
