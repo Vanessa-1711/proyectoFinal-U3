@@ -102,19 +102,47 @@ class CotizacionController extends Controller
     {
         $cotizacion = Cotizacion::findOrFail($id);
         $productos = Product::all();
-        return view('cotizaciones.edit', compact('cotizacion', 'productos'));
+        $clientes = Cliente::all();
+        
+
+        return view('cotizaciones.editarCotizaciones', compact('cotizacion', 'productos', 'clientes'));
     }
 
     public function update(Request $request, $id)
     {
+
         $request->validate([
-            'cliente' => 'required|string|max:255',
             'fecha' => 'required|date',
-            'referencia' => 'required|string|max:255',
-            'producto_id' => 'required|integer|exists:products,id',
-            'total' => 'required|numeric|min:0',
+            'referencia' => 'required|string|max:255|unique:cotizaciones',
+            'cliente_id' => 'required',
             'descripcion' => 'nullable|string',
+            'estatus' => 'required|string|in:enviada,pendiente',
         ]);
+
+        $cotizacion = new Cotizacion();
+        $cotizacion->cliente_id = $request->cliente_id;
+        $cotizacion->fecha = $request->fecha;
+        $cotizacion->referencia = $request->referencia;
+        $cotizacion->descripcion = $request->descripcion;
+        $cotizacion->subtotal = $request->subtotal_input;
+        $cotizacion->total = $request->total_input;
+        $cotizacion->estatus = $request->estatus;
+        $cotizacion->save();
+
+        $productosCarrito = json_decode($request->carrito, true);
+        foreach ($productosCarrito as $productoData) {
+            $producto = Product::find($productoData['product_id']);
+            if ($producto) {
+                $detalle = new DetalleCotizacion();
+                $detalle->cotizaciones_id = $cotizacion->id;
+                $detalle->products_id = $producto->id;
+                $detalle->sale = $productoData['sale'];
+                $detalle->precio_venta = $productoData['precio_venta'];
+                $detalle->subtotal = $productoData['subtotal'];
+                $detalle->total = $productoData['total'];
+                $detalle->save();
+            }
+        }
 
         $cotizacion = Cotizacion::findOrFail($id);
         $cotizacion->update($request->all());
