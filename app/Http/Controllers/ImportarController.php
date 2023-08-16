@@ -63,14 +63,14 @@ class ImportarController extends Controller
                 Product::create([
                     'nombre' => $data[0],
                     'categoria_id' => $data[1],
-                    'precio_compra' => $data[2],
-                    'precio_venta' => $data[3],
+                    'marca_id' => $data[2],
+                    'precio_compra' => $data[6],
+                    'precio_venta' => $data[5],
                     'unidades_disponibles' => $data[4],
-                    'marca_id' => $data[5] ?? null, // Si no se proporciona marca_id, se establecerá como null
                     'creado_por' => auth()->user()->username,
                 ]);
             } else {
-                $registros_erroneos+=$registros_erroneos;
+                $registros_erroneos++;
                 // Puedes registrar un log o enviar un mensaje si alguna de las relaciones no existe
                 // Por ejemplo: Log::warning("No se encontró relación para el producto: " . $data[0]);
             }

@@ -95,20 +95,21 @@
                                             <td class="py-2 px-4 border-b border-gray-300">marca_id</td>
                                             <td class="py-2 px-4 border-b border-gray-300">ID de la marca del producto</td>
                                         </tr>
-                                        
-                                        <tr>
-                                            <td class="py-2 px-4 border-b border-gray-300">unidades_disponibles</td>
-                                            <td class="py-2 px-4 border-b border-gray-300">Cantidad de unidades disponibles del producto
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-2 px-4 border-b border-gray-300">precio_venta</td>
-                                            <td class="py-2 px-4 border-b border-gray-300">Precio de venta del producto</td>
-                                        </tr>
                                         <tr>
                                             <td class="py-2 px-4 border-b border-gray-300">precio_compra</td>
                                             <td class="py-2 px-4 border-b border-gray-300">Precio de compra del producto
                                             </td>
+                                        <tr>
+                                        <tr>
+                                            <td class="py-2 px-4 border-b border-gray-300">precio_venta</td>
+                                            <td class="py-2 px-4 border-b border-gray-300">Precio de venta del producto</td>
+                                        </tr>
+                                        
+                                            <td class="py-2 px-4 border-b border-gray-300">unidades_disponibles</td>
+                                            <td class="py-2 px-4 border-b border-gray-300">Cantidad de unidades disponibles del producto
+                                            </td>
+                                        </tr>
+                                        
                                         </tr>
                                     </tbody>
                                 </table>
