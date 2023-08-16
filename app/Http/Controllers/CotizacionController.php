@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class CotizacionController extends Controller
 {
+    public function __construct()
+    {
+        // Se asegura de que el usuario esté autenticado antes de acceder a las rutas definidas en este controlador
+        // El método 'except()' permite especificar qué métodos pueden ser accesibles sin autenticación
+        $this->middleware('auth');
+    }
     public function index()
     {
         $cotizaciones = Cotizacion::all();

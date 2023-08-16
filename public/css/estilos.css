@@ -133,3 +133,28 @@
     margin-bottom: 0!important;
 }
 
+.red-box {
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center;
+    width: 200px!important; /* Ajusta el ancho del contenedor */
+    height: 40px!important; /* Ajusta la altura del contenedor */
+    background-color: rgb(246, 50, 50)!important;
+    border-radius: 8px!important; /* Ajusta el radio para redondear los bordes */
+}
+
+/* Estilos para el texto dentro de la caja */
+.red-box p {
+    text-align: center!important;
+    font-size: 20px!important; /* Ajusta el tamaño de fuente según sea necesario */
+    font-weight: bold!important;
+    color: rgb(255, 255, 255)!important;
+    margin: 0; /* Elimina el margen interior del texto */
+}
+
+.red-box-container {
+    display: flex!important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+

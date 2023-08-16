@@ -138,11 +138,9 @@
                                     @error('referencia')
                                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                                     @enderror
-                                    
-                                    
                                 </div>
                                 <br>
-                                <div class="flex flex-col items-center justify-center h-screen">
+                                <div class="flex flex-col items-center justify-center">
                                     <h4 class="mb-4">Lista de productos</h4>
                                     <button id="eliminarTodosProductos" type="button" class="buttonAgregar px-5 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all rounded-lg cursor-pointer text-sm ease-in shadow-md bg-blue-500 hover:shadow-xs hover:-translate-y-px tracking-tight-rem bg-x-25">
                                         <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Eliminar todos los productos
@@ -172,7 +170,7 @@
 
                                 <div class="d-flex align-items-center mt-0 pb-0 pl-4 mb-2 pt-2" >
                                     <label for="cambio" class="mr-2">Pago con:</label>
-                                    <input style="outline:none; width: 70px; border:1px solid #b0b1b9; border-radius: 10px; color:black; padding:5px; padding-left: 10px" type="number" id="pagocon" name="pagocon" min="0" step="any" value="{{old('pagocon')}}">
+                                    <input style="outline:none; width: 150px; border:1px solid #b0b1b9; border-radius: 10px; color:black; padding:5px; padding-left: 10px" type="number" id="pagocon" name="pagocon" min="0" step="any" value="{{old('pagocon')}}">
                                     <div id="mensajeCambio" class="mt-2"></div>
                                 </div>
                                 @error('pagocon')
@@ -192,8 +190,10 @@
                                 @enderror
 
                                 <!-- Botón de envío -->
-                                <div class="mt-4">
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Confirmar compra</button>
+                                <div class="mt-4 flex justify-center">
+                                    <button type="submit" class="buttonAgregar px-5 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all rounded-lg cursor-pointer text-sm ease-in shadow-md bg-blue-500 hover:shadow-xs hover:-translate-y-px tracking-tight-rem bg-x-25">
+                                        <i class="fas fa-shopping-cart mr-2"></i> Confirmar compra
+                                    </button>
                                 </div>
                             </form>
 
@@ -279,11 +279,11 @@ $(document).ready(function(){
                     <p class="precio-producto">Precio: $${producto.precio_compra.toFixed(2)}</p>
                     <p class="total">Total: $${(producto.precio_compra * producto.stock).toFixed(2)}</p>
                     <div class="flex items-center">
-                        <button type="button" class="cantidad-btn bg-blue-500 rounded-full w-6 h-6 flex items-center justify-center" style="transition: transform 150ms; transform: translateY(0);" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'" data-action="decrementar">
+                        <button type="button" class="cantidad-btn bg-blue-500 rounded-full w-6 h-6 flex items-center justify-center" style="background-color:#82C554!important; transition: transform 150ms; transform: translateY(0);" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'" data-action="decrementar">
                             <i class="fas fa-minus text-white"></i>
                         </button>
-                        <input type="number" class="no-spinners focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none mx-2" value="${producto.stock}" min="1" max="${producto.unidades_disponibles}" style="width: 50px; text-align: center;outline:none;" data-id="${producto.id}" oninput="validarCantidadInput(${producto.id}, this)" />
-                        <button type="button" class="cantidad-btn bg-blue-500 rounded-full w-6 h-6 flex items-center justify-center" style="transition: transform 150ms; transform: translateY(0);" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'" data-action="incrementar">
+                        <input type="number" class="no-spinners focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none mx-2" value="${producto.stock || 1}" min="1" max="${producto.unidades_disponibles}" style="width: 50px; text-align: center;outline:none;" data-id="${producto.id}" oninput="validarCantidadInput(${producto.id}, this)" />
+                        <button type="button" class="cantidad-btn bg-blue-500 rounded-full w-6 h-6 flex items-center justify-center" style="background-color:#82C554!important; transition: transform 150ms; transform: translateY(0);" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'" data-action="incrementar">
                             <i class="fas fa-plus text-white"></i>
                         </button>
 
@@ -306,27 +306,35 @@ $(document).ready(function(){
     }
 
     function validarCantidadInput(productId, inputElement) {
-    const cantidad = parseInt(inputElement.value);
-    const productoTarjeta = $(`#producto-${productId}`);
-    const unidadesDisponibles = parseInt(productoTarjeta.find('p').eq(2).text().replace('Unidades disponibles: ', ''));
-    
-    // Comprobar si la cantidad excede las unidades disponibles y ajustar si es necesario
-    if (cantidad > unidadesDisponibles) {
-        inputElement.value = unidadesDisponibles;  // Establece el input al máximo de unidades disponibles
-        productoTarjeta.find('.mensaje-error').text("No quedan productos disponibles. Se han agregado el máximo de productos disponibles.").show();
-    } else {
-        productoTarjeta.find('.mensaje-error').hide();
+        let cantidad = parseInt(inputElement.value);
+        // Si el valor es NaN o no es válido, establecer a 1.
+        if (isNaN(cantidad) || cantidad < 1) {
+            cantidad = 1;
+            inputElement.value = 1;
+        }
+
+        const productoTarjeta = $(`#producto-${productId}`);
+        const unidadesDisponibles = parseInt(productoTarjeta.find('p').eq(2).text().replace('Unidades disponibles: ', ''));
+
+        // Comprobar si la cantidad excede las unidades disponibles y ajustar si es necesario.
+        if (cantidad > unidadesDisponibles) {
+            inputElement.value = unidadesDisponibles;  // Establece el input al máximo de unidades disponibles.
+            productoTarjeta.find('.mensaje-error').text("No quedan productos disponibles. Se han agregado el máximo de productos disponibles.").show();
+        } else {
+            productoTarjeta.find('.mensaje-error').hide();
+        }
+
+        // Actualizar el carrito.
+        let producto = carrito.find(p => p.id == productId);
+        if (producto) {
+            producto.stock = parseInt(inputElement.value);  // Aquí usamos el valor ajustado del input, no la variable "cantidad".
+        }
+
+        // Actualizar el total y otros valores en la interfaz.
+        renderizarCarrito();
     }
 
-    // Actualizar el carrito
-    let producto = carrito.find(p => p.id == productId);
-    if (producto) {
-        producto.stock = parseInt(inputElement.value);  // Aquí usamos el valor ajustado del input, no la variable "cantidad"
-    }
 
-    // Actualizar el total y otros valores en la interfaz
-    renderizarCarrito();
-}
     function cargarTodosLosProductos() {
         $.ajax({
             url: "{{ route('ventas.getProducto') }}",
@@ -340,6 +348,7 @@ $(document).ready(function(){
             }
         });
     }   
+
     function cargarProductosPorCategoria(categoriaId) {
         $.ajax({
             url: "{{ route('ventas.productosByCategoria', '') }}/" + categoriaId,
@@ -360,17 +369,19 @@ $(document).ready(function(){
             contenido = '<h3>Esta categoría no tiene productos.</h3>';
         } else {
             productos.forEach(producto => {
-                let botonAgregar = `<a href="#" class="agregar-btn"><i class="fas fa-shopping-cart mr-2"></i>Agregar producto</a>`;
+                let botonAgregar = `<a href="#" class="buttonAgregar agregar-btn px-5 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all rounded-lg cursor-pointer text-sm ease-in shadow-md bg-blue-500 hover:shadow-xs hover:-translate-y-px tracking-tight-rem bg-x-25">
+                                        <i class="fas fa-shopping-cart mr-2"></i>Agregar producto
+                                    </a>`;
                 
                 // Verifica si el stock es 0 o menor
                 if (producto.unidades_disponibles <= 0) {
-                    botonAgregar = '<h4 style="color: red;">Agotado</h4>';
+                    botonAgregar = '<div class="red-box-container"> <div class="red-box"> <p class="text-xs font-semibold leading-tight text-white text-red-400">Agotado</p></div></div>';
                 }
 
                 contenido += `
                 <div id="producto-${producto.id}" class="producto-tarjeta bg-white w-48" style="margin-right: 10px; margin-bottom: 10px;">
                     <div class="product-info relative">
-                        <img class="w-1/2 mx-auto my-4" src="{{ asset('uploads') }}/${producto.imagen}" 
+                        <img class="w-1/2 mx-auto my-4  rounded-xl" src="{{ asset('uploads') }}/${producto.imagen}" 
                             alt="Imagen del producto"  
                             class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl mb-2" 
                             style="max-width: 150px; max-height: 150px;">
@@ -379,7 +390,7 @@ $(document).ready(function(){
                         <p>Marca: ${producto.marca.nombre}</p>
                         <p>Unidades disponibles: ${producto.unidades_disponibles}</p>
                         ${botonAgregar}
-                        <p class="mensaje-error mt-1" style="color: red; display: none;">No hay unidades disponibles para esa cantidad</p>
+                        <p class="mensaje-error mt-1 text-center" style="color: red; display: none;">No hay unidades disponibles para esa cantidad</p>
                     </div>
                 </div>`;
             });
@@ -455,7 +466,7 @@ $(document).ready(function(){
         
         let inputCantidad = productoEnCarrito.find('input[type="number"]');
         let cantidad = parseInt(inputCantidad.val());
-        if(isNaN(cantidad)) {
+        if (isNaN(cantidad) || cantidad <= 0) {
             cantidad = 1;
         }
 
@@ -509,7 +520,11 @@ $(document).ready(function(){
             const productId = productoEnCarrito.attr('id').split('-')[1];
             const productoTarjeta = $(`#producto-${productId}`);
             const unidadesDisponibles = parseInt(productoTarjeta.find('p').eq(2).text().replace('Unidades disponibles: ', ''));
-
+            
+            if (isNaN(cantidad) || cantidad <= 0) {
+                cantidad = 1;
+                $(this).val(1);
+            }
             if (cantidad <= unidadesDisponibles && cantidad > 0) {
                 productoTarjeta.find('.mensaje-error').hide();
             } else {
@@ -526,8 +541,8 @@ $(document).ready(function(){
             let total = cantidad * parseFloat(productoEnCarrito.find('.precio-producto').text().trim().replace('Precio: $', '').replace(',', ''));
             productoEnCarrito.find('.total').text(`Total: $${total.toFixed(2)}`);
             updateValues();
-        });
-        $(document).on('click', '#eliminarTodosProductos', function(e) {
+    });
+    $(document).on('click', '#eliminarTodosProductos', function(e) {
             e.preventDefault();
             
             // Vacía el array del carrito

@@ -8,19 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class DevolucionVenta extends Model
 {
     use HasFactory;
-<<<<<<< HEAD
-
     protected $fillable = [
-        'nombre_producto',
+        'products_id',
+        'venta_id',
         'fecha_devolucion',
-        'cliente',
-        'estatus',
-        'total_pagado',
-        'adeudo',
-        'estatus_pago',
-        'imagen'
+        'cantidad_devuelta',
+        'user_id',
     ];
+
+    public function venta()
+    {
+        return $this->belongsTo(Venta::class, 'venta_id');
+    }
+    public function producto()
+    {
+        return $this->belongsTo(Product::class, 'products_id');
+    }
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
-=======
-}
->>>>>>> 14c153504f08feed363f63b5ff88474d33396fb7

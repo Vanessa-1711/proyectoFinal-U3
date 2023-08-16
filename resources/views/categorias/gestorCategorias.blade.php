@@ -161,7 +161,7 @@
             function confirmDelete(categoriaId) {
                 Swal.fire({
                     title: '¿Estás seguro?',
-                    text: 'Al eliminar esta categoría, todas sus subcategorías serán eliminadas. Esta acción no se puede deshacer',
+                    text: 'Al eliminar esta categoría, todas sus subcategorías y productos relacionados a esta categoria serán eliminadas. Esta acción no se puede deshacer',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',

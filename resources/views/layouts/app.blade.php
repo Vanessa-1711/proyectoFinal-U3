@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
     <!-- Agrega esta línea en el encabezado de tu archivo HTML -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    
 
 
     @yield('estilos2')
@@ -206,7 +207,7 @@
                     </li>
                     <li class="mt-0.5 w-full">
                         <a class=" dark:text-black dark:opacity-70 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px px-4 transition-colors"
-                            href="">
+                            href="{{route('devoluciones', auth()->user()->username)}}"">
                             <div
                                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill relative top-0 text-sm leading-normal text-orange-500" viewBox="0 0 16 16">
@@ -382,9 +383,6 @@
                                     </button>
                                     <ul id="menu-dropdown" class="absolute right-0 mt-2 py-2 bg-white border dark:bg-slate-850 rounded-md shadow-lg" style="display: none;">
                                         <li>
-                                        <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
-                                        </li>
-                                        <li>
                                         <form action="{{ route('logout') }}" method="POST" >
                                             @csrf
                                             <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</button>
@@ -467,6 +465,56 @@
       }
     });
   });
+</script>
+
+<script>
+    function exportToPDF(tipo) {
+    var maintable = document.getElementById('example');
+    var pdfout = document.getElementById('pdfout');
+    var doc = new jsPDF('p', 'pt', 'letter');
+    var margin = 20;
+    var scale = (doc.internal.pageSize.width - margin * 2) / document.body.clientWidth;
+    var scale_mobile = (doc.internal.pageSize.width - margin * 2) / document.body.getBoundingClientRect();
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        doc.html(maintable, {
+            x: margin,
+            y: margin,
+            html2canvas: {
+                scale: scale,
+                ignoreElements: function (element) {
+                    return element.classList.contains('exclude-column');
+                }
+            },
+            callback: function (doc) {
+                doc.save(tipo + '.pdf');
+            }
+        });
+    } else {
+        doc.html(maintable, {
+            x: margin,
+            y: margin,
+            html2canvas: {
+                scale: scale,
+                ignoreElements: function (element) {
+                    return element.classList.contains('exclude-column');
+                }
+            },
+            callback: function (doc) {
+                doc.save(tipo + '.pdf');
+            }
+        });
+    }
+}
+
+
+function exportToExcel(tipo) {
+    const table = document.querySelector('.table');
+    const ws = XLSX.utils.table_to_sheet(table);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Marcas');
+    XLSX.writeFile(wb, tipo + '.xlsx');
+}
 </script>
 
 

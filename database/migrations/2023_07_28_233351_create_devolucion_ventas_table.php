@@ -13,15 +13,11 @@ return new class extends Migration
     {
         Schema::create('devolucion_ventas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_producto');
             $table->date('fecha_devolucion');
-            $table->string('cliente');
-            $table->string('estatus');
-            $table->decimal('total_pagado', 8, 2);
-            
-            $table->decimal('adeudo', 8, 2);
-            $table->string('estatus_pago');
-            $table->string('imagen')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('venta_id');
+            $table->unsignedBigInteger('products_id');
+            $table->unsignedInteger('cantidad_devuelta');
             $table->timestamps();
         });
     }

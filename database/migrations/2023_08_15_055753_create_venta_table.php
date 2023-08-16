@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('venta', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('referencia');
+            $table->string('referencia')->unique();
             $table->date('fecha');
             $table->double('total');
             $table->double('subtotal');

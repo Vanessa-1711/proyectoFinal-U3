@@ -18,6 +18,13 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 @endsection
 
+@section('contenido_top')
+    <!-- Fondo de encabezado -->
+    <div class="absolute bg-y-50 w-full top-0 min-h-75">
+        <span class="fondo absolute top-0 left-0 w-full h-full bg-blue-500 opacity-60"></span>
+    </div>
+@endsection
+
 @section('titulo')
     Devoluciones de Ventas
 @endsection
@@ -38,7 +45,10 @@
         <div class="flex flex-wrap -mx-3">
           <div class="flex-none w-full max-w-full px-3">
             <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-              <div class="flex-auto px-0 pt-0 pb-2">
+            <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+              <br>
+            </div>
+            <div class="flex-auto px-0 pt-0 pb-2">
                 <div class="p-0 overflow-x-auto">
                   <div class="mx-4">
                     @if(session('mensaje'))
@@ -53,19 +63,17 @@
                           <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Id</th>
                           <!-- nombre de producto, Fecha de devolución, cliente, estatus, 
                             total, pagado, adeudo, estatus del pago, imagen.  -->
+                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Referencia de venta</th>
+                          <!-- Agrega más columnas según tus datos -->
                           <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Imagen</th>
                           <!-- Agrega más columnas según tus datos -->
-                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Nombre del producto</th>
+                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Producto</th>
                           <!-- Agrega más columnas según tus datos -->
-                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Fecha de devolucion</th>
+                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Cantidad devuelta</th>
                           <!-- Agrega más columnas según tus datos -->
                           <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Cliente</th>
                           <!-- Agrega más columnas según tus datos -->
-                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Estatus</th>
-                          <!-- Agrega más columnas según tus datos -->
-                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Total pagado</th>
-                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Adeudo</th>
-                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Estatus del pago</th>
+                          <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;">Fecha</th>
                           <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"style="text-align: center;"></th>
                         </tr>
                       </thead>
@@ -77,43 +85,25 @@
                             <h6 class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->id }}</h6>
                           </td>
                           <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                            <img class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl" style="text-align: center ; margin-top: 10px;" src="{{ asset('imagenDevolucion/'.$devolucion->imagen) }}" width="100">
+                            <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->venta->referencia}}</p>
                           </td>
                           <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                            <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->nombre_producto}}</p>
+                            <img class="text-xs font-semibold leading-tight dark:text-white text-slate-400 rounded-xl" style="text-align: center ; margin-top: 10px;" src="{{ asset('uploads/'.$devolucion->producto->imagen) }}" width="100">
+                          </td>
+                          <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                            <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->producto->nombre}}</p>
+                          </td>
+                          <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                            <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->cantidad_devuelta}}</p>
+                          </td>
+                          <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                            <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->venta->cliente->nombre}}</p>
                           </td>
                           <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                             <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->fecha_devolucion}}</p>
                           </td>
                           <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                            <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->cliente}}</p>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                            <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->estatus}}</p>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                            <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->total_pagado}}</p>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                             <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->adeudo}}</p>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                            <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $devolucion->estatus_pago}}</p>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent" style="margin-right: 8px; margin-left:8px;">
-                            <div style="display: flex; align-items: center; justify-content: left;">
-                                <!-- Primer botón - Editar -->
-                                <a href="{{ route('devoluciones.edit', $devolucion->id) }}" class="buttonEditar text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
-                                <form action="{{ route('devoluciones.destroy', $devolucion->id) }}" method="POST" id="deleteForm-{{ $devolucion->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" style="color: white; background-color: red;" class="buttonBorrar rounded-full p-2" onclick="confirmDelete({{ $devolucion->id }})">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </div>
                           </td>
                           <!-- Agrega más celdas según tus datos -->
                         </tr>

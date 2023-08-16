@@ -152,10 +152,18 @@ Route::put('/usuario/{usuario}', [UsuarioController::class, 'update'])->name('us
 Route::delete('/usuario/{usuario}', [UsuarioController::class, 'destroy'])->name('usuario.destroy');
 Route::post('/usuario/imagen', [UsuarioController::class,'Imagenstore'])->name("imagenUsuario.store");
 
-//devoluciones de ventas
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////                                    RUTAS DE DEVOLUCION
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 Route::get('/devoluciones', [DevolucionesVentasController::class, 'index'])->name('devoluciones');
 Route::get('/devoluciones/create', [DevolucionesVentasController::class, 'create'])->name('devoluciones.create');
+Route::get('/devoluciones/{venta}', [DevolucionesVentasController::class, 'productos'])->name('devoluciones.productosByReferencia');
+
+
+
 Route::post('/devoluciones', [DevolucionesVentasController::class, 'store'])->name('devoluciones.store');
 Route::get('/devoluciones/{devolucion}', [DevolucionesVentasController::class, 'show'])->name('devoluciones.show');
 Route::get('/devoluciones/{devolucion}/edit', [DevolucionesVentasController::class, 'edit'])->name('devoluciones.edit');
@@ -216,3 +224,5 @@ Route::get('/cotizaciones/getProducto/{id_producto}',[CotizacionController::clas
 
 
 Route::get('/cotizaciones/show/{id}', [CotizacionController::class, 'show'])->name('cotizaciones.show');
+
+

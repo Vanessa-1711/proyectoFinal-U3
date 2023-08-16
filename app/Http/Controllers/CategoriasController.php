@@ -17,14 +17,18 @@ class CategoriasController extends Controller
     }
 
     // Método para mostrar la lista de categorías
-    public function index()
-    {
+    public function index(){
         // Obtener todas las categorías desde la base de datos
         $categorias = Categorias::where('eliminado', 0)->get();
 
         // Mostrar la vista 'gestorCategorias' y pasar las categorías como una variable llamada 'categorias'
-        return view('categorias.gestorCategorias')->with('categorias', $categorias);
+        return response()->view('categorias.gestorCategorias', compact('categorias'))
+        ->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
     }
+
 
     // Método para redireccionar al formulario de agregar categoría
     public function create()
@@ -167,7 +171,7 @@ class CategoriasController extends Controller
     public function delete($id_categoria)
     {
         // Buscar la categoría por su ID en la base de datos
-        $marca = Categorias::find($id_categoria);
+        $categoria = Categorias::find($id_categoria);
 
         if ($categoria->productos()->exists()) {
             $productos = $categoria->productos;
@@ -186,10 +190,11 @@ class CategoriasController extends Controller
 
         // Marcamos la categoría como "eliminada" y actualizamos el campo en la base de datos
         $categoria->eliminado = 1;
+        $categoria->codigo = 0;
         $categoria->save();
 
         // Redireccionar a la página de lista de categorías (o a otra página de elección) y mostrar un mensaje de éxito
         session()->flash('success', '¡La categoría se ha eliminado exitosamente!');
-        //return redirect()->route('categorias');
+        return redirect()->route('categorias');
     }
 }

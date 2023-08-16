@@ -68,7 +68,7 @@ class VentasController extends Controller
     {  
         // Validar los campos del formulario antes de almacenar el producto
         $this->validate($request, [
-            'referencia' => 'required',
+            'referencia' => 'required|unique:venta',
             'pagocon' => 'required',
             'cambio' => 'required',
             'subtotal_input' => 'required',
