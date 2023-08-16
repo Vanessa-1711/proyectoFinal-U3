@@ -13,6 +13,7 @@ class Marca extends Model
         'nombre',
         'descripcion', 
         'imagen', 
+        'eliminado',
         'user_id'
     ];
     // Definición de relaciones entre modelos

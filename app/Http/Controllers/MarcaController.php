@@ -18,7 +18,7 @@ class MarcaController extends Controller
     // Método para mostrar todas las marcas en una tabla
     public function index()
     {
-        $marcas = Marca::all();
+        $marcas = Marca::where('eliminado', 0)->get();
         return view('marcas.tablaMarcas', compact('marcas'));
     }
 
@@ -43,6 +43,7 @@ class MarcaController extends Controller
         $marca->nombre = $request->nombre;
         $marca->descripcion = $request->descripcion;
         $marca->imagen = $request->imagen;
+        $marca->eliminado = 0;
         $marca->user_id = auth()->user()->id; // Asignar el ID del usuario autenticado como creador de la marca
         $marca->save();
         
@@ -125,7 +126,7 @@ class MarcaController extends Controller
         return redirect()->route('marcas');
     }
 
-    // Método para eliminar una marca y sus productos relacionados
+    /* Método para eliminar una marca y sus productos relacionados
     public function delete($id_marca)
     {
         // Buscar la marca con el ID proporcionado
@@ -152,6 +153,30 @@ class MarcaController extends Controller
 
         // Eliminar la marca
         $marca->delete();
+
+        // Mostrar mensaje de éxito y redireccionar a la página de la tabla de marcas
+        session()->flash('success', '¡La marca se ha eliminado exitosamente!');
+        return redirect()->route('marcas');
+    }*/
+
+    public function delete($id_marca)
+    {
+        // Buscar la marca con el ID proporcionado
+        $marca = Marca::find($id_marca);
+
+        // Verificar si la marca tiene productos relacionados
+
+        if ($marca->productos()->exists()) {
+            $productos = $marca->productos;
+            foreach ($productos as $producto) {
+                $producto->eliminado = 1;
+                $producto->save();
+            }
+        }
+
+        $marca->eliminado = 1;
+        $marca->save();
+
 
         // Mostrar mensaje de éxito y redireccionar a la página de la tabla de marcas
         session()->flash('success', '¡La marca se ha eliminado exitosamente!');

@@ -24,7 +24,7 @@ class ProductController extends Controller
     // Método para mostrar todos los productos en una tabla
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where('eliminado', 0)->get();
         return view('productos.tablaProductos', compact('products'));
     }
 
@@ -76,6 +76,7 @@ class ProductController extends Controller
         $product->precio_venta = $request->precio_venta;
         $product->unidades_disponibles = $request->unidades_disponibles;
         $product->imagen = $request->imagen;
+        $product->eliminado = 0;
         $product->user_id = auth()->user()->id ;
         $product->save();
         
@@ -181,7 +182,7 @@ class ProductController extends Controller
         return redirect()->route('tablaProductos');
     }
 
-    // Método para eliminar un producto de la base de datos
+    /* Método para eliminar un producto de la base de datos
     public function delete($id_producto)
     {
         $product = Product::find($id_producto);
@@ -195,6 +196,17 @@ class ProductController extends Controller
             }
         }
         $product->delete();
+        session()->flash('success', '¡El producto se ha eliminado exitosamente!');
+        return redirect()->route('tablaProductos');
+    }*/
+
+    public function delete($id_producto){
+        $product = Product::find($id_producto);
+
+        // Marcamos el producto como "eliminado"
+        $product->eliminado = 1;
+        $product->save();
+
         session()->flash('success', '¡El producto se ha eliminado exitosamente!');
         return redirect()->route('tablaProductos');
     }

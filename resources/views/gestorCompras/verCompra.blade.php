@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo')
-Añadir Compra
+Ver Compra
 @endsection
 
 @section('estilos2')
@@ -31,7 +31,7 @@ Añadir Compra
     <div class="flex-none w-full max-w-full px-3">
       <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-          <h6 class="dark:text-white">Añadir Compra</h6>
+          <h6 class="dark:text-white">Ver Compra</h6>
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
             <div class="p-6">
@@ -94,16 +94,16 @@ Añadir Compra
                                         <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->stock}}</p>
                                     </td> 
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->precio_compra}}</p>
+                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">${{ $detalles->precio_compra}}</p>
                                     </td> 
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->subtotal}}</p>
+                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">${{ $detalles->subtotal}}</p>
                                     </td> 
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->producto->precio_venta}}</p>
+                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">${{ $detalles->producto->precio_venta}}</p>
                                     </td> 
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->total}}</p>
+                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">${{ $detalles->total}}</p>
                                     </td> 
                                     </tr>   
                                     @endforeach
@@ -145,12 +145,14 @@ Añadir Compra
                                     <label class="block text-sm font-medium text-gray-700">Subtotal:</label>
                                     <span name="subtotal" id="subtotal" class="text-lg font-semibold">${{ number_format($compra->subtotal, 2) }}</span>
                                 </div>
+                                <div></div>
 
                                 <!-- IVA -->
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">IVA (16%):</label>
                                     <span id="iva-value" class="text-lg font-semibold">${{ number_format($iva, 2) }}</span>
                                 </div>
+                                <div></div>
 
                                 <!-- Total -->
                                 <div class="col-span-2">

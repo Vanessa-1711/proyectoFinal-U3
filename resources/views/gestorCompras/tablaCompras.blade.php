@@ -18,9 +18,6 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
-    <style>
-        /* Agregar estilos personalizados aquí si es necesario */
-    </style>
 @endsection
 
 @section('titulo')
@@ -38,15 +35,15 @@ Gestor Compras
 @section('contenido')
 <div class="flex-none w-full px-3">
     <!-- Botón Agregar Categoría -->
-    <div class="flex justify-end mb-4">
-        <a class="buttonAgregar px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" href="{{ route('compras.create') }}">
-            <!-- Icono y texto para el botón "Agregar Subcategoria" -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5 9a1 1 0 0 1 1-1h3V5a1 1 0 1 1 2 0v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 0 1-1-1z" clip-rule="evenodd" />
-            </svg>
-            Agregar Compra
-        </a>
-    </div>
+    <div style="text-align: right;" class="mb-4">
+    <a id="agregarCarro" href="{{ route('compras.create') }}" class="buttonAgregar px-4 py-2.5 font-bold leading-normal text-center text-white rounded-lg cursor-pointer text-sm tracking-tight-rem bg-x-25" style="transition: all 0.3s; box-shadow: 0 0 0 rgba(0, 0, 0, 0); transform: translateY(0); background-color: #3b82f6;" onmouseover="this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)'; this.style.transform='translateY(-1px)'" onmouseout="this.style.boxShadow='0 0 0 rgba(0, 0, 0, 0)'; this.style.transform='translateY(0)'">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline-block" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5 9a1 1 0 0 1 1-1h3V5a1 1 0 1 1 2 0v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 0 1-1-1z" clip-rule="evenodd" />
+        </svg>
+        &nbsp;&nbsp;Agregar Compra
+    </a>
+</div>
+
 
     <!-- Tabla de subcategorías -->
     <div class="flex flex-wrap -mx-3">

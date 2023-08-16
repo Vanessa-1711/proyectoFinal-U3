@@ -39,6 +39,11 @@ Añadir Compra
 .btn-decrementar:active, .btn-incrementar:active {
     transform: scale(0.95); /* Esto hará que el botón parezca que se "presiona" al reducirlo ligeramente en tamaño cuando se hace clic */
 }
+.btn-decrementar:hover, .btn-incrementar:hover {
+    transform: scale(0.95) translateY(2px); 
+    transition: transform 150ms;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 .stock-input::-webkit-inner-spin-button,
 .stock-input::-webkit-outer-spin-button {
@@ -191,7 +196,7 @@ Añadir Compra
                             </div>
                             <div class="mt-4 text-center">
                                 <button id="agregarCarro" type="submit" class="buttonAgregar px-8 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all rounded-lg cursor-pointer text-sm ease-in shadow-md bg-blue-500 hover:shadow-xs hover:-translate-y-px tracking-tight-rem bg-x-25 mx-auto">
-                                    <i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Realizar Compra
+                                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;Realizar Compra
                                 </button>
                             </div>
                         </div>
@@ -301,11 +306,15 @@ $(document).ready(function() {
                         <input type="number" style="width: 40px; text-align: center;" value="${producto.stock}" class="stock-input">
                         <button class="btn-incrementar" style="margin-right: 5px; background-color:#82C554!important;"><i class="fas fa-plus text-white"></i></button>
                     </td>
-                    <td style="text-align: center;">${producto.precio_compra}</td>
-                    <td style="text-align: center;">${producto.subtotal}</td>
-                    <td style="text-align: center;">${producto.precio_venta}</td>
-                    <td style="text-align: center;">${producto.total}</td>
-                    <td><button class="btn-borrar">Eliminar</button></td>
+                    <td style="text-align: center;">$${producto.precio_compra}</td>
+                    <td style="text-align: center;">$${producto.subtotal}</td>
+                    <td style="text-align: center;">$${producto.precio_venta}</td>
+                    <td style="text-align: center;">$${producto.total}</td>
+                    <td>
+                        <button type="button" class="btn-borrar flex items-center justify-center" style="background-color: #FF7F7F; color: white; width: 32px; height: 32px; transition: transform 150ms; transform: translateY(0); border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                        <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
                 </tr>
             `;
             $('#myTable tbody').append(newRow);
