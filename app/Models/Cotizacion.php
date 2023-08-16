@@ -21,9 +21,15 @@ class Cotizacion extends Model
         'fecha'
     ];
 
-    public function producto()
+
+    public function cliente() {
+        return $this->belongsTo(Cliente::class, 'cliente');
+    }
+
+
+    public function detalles()
     {
-        return $this->belongsTo(Product::class, 'producto_id');
+        return $this->hasMany(DetalleCotizacion::class);
     }
 }
 

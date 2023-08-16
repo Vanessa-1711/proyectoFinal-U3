@@ -25,7 +25,6 @@
 @endsection
 
 @section('titulo')
-    <!-- Título para esta página -->
     Listado de Ventas
 @endsection
 
@@ -129,19 +128,6 @@
                                                         <a href="{{ route('ventas.show') }}" class="buttonVer text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
                                                           <i class="far fa-eye"></i>
                                                         </a>
-                                                        <!-- Botón para editar un cliente, enlazando a la ruta 'clientes.edit' -->
-                                                        <a href="" class="buttonEditar text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                        </a>
-                                                        <!-- Formulario para eliminar un cliente -->
-                                                        <form action="" method="POST" >
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <!-- Botón para activar la confirmación de eliminación -->
-                                                            <button type="button" style="color: white; background-color: red;" class="buttonBorrar rounded-full p-2">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </button>
-                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>

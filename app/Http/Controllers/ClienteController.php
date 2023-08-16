@@ -89,7 +89,7 @@ class ClienteController extends Controller
         $cliente->pais = $request->pais;
         $cliente->estado = $request->estado;
         $cliente->ciudad = $request->input('ciudad');
-        $cliente->fotografia = $request->imagen; // Aquí asumo que la imagen es una cadena con el nombre de la imagen en el servidor
+        $cliente->fotografia = $request->fotografia; // Aquí asumo que la imagen es una cadena con el nombre de la imagen en el servidor
         $cliente->save();
 
         // Redireccionar a la ruta 'clientes' (lista de clientes) y mostrar un mensaje de éxito

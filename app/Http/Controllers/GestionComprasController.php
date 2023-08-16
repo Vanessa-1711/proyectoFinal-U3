@@ -11,11 +11,15 @@ class GestionComprasController extends Controller
 {
     //
     public function index()
-    {
-        $compras = Compra::all();
+{
+    $compras = Compra::all();
 
-        return view('gestorCompras.tablaCompras', compact('compras'));
-    }
+    return response()->view('gestorCompras.tablaCompras', compact('compras'))
+        ->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
+}
 
 
 
@@ -63,9 +67,10 @@ class GestionComprasController extends Controller
     public function store(Request $request){
         $this->validate($request,[
             'fecha'=>'required',
+            'proveedor_id'=>'required',
             'referencia'=>'required|unique:compras',
             'descripcion'=>'required',
-            'proveedor_id'=>'required',
+            'carrito'=>'required'
         ]); 
 
         // Almacena la nueva compra en la base de datos.
@@ -87,6 +92,12 @@ class GestionComprasController extends Controller
                 if ($producto) {
                     // Actualizar el stock del producto
                     $producto->unidades_disponibles += $productoData['stock'];
+            
+                    // Actualizar el precio de compra si ha cambiado
+                    if ($producto->precio_compra != $productoData['precio_compra']) {
+                        $producto->precio_compra = $productoData['precio_compra'];
+                    }
+            
                     $producto->save();
             
                     // Guardar el detalle de la compra
@@ -100,9 +111,8 @@ class GestionComprasController extends Controller
                     $detalle->save();
                 }
             }
-
             return redirect()->route('compras.index')->with('success', 'Compra realizada con éxito');
-        } else {
+        }else{
             return redirect()->route('compras.index');
         }
     }

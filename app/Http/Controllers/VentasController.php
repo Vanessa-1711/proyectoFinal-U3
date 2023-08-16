@@ -15,7 +15,8 @@ class VentasController extends Controller
     public function index()
     {
         // Mostrar la vista 'gestorCategorias' y pasar las categorías como una variable llamada 'categorias'
-        return view('ventas.tablaVentas');
+        $ventas = Venta::all();
+        return view('ventas.tablaVentas', ['ventas' => $ventas]);
     }
     public function create()
     {

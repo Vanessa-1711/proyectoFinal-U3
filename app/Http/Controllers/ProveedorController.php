@@ -41,7 +41,7 @@ class ProveedorController extends Controller
     {
         // Validar los campos del formulario antes de almacenar el proveedor
         $this->validate($request, [
-            'fotografia' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagen' => 'required',
             'nombre' => 'required',
             'codigo' => 'required|min:5|numeric|unique:proveedores',
             'telefono' => 'required|max:10',
@@ -57,16 +57,14 @@ class ProveedorController extends Controller
             'codigo' => $request->codigo,
             'telefono' => $request->telefono,
             'correo' => $request->correo,
-            'fotografia' => $request->fotografia,
+            'fotografia' => $request->imagen,
             'pais' => $request->pais,
             'estado' => $request->estado,
             'ciudad' => $request->ciudad,
         ]);
         
         // Mostrar un mensaje de éxito y redireccionar a la página de proveedores
-        if($nuevoProveedor) {
-            $request->session()->flash('success', '¡El Proveedor se ha registrado exitosamente!');
-        }
+        $request->session()->flash('success', '¡El Proveedor se ha registrado exitosamente!');
         return redirect()->route('proveedores');
     }
 
