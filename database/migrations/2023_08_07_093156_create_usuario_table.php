@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('apellido')->nullable();
-            $table->string('telefono')->nullable();
-            $table->string('imagen')->nullable();
-            $table->string('rol')->nullable();
-            $table->string('status')->nullable();
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->string('apellido')->nullable();
+        //     $table->string('telefono')->nullable();
+        //     $table->string('imagen')->nullable();
+        //     $table->string('rol')->nullable();
+        //     $table->string('status')->nullable();
+        // });
     }
 
     /**
@@ -25,12 +25,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('apellido');
-            $table->dropColumn('telefono');
-            $table->dropColumn('imagen');
-            $table->dropColumn('rol');
-            $table->dropColumn('status');
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropColumn('apellido');
+        //     $table->dropColumn('telefono');
+        //     $table->dropColumn('imagen');
+        //     $table->dropColumn('rol');
+        //     $table->dropColumn('status');
+        // });
     }
 };

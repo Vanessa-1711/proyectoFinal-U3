@@ -177,12 +177,6 @@ Añadir Compra
                     <input type="hidden" name="carrito" id="carrito">
 
                     <!-- Fin de la tarjeta de totales -->
-
-
-
-
-
-                    
                 </form>
             </div>
         </div>

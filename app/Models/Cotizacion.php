@@ -12,18 +12,19 @@ class Cotizacion extends Model
     protected $table = 'cotizaciones';
 
     protected $fillable = [
-        'producto_id',
+        
         'referencia',
-        'cliente',
+        'cliente_id',
         'estatus',
         'total',
+        'subtotal',
         'descripcion',
         'fecha'
     ];
 
 
     public function cliente() {
-        return $this->belongsTo(Cliente::class, 'cliente');
+        return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 
 

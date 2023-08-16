@@ -86,7 +86,7 @@ Cotizacion
                                         </td>
                                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                             <div class="flex items-center justify-center">
-                                                <img src="{{ asset('imagenCliente/' . $cotizacion->cliente->fotografia) }}" alt="{{ $cotizacion->cliente->nombre }}" class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;">
+                                                <img src="{{ asset('uploads/' . $cotizacion->cliente->fotografia) }}" alt="{{ $cotizacion->cliente->nombre }}" class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;">
                                                 <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $cotizacion->cliente->nombre }}</p>
                                             </div>
                                         </td>
@@ -97,8 +97,8 @@ Cotizacion
                                             <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $cotizacion->fecha }}</p>
                                         </td>
                                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                            <div class="{{ $cotizacion->estatus == 'pendiente' ? 'bg-red-500' : 'bg-green-500' }} container">
-                                                <div class="box">
+                                            <div class="{{ $cotizacion->estatus == 'pendiente' ? 'bg-red-500' : 'green-box' }} container">
+                                                <div class="{{ $cotizacion->estatus == 'pendiente' ? 'red-box' : 'green-box' }}">
                                                     <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">{{ $cotizacion->estatus }}</p>
                                                 </div>
                                             </div>

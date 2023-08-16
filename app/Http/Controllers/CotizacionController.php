@@ -59,13 +59,13 @@ class CotizacionController extends Controller
         $request->validate([
             'fecha' => 'required|date',
             'referencia' => 'required|string|max:255|unique:cotizaciones',
-            'cliente' => 'required',
+            'cliente_id' => 'required',
             'descripcion' => 'nullable|string',
             'estatus' => 'required|string|in:enviada,pendiente',
         ]);
 
         $cotizacion = new Cotizacion();
-        $cotizacion->cliente = $request->cliente;
+        $cotizacion->cliente_id = $request->cliente_id;
         $cotizacion->fecha = $request->fecha;
         $cotizacion->referencia = $request->referencia;
         $cotizacion->descripcion = $request->descripcion;
@@ -95,7 +95,7 @@ class CotizacionController extends Controller
     public function show($id_cotizacion){
         $cotizacion = Cotizacion::findOrFail($id_cotizacion);
         $detalle_cotizacion = DetalleCotizacion::with('producto')->where('cotizaciones_id',$id_cotizacion)->get();
-        return view('cotizaciones.verCotizacion', compact('cotizacion'), ['detalle_cotizacion' => $detalle_cotizacion]);
+        return view('cotizaciones.verCotizaciones', compact('cotizacion'), ['detalle_cotizacion' => $detalle_cotizacion]);
     }
 
     public function edit($id)
