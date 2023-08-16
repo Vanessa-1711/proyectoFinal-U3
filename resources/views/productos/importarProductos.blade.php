@@ -1,4 +1,13 @@
 @extends('layouts.app')
+
+@section('estilos')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    <style>
+        /* Agregar estilos personalizados aquí si es necesario */
+    </style>
+@endsection
+
 @section('titulo')
     Importar productos
 @endsection
@@ -86,13 +95,10 @@
                                             <td class="py-2 px-4 border-b border-gray-300">marca_id</td>
                                             <td class="py-2 px-4 border-b border-gray-300">ID de la marca del producto</td>
                                         </tr>
+                                        
                                         <tr>
-                                            <td class="py-2 px-4 border-b border-gray-300">codigo</td>
-                                            <td class="py-2 px-4 border-b border-gray-300">Código único del producto</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-2 px-4 border-b border-gray-300">stock</td>
-                                            <td class="py-2 px-4 border-b border-gray-300">Cantidad de stock del producto
+                                            <td class="py-2 px-4 border-b border-gray-300">unidades_disponibles</td>
+                                            <td class="py-2 px-4 border-b border-gray-300">Cantidad de unidades disponibles del producto
                                             </td>
                                         </tr>
                                         <tr>

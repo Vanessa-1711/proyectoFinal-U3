@@ -63,12 +63,11 @@ class ImportarController extends Controller
                 Product::create([
                     'nombre' => $data[0],
                     'categoria_id' => $data[1],
-                    'marca_id' => $data[2],
-                    'codigo' => $data[3],
+                    'precio_compra' => $data[2],
+                    'precio_venta' => $data[3],
+                    'unidades_disponibles' => $data[4],
+                    'marca_id' => $data[5] ?? null, // Si no se proporciona marca_id, se establecerá como null
                     'creado_por' => auth()->user()->username,
-                    'stock' => $data[4],
-                    'precio_venta' => $data[5],
-                    'precio_compra' => $data[6]
                 ]);
             } else {
                 $registros_erroneos+=$registros_erroneos;
