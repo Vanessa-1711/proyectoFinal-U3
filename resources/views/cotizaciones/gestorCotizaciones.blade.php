@@ -159,7 +159,7 @@ Añadir cotizacion
                             </div>
                             
                         </div>
-                        <input type="hidden" name="subtotal_input" id="subtotal_input" value="0.00">
+                            <input type="hidden" name="subtotal_input" id="subtotal_input" value="0.00">
                             <input type="hidden" name="iva_input" id="iva_input" value="0.00">
                             <input type="hidden" name="total_input" id="total_input" value="0.00">
 

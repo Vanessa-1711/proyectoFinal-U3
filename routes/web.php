@@ -174,6 +174,9 @@ Route::get('/ventas', [VentasController::class, 'index'])->name('ventas');
 Route::get('/ventas/create', [VentasController::class, 'create'])->name('ventas.create');
 Route::get('/ventas/productos', [VentasController::class, 'getAllProducts'])->name('ventas.getProducto');
 Route::get('/ventas/productos/categoria/{categoriaId}', [VentasController::class, 'getProductsByCategory'])->name('ventas.productosByCategoria');
+Route::post('/ventas', [VentasController::class, 'store'])->name('ventas.store');
+
+
 
 
 Route::get('/compras', [GestionComprasController::class, 'index'])->name('compras.index');

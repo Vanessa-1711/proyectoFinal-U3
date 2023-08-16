@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('tbl_state', function (Blueprint $table) {
             $table->increments('state_id');
@@ -21,7 +21,10 @@ return new class extends Migration
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::table('tbl_state', function (Blueprint $table) {
             $table->dropForeign(['countryid']);

@@ -11,11 +11,15 @@ class GestionComprasController extends Controller
 {
     //
     public function index()
-    {
-        $compras = Compra::all();
+{
+    $compras = Compra::all();
 
-        return view('gestorCompras.tablaCompras', compact('compras'));
-    }
+    return response()->view('gestorCompras.tablaCompras', compact('compras'))
+        ->withHeaders([
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+            'Pragma' => 'no-cache'
+        ]);
+}
 
 
 
@@ -60,15 +64,14 @@ class GestionComprasController extends Controller
         return response()->json($producto);
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $this->validate($request,[
             'fecha'=>'required',
+            'proveedor_id'=>'required',
             'referencia'=>'required|unique:compras',
             'descripcion'=>'required',
-            'proveedor_id'=>'required',
+            'carrito'=>'required'
         ]); 
-        //dd($request->all());
 
         // Almacena la nueva compra en la base de datos.
         $compra = new Compra();
@@ -79,32 +82,41 @@ class GestionComprasController extends Controller
         $compra->descripcion = $request->descripcion;
         $compra->subtotal = $request->subtotal_input;
         $compra->total = $request->total_input;
-        $compra->save();
+        $compraExitosa = $compra->save();
 
-        $productosCarrito = json_decode($request->carrito, true);
-        // Aquí guardas los detalles de la compra.
-        foreach ($productosCarrito as $productoData) {
-            $producto = Product::find($productoData['product_id']); // Asegúrate de que los objetos en el carrito tengan el atributo 'product_id'
-            if ($producto) {
-                // Actualizar el stock del producto
-                $producto->unidades_disponibles += $productoData['stock'];
-                $producto->save();
-        
-                // Guardar el detalle de la compra
-                $detalle = new DetalleCompra();
-                $detalle->compras_id = $compra->id;
-                $detalle->products_id = $producto->id;
-                $detalle->stock = $productoData['stock'];
-                $detalle->precio_compra = $productoData['precio_compra'];
-                $detalle->subtotal = $productoData['subtotal'];
-                $detalle->total = $productoData['total'];
-                $detalle->save();
-            }
-        }
+        if ($compraExitosa) {
+            $productosCarrito = json_decode($request->carrito, true);
+            // Aquí guardas los detalles de la compra.
+            foreach ($productosCarrito as $productoData) {
+                $producto = Product::find($productoData['product_id']); 
+                if ($producto) {
+                    // Actualizar el stock del producto
+                    $producto->unidades_disponibles += $productoData['stock'];
             
-
-        return redirect()->route('compras.index')->with('success', 'Compra realizada con éxito');
+                    // Actualizar el precio de compra si ha cambiado
+                    if ($producto->precio_compra != $productoData['precio_compra']) {
+                        $producto->precio_compra = $productoData['precio_compra'];
+                    }
+            
+                    $producto->save();
+            
+                    // Guardar el detalle de la compra
+                    $detalle = new DetalleCompra();
+                    $detalle->compras_id = $compra->id;
+                    $detalle->products_id = $producto->id;
+                    $detalle->stock = $productoData['stock'];
+                    $detalle->precio_compra = $productoData['precio_compra'];
+                    $detalle->subtotal = $productoData['subtotal'];
+                    $detalle->total = $productoData['total'];
+                    $detalle->save();
+                }
+            }
+            return redirect()->route('compras.index')->with('success', 'Compra realizada con éxito');
+        }else{
+            return redirect()->route('compras.index');
+        }
     }
+
      //Funcion para redirigir a la vista de editar compra
      public function show($id_compra){
         $compra = Compra::findOrFail($id_compra);
