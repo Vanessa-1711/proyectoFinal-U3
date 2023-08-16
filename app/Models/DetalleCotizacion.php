@@ -23,8 +23,9 @@ class DetalleCotizacion extends Model
     {
         return $this->belongsTo(Cotizacion::class);
     }
+
     public function cliente() {
-        return $this->belongsTo(Cliente::class, 'cliente');
+        return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 
     public function producto()

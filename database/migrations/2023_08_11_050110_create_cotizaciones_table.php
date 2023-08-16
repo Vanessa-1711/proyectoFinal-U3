@@ -10,16 +10,17 @@ class CreateCotizacionesTable extends Migration
     {
         Schema::create('cotizaciones', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('producto_id');
+            
             $table->string('referencia')->unique();
-            $table->foreignId('cliente')->constrained()->onDelete('cascade');
+            $table->foreignId('cliente_id')->constrained()->onDelete('cascade');
             $table->enum('estatus', ['enviada', 'pendiente', 'otro']);
+            $table->decimal('subtotal');
             $table->decimal('total', 8, 2);
             $table->text('descripcion')->nullable();
             $table->date('fecha');
             $table->timestamps();
 
-            $table->foreign('producto_id')->references('id')->on('products')->onDelete('cascade');
+            
         });
     }
 

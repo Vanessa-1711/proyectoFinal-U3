@@ -237,12 +237,6 @@ Añadir Compra
 
 
                     <!-- Fin de la tarjeta de totales -->
-
-
-
-
-
-                    
                 </form>
             </div>
         </div>

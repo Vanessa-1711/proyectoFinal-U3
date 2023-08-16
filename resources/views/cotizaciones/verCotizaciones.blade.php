@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo')
-Ver Compra
+Añadir cotizacion
 @endsection
 
 @section('estilos2')
@@ -31,27 +31,40 @@ Ver Compra
     <div class="flex-none w-full max-w-full px-3">
       <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-          <h6 class="dark:text-white">Ver Compra</h6>
+          <h6 class="dark:text-white">Añadir cotizacion</h6>
         </div>
         <div class="flex-auto px-0 pt-0 pb-2">
             <div class="p-6">
-                <form id="formularioProductos" action="{{ route('compras.store') }}" method="POST" novalidate>
+                <form id="formularioProductos" action="{{ route('cotizaciones.store') }}" method="POST" novalidate>
                     @csrf
                     
                     <div class="flex space-x-4">
                         <div class="w-full mr-4">
-                            <label for="categoria_id" class="block text-sm font-medium text-gray-700">Nombre del proveedor:</label>
+                            <label for="categoria_id" class="block text-sm font-medium text-gray-700">Nombre del cliente:</label>
                             <!-- Selector de categorías usando Select2 -->
-                            <input readonly  type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ $compra->proveedor->nombre }}">
+                            <!-- Selector de categorías usando Select2 -->
+                            <input readonly  type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ $cotizacion->cliente->nombre }}">
+                            @error('cliente')
+                                <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="w-full mr-4">
-                            <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha de compra:</label>
+                            <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha de cotizacion:</label>
                             <!-- Selector de categorías usando Select2 -->
-                            <input readonly  type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ $compra->proveedor->nombre }}">
+                            <input readonly  type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ $cotizacion->fecha }}">
                         </div>
+                        <div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0 flex items-center justify-center">
+                            <div class="mb-4 inline-block">
+                                <button id="add_stock" type="button" class="buttonAgregar px-5 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all rounded-lg cursor-pointer text-sm ease-in shadow-md bg-blue-500 hover:shadow-xs hover:-translate-y-px tracking-tight-rem bg-x-25">
+                                    <i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Añadir producto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4 mt-4">
                         <div class="w-full mr-4">
                             <label for="referencia" class="block text-sm font-medium text-gray-700">Referencia</label>
-                            <input  readonly  type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ $compra->referencia }}">
+                            <input type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ $cotizacion->referencia }}">
                         </div>
                         
                     </div>
@@ -72,15 +85,16 @@ Ver Compra
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Imagen del producto</th>
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Nombre del producto</th>
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Stock</th>
-                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Stock añadido</th>
-                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Precio de compra</th>
+                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Unidades vendidas</th>
+                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">precio de venta</th>
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Subtotal</th>
-                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Costo Unitario</th>
+                                        
                                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;">Costo Total</th>
+                                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70" style="text-align: center;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($detalle_compra as $detalles) 
+                                    @foreach ($detalle_cotizacion as $detalles) 
                                     <tr>
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                     <img src="{{ asset('uploads/' . $detalles->producto->imagen) }}" alt="{{ $detalles->producto->nombre }}" class="text-xs font-semibold leading-tight dark:text-white  text-slate-400 rounded-xl" style="max-width: 50px; max-height: 200px;">
@@ -92,23 +106,22 @@ Ver Compra
                                         <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->producto->unidades_disponibles}}</p>
                                     </td>  
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->stock}}</p>
+                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->sale}}</p>
                                     </td> 
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">${{ $detalles->precio_compra}}</p>
+                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->precio_venta}}</p>
                                     </td> 
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">${{ $detalles->subtotal}}</p>
+                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->subtotal}}</p>
                                     </td> 
+                                    
                                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">${{ $detalles->producto->precio_venta}}</p>
-                                    </td> 
-                                    <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">${{ $detalles->total}}</p>
+                                        <p class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400" style="text-align: center ; margin-top: 10px;">{{ $detalles->total}}</p>
                                     </td> 
                                     </tr>   
                                     @endforeach
                                             
+                                </tbody>       
                                 </tbody>
                                     
                             </table>
@@ -119,18 +132,24 @@ Ver Compra
                     <div class="flex mt-8">  <!-- Usamos Flexbox para organizar los elementos horizontalmente -->
 
                         <!-- Comienzo del textarea para la descripción -->
-                        <div class="flex-grow p-4 w-2/5"> <!-- Ocupa 2/5 del espacio disponible -->
-                            <div class="form-group">
+                        <div class="flex space-x-4 mt-4"> <!-- Ocupa 2/5 del espacio disponible -->
+                            <div class="w-full mr-4">
                                 <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción:</label>
-                                <textarea readonly  class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" id="descripcion" name="descripcion" rows="4" placeholder="Ingresa la descripción de la compra...">{{ $compra->descripcion }}</textarea>
+                                <textarea readonly  class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" id="descripcion" name="descripcion" rows="4" placeholder="Ingresa la descripción de la compra...">{{ $cotizacion->descripcion }}</textarea>
+                               
+                            </div>
+                            <div class="w-full mr-4">
+                                <label for="estatus" class="block text-sm font-medium text-gray-700">Estatus:</label>
+                                <input type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ $cotizacion->estatus }}">
                             </div>
                             <div class="mt-4 text-center">
-                                <button id="btnCancelar" type="button" class="buttonAgregar px-8 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all rounded-lg cursor-pointer text-sm ease-in shadow-md bg-blue-500 hover:shadow-xs hover:-translate-y-px tracking-tight-rem bg-x-25 mx-auto">
-                                    Regresar
+                                <button id="agregarCarro" type="submit" class="mt-4 buttonAgregar px-8 py-2.5 font-bold leading-normal text-center text-white align-middle transition-all rounded-lg cursor-pointer text-sm ease-in shadow-md bg-blue-500 hover:shadow-xs hover:-translate-y-px tracking-tight-rem bg-x-25 mx-auto">
+                                    <i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Realizar cotizacion
                                 </button>
                             </div>
+                            
                         </div>
-                            <input type="hidden" name="subtotal_input" id="subtotal_input" value="0.00">
+                        <input type="hidden" name="subtotal_input" id="subtotal_input" value="0.00">
                             <input type="hidden" name="iva_input" id="iva_input" value="0.00">
                             <input type="hidden" name="total_input" id="total_input" value="0.00">
 
@@ -139,38 +158,26 @@ Ver Compra
                         <div class="bg-white p-4 w-1/4 rounded-lg shadow">  <!-- Ocupa 1/4 del espacio disponible -->
                             <div class="grid grid-cols-2 gap-4">
                                 <!-- Subtotal -->
-                                @php
-                                    $iva = $compra->total * 0.16;
-                                @endphp
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Subtotal:</label>
-                                    <span name="subtotal" id="subtotal" class="text-lg font-semibold">${{ number_format($compra->subtotal, 2) }}</span>
+                                    <span name="subtotal" id="subtotal" class="text-lg font-semibold">${{ number_format($cotizacion->subtotal, 2) }}</span>
                                 </div>
-                                <div></div>
 
                                 <!-- IVA -->
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">IVA (16%):</label>
-                                    <span id="iva-value" class="text-lg font-semibold">${{ number_format($iva, 2) }}</span>
+                                    <span id="iva-value" class="text-lg font-semibold">${{ number_format($cotizacion->iva, 2) }}</span>
                                 </div>
-                                <div></div>
 
                                 <!-- Total -->
                                 <div class="col-span-2">
                                     <label class="block text-sm font-medium text-gray-700">Total:</label>
-                                    <span name="total" id="total" class="text-lg font-semibold">${{ number_format($compra->total, 2) }}</span>
+                                    <span name="total" id="total" class="text-lg font-semibold">${{ number_format($cotizacion->total, 2) }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Fin de la tarjeta de totales -->
-
-
-
-
-
-                    
+                    <!-- Fin de la tarjeta de totales -->                    
                 </form>
             </div>
         </div>
@@ -179,11 +186,10 @@ Ver Compra
   </div>
 </div>
 @endsection
-
 @section('scripts')
 <script>
   document.getElementById('btnCancelar').addEventListener('click', function() {
-        window.location.href = '{{ route('compras.index') }}';
+        window.location.href = '{{ route('cotizaciones.index') }}';
       });
 </script>
 <!-- Script para inicializar Select2 -->

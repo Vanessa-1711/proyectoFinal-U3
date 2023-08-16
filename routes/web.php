@@ -213,3 +213,6 @@ Route::put('/cotizaciones/{id}', [CotizacionController::class, 'update'])->name(
 Route::delete('/cotizaciones/{id}', [CotizacionController::class, 'destroy'])->name('cotizaciones.destroy');
 
 Route::get('/cotizaciones/getProducto/{id_producto}',[CotizacionController::class,'getProduct'])->name('cotizaciones.getProducto');
+
+
+Route::get('/cotizaciones/show/{id}', [CotizacionController::class, 'show'])->name('cotizaciones.show');
