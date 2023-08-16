@@ -56,7 +56,7 @@ Añadir cotizacion
                         </div>
                         <div class="w-full mr-4">
                             <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha de cotizacion:</label>
-                            <input type="date" id="fecha" name="fecha" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('fecha') border-red-500 @enderror" value="{{ old('fecha', $cotizacion->fecha) }}">
+                            <input type="date" id="fecha" name="fecha" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('fecha') border-red-500 @enderror" value="{{ old('fecha') ? old('fecha') : $cotizacion->fecha }}"> 
                             @error('fecha')
                                 <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                             @enderror
@@ -72,7 +72,7 @@ Añadir cotizacion
                     <div class="flex space-x-4 mt-4">
                         <div class="w-full mr-4">
                             <label for="referencia" class="block text-sm font-medium text-gray-700">Referencia</label>
-                            <input type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ old('referencia', $cotizacion->referencia) }}">
+                            <input type="text" id="referencia" name="referencia" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('referencia') border-red-500 @enderror" value="{{ old('referencia') ? old('referencia'): $cotizacion->referencia }}">
                             @error('referencia')
                                 <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                             @enderror
@@ -91,7 +91,7 @@ Añadir cotizacion
                         </div>
                         <div class="w-full">
                             <label for="sale" class="block text-sm font-medium text-gray-700">Cantidad a comprar:</label>
-                            <input type="number" id="sale" name="sale" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('sale') border-red-500 @enderror" value="{{ old('sale', $cotizacion->sale)}}">
+                            <input type="number" id="sale" name="sale" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('sale') border-red-500 @enderror" value="{{ old('sale') ? old('sale'): $cotizacion->sale}}">
                         </div>
                     </div>
                     <br>
@@ -134,7 +134,7 @@ Añadir cotizacion
                         <div class="flex space-x-4 mt-4"> <!-- Ocupa 2/5 del espacio disponible -->
                             <div class="w-full mr-4">
                                 <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción:</label>
-                                <textarea class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" id="descripcion" name="descripcion" rows="4"  placeholder="Ingresa la descripción de la cotizacion...">{{ old('descripcion', $descripcionCotizacion) }}</textarea>
+                                <textarea class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none @error('descripcion') border-red-500 @enderror" id="descripcion" name="descripcion" rows="4"  placeholder="Ingresa la descripción de la cotizacion...">{{ old('descripcion', $cotizacion->descripcion) }}</textarea>
                                 @error('descripcion')
                                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                                 @enderror
@@ -143,8 +143,8 @@ Añadir cotizacion
                                 <label for="estatus" class="block text-sm font-medium text-gray-700">Estatus:</label>
                                 <select name="estatus" id="estatus" class="select2 focus:shadow-primary-outline dark:bg-gray-950 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all focus:border-fuchsia-300 focus:outline-none @error('estatus') border-red-500 @enderror">
                                     <option value="">-- Seleccione un estatus --</option>
-                                    <option value="enviada" {{ old('estatus', $estatusCotizacion) == 'enviada' ? 'selected' : '' }}>Enviada</option>
-                                    <option value="pendiente" {{ old('estatus', $estatusCotizacion) == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
+                                    <option value="enviada" {{ old('estatus', $cotizacion->estatus) == 'enviada' ? 'selected' : '' }}>Enviada</option>
+                                    <option value="pendiente" {{ old('estatus', $cotizacion->estatus) == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
                                 </select>
                                 @error('estatus')
                                     <p class="text-red-500 my-2 text-sm text-center">
@@ -187,7 +187,10 @@ Añadir cotizacion
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="carrito" id="carrito">
+                    {{-- <input type="hidden" name="carrito" id="carrito"> --}}
+                    <input type="hidden" name="carrito[{{ $index }}][id]" value="{{ $detalle->id }}">
+
+                    
                     <!-- Fin de la tarjeta de totales -->                    
                 </form>
             </div>

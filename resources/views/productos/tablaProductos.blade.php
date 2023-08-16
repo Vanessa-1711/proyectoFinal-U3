@@ -38,20 +38,6 @@
     <div class="flex-none w-full px-3">
         <!-- Botón para agregar un nuevo producto -->
         <div class="flex justify-end mb-4">
-
-          <form action="{{ route('producto.importar')}}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <label for="archivo_csv">Selecciona un archivo CSV:</label>
-            <input type="file" name="archivo_csv" accept=".csv">
-            <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" type="submit">Importar</button>
-          </form>
-          
-          <a class="buttonAgregar px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"  href="{{ route('crearProducto') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5 9a1 1 0 0 1 1-1h3V5a1 1 0 1 1 2 0v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 0 1-1-1z" clip-rule="evenodd" />
-            </svg>
-            Importar ccv
-        </a>
           <a class="buttonAgregar px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"  href="{{ route('crearProducto') }}">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 inline-block" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M5 9a1 1 0 0 1 1-1h3V5a1 1 0 1 1 2 0v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 0 1-1-1z" clip-rule="evenodd" />

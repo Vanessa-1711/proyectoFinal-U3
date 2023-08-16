@@ -115,7 +115,7 @@ Cotizacion
                                                 <a href="{{ route('cotizaciones.edit', $cotizacion->id) }}" class="buttonEditar text-blue-500 hover:text-blue-700 rounded-full bg-blue-500 text-white p-2" style="margin-right: 5px;">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
-                                                <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST" id="deleteForm-{{ $cliente->id }}">
+                                                <form action="{{ route('cotizaciones.destroy', $cotizacion->id) }}" method="POST" id="deleteForm-{{ $cotizacion->id }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" style="color: white; background-color: red;" class="buttonBorrar rounded-full p-2" onclick="confirmDelete({{ $cotizacion->id }})">

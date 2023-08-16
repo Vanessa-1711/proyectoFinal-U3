@@ -98,14 +98,14 @@ class CotizacionController extends Controller
         return view('cotizaciones.verCotizaciones', compact('cotizacion'), ['detalle_cotizacion' => $detalle_cotizacion]);
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $cotizacion = Cotizacion::findOrFail($id);
         $productos = Product::all();
         $clientes = Cliente::all();
         
-
-        return view('cotizaciones.editarCotizaciones', compact('cotizacion', 'productos', 'clientes'));
+        $productoSeleccionado = $request->old('producto');
+        return view('cotizaciones.editarCotizaciones', compact('cotizacion', 'productos', 'clientes','productoSeleccionado'));
     }
 
     public function update(Request $request, $id)
@@ -113,13 +113,13 @@ class CotizacionController extends Controller
 
         $request->validate([
             'fecha' => 'required|date',
-            'referencia' => 'required|string|max:255|unique:cotizaciones',
+            'referencia' => 'required|string|max:255|unique:cotizaciones,referencia,' . $id,
             'cliente_id' => 'required',
             'descripcion' => 'nullable|string',
             'estatus' => 'required|string|in:enviada,pendiente',
         ]);
 
-        $cotizacion = new Cotizacion();
+        $cotizacion = Cotizacion::findOrFail($id);
         $cotizacion->cliente_id = $request->cliente_id;
         $cotizacion->fecha = $request->fecha;
         $cotizacion->referencia = $request->referencia;
@@ -127,14 +127,18 @@ class CotizacionController extends Controller
         $cotizacion->subtotal = $request->subtotal_input;
         $cotizacion->total = $request->total_input;
         $cotizacion->estatus = $request->estatus;
-        $cotizacion->save();
+        
 
         $productosCarrito = json_decode($request->carrito, true);
         foreach ($productosCarrito as $productoData) {
             $producto = Product::find($productoData['product_id']);
             if ($producto) {
-                $detalle = new DetalleCotizacion();
-                $detalle->cotizaciones_id = $cotizacion->id;
+                if (isset($productoData['id'])) { // Si tiene ID, es una edición
+                    $detalle = DetalleCotizacion::find($productoData['id']);
+                } else { // Si no tiene ID, es un nuevo detalle
+                    $detalle = new DetalleCotizacion();
+                    $detalle->cotizaciones_id = $cotizacion->id;
+                }
                 $detalle->products_id = $producto->id;
                 $detalle->sale = $productoData['sale'];
                 $detalle->precio_venta = $productoData['precio_venta'];
@@ -144,7 +148,7 @@ class CotizacionController extends Controller
             }
         }
 
-        $cotizacion = Cotizacion::findOrFail($id);
+       
         $cotizacion->update($request->all());
 
         return redirect()->route('cotizaciones.index')->with('success', 'Cotización actualizada con éxito.');
